@@ -1,0 +1,4 @@
+interface:
+  display_name: "馬斯洛五需求行銷"
+  short_description: "以五層需求制定可驗證的行銷策略與跨通路文案訊息框架"
+  default_prompt: "Use $maslow-five-needs-marketing and act as an IQ 228 marketing master to design a five-layer strategy that moves consumers and provides copy messaging briefs."

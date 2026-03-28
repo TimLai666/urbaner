@@ -1,0 +1,4 @@
+interface:
+  display_name: "Landing Page Studio"
+  short_description: "自動生成高轉換 Landing Page，支援 SVG/WebGL 動畫、多輪自優化、單檔 HTML 與 React 專案輸出。"
+  default_prompt: "Use $landing-page-studio to generate a high-conversion landing page with autonomy_mode=multi-iteration, animation_level=high, motion_preference=respect-reduced-motion, and output_mode=single-file-html."

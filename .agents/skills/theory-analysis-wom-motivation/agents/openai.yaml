@@ -1,0 +1,4 @@
+interface:
+  display_name: "理論分析：口碑動機"
+  short_description: "用利他、社交認同、專業展現、情緒表達四動機解析多來源證據中的分享行為。"
+  default_prompt: "Use $theory-analysis-wom-motivation to analyze mixed evidence items in Traditional Chinese and return both JSON and Markdown outputs."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "心理觸發行銷"
+  short_description: "用心理觸發模型生成高轉換繁中行銷策略、促銷角度與 CTA"
+  default_prompt: "Use $psychological-trigger-marketing to generate a high-conversion Traditional Chinese marketing strategy, trigger stack, headlines, and CTA options for a Taiwan audience without inventing fake scarcity or proof."

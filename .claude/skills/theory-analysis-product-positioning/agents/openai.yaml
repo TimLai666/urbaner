@@ -1,0 +1,4 @@
+interface:
+  display_name: "理論分析：產品定位"
+  short_description: "用產品屬性、功能、利益、使用與服務情境四構面解析多來源證據，並輸出可選 STP 串接標註。"
+  default_prompt: "Use $theory-analysis-product-positioning to analyze mixed evidence items in Traditional Chinese and return both JSON and Markdown outputs."

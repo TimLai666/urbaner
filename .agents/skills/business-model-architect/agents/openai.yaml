@@ -1,0 +1,4 @@
+interface:
+  display_name: "商業模式架構師"
+  short_description: "以九要素與策略推演設計可執行且可驗證的商業模式藍圖"
+  default_prompt: "Use $business-model-architect to design a complete, innovation-forward business model in Traditional Chinese using the nine elements (What/Who/How), with assumptions, risks, and 30-day validation experiments."

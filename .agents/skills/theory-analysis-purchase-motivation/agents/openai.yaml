@@ -1,0 +1,4 @@
+interface:
+  display_name: "理論分析：購買動機"
+  short_description: "用功能性、保障性、關係性動機解析多來源證據，並輸出可選 STP 串接的理論標註。"
+  default_prompt: "Use $theory-analysis-purchase-motivation to analyze mixed evidence items in Traditional Chinese and return both JSON and Markdown outputs."

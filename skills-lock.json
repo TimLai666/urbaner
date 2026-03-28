@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "skills": {
+    "bcg-growth-share-matrix": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "b421da738097c813bc5099a42fdd02781dd0b55eb565bff4a7a216d3f71b11e4"
+    },
+    "business-model-architect": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "45f4ce52ad719a496eca9ba538b4a769d3fdaae97a05aef867272093c67a4f68"
+    },
+    "commercial-proposal-writing": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "7841496856f8efba91b0e109aaf4c7518a9f613f4a320d7859dfc8516121912d"
+    },
+    "customer-journey-mapper": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "e90c089f5381cb2e61b83ff13830828621155ade88d5c6a300bdd652d3f00115"
+    },
+    "customer-persona-framer": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "6aaae3f8e0bfb190d1545794169263d43947c655fd2147a1580faf68f0656811"
+    },
+    "data-analysis-workflow": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "c81eba2b0ac22877cf5a50c685b91f6e934994b0c3c77090220e50f76567ae47"
+    },
+    "decision-bias-quality-control": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "5804fca57b77d278197315f86db1278e29220432cf1ab01ffe50e1e424014fb9"
+    },
+    "ecosystem-map-and-blueprint": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "dd4f7c1f525f9431fd35b43ac21953648a9e04734a13d331cf4569cec12f5319"
+    },
+    "investment-research-prompts": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "1c90e297e53239b3e470ac7f33a8793426703aa7d672425a86efe016a0cfde86"
+    },
+    "landing-page-studio": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "02a58142ce6a80c413827856fa7da02b473434d9f73a76ff2063ffdf559007c3"
+    },
+    "maslow-five-needs-marketing": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "8cd3d724a93d07cfd2e67e54394588f425de126019cc092bc116077f44303609"
+    },
+    "orchestrating-mixed-methods": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "8480cfd1ae590f831ea835a4f06a9082e0fc7a7046bfd45d184797518bf64a3a"
+    },
+    "project-convergence": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "8f8c82d9ea9ced10bafc17cda87e5d85763d8eff6cb8fa3502dfbb7a849a2793"
+    },
+    "psychological-trigger-marketing": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "91467f04bb6939c6eb444da567ae624c084feca5cb0c526264048c9b3599a2ab"
+    },
+    "review-mining-stp": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "5f146a1c589ebf960cb3f2a9eec25359e299c9b8a983c56157e932daa13974d7"
+    },
+    "review-salience-xlsx": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "3dfb3eeac0f2f2b1e79bea12c015a8afc5012a3c9652acf220d1dba28e74a885"
+    },
+    "review-scoring-docx": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "588dc10d868b7bfa0576dc62a90df86e841216aa7254df46a0978506a303d9f0"
+    },
+    "service-design-workshop": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "4d966f3d752af0f636f0c034af1bd93fac0e8af79287d0169e88d412036d4085"
+    },
+    "service-innovation-workshop": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "f8da0b2ce23f816016ada41af7cdd0e9a17ef3e1eaf085fbbbc4586d54e5da70"
+    },
+    "sor-marketing-strategy": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "230a4abaf37a016079098c1b050969220f2f12ffa00e9bf2b2d941ab9b7cbebe"
+    },
+    "theory-analysis-product-positioning": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "1aa71dc7a35b8012ee2e0811f369ad704406ccea6bc06bc1e896d924ee2df851"
+    },
+    "theory-analysis-purchase-motivation": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "3abf157dfddebf7f7fcd999e628a351aef32716a9039e2b2314d7e5d831f2d28"
+    },
+    "theory-analysis-wom-motivation": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "computedHash": "601f299a76f7fa78dc4df0fb6ac596a373bdff5d796609df6e7d9baca4bfebc7"
+    }
+  }
+}

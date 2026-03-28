@@ -1,0 +1,4 @@
+interface:
+  display_name: "商業企劃寫作"
+  short_description: "商業說服型企劃生稿與審稿 workflow，聚焦 Ask、數字邏輯與決策說服"
+  default_prompt: "Use $commercial-proposal-writing to generate or review a Traditional Chinese business proposal that persuades a specific audience to approve resources, invest, or commit to partnership. Keep tone_profile=auto, formality_level=strict, make Ask explicit, and flag any missing evidence before drafting."

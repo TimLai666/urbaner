@@ -1,0 +1,4 @@
+interface:
+  display_name: "Orchestrating Mixed Methods"
+  short_description: "Route research tasks across qual, quant, and mixed methods"
+  default_prompt: "Use $orchestrating-mixed-methods to choose the right qualitative, quantitative, or mixed-methods route for this research task and explain the sequencing."

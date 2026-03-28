@@ -1,0 +1,4 @@
+interface:
+  display_name: "顧客 Persona 框架"
+  short_description: "建立 persona 或顧客旅程前置分析，支援 5W1H 與 handoff"
+  default_prompt: "Use $customer-persona-framer to create a Traditional Chinese persona profile or journey-framing brief from 產品或服務, 目標客群, and available context."

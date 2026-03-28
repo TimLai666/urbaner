@@ -1,0 +1,4 @@
+interface:
+  display_name: "S-O-R 行銷策略"
+  short_description: "用刺激-有機體-反應模型拆解消費心理，輸出可執行策略、KPI 與實驗設計"
+  default_prompt: "Use $sor-marketing-strategy to analyze consumer behavior with the S-O-R model and turn it into an actionable marketing strategy, KPI ladder, and experiment plan."

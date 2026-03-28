@@ -1,0 +1,326 @@
+﻿<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{brand_name}} | {{brand_theme}}</title>
+    <meta name="description" content="{{hero_subtitle}}" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #070b14;
+        --surface: rgba(255, 255, 255, 0.06);
+        --text: #f3f6fb;
+        --muted: #a8b3c7;
+        --accent: #00e5ff;
+        --accent-2: #7c3aed;
+        --font-display: "DM Serif Display", serif;
+        --font-body: "Manrope", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        background: radial-gradient(circle at 20% 20%, #11192d 0%, var(--bg) 45%);
+        color: var(--text);
+        font-family: var(--font-body);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.06) 0.8px, transparent 0.8px);
+        background-size: 2px 2px;
+        opacity: 0.14;
+        mix-blend-mode: soft-light;
+      }
+
+      .glass {
+        background: var(--surface);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(12px);
+      }
+
+      .beam-border {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .beam-border::after {
+        content: "";
+        position: absolute;
+        inset: -120% 45%;
+        background: linear-gradient(180deg, transparent, rgba(0, 229, 255, 0.7), transparent);
+        transform: rotate(15deg);
+        animation: beam 3.6s linear infinite;
+      }
+
+      @keyframes beam {
+        from {
+          transform: translateY(-45%) rotate(15deg);
+        }
+        to {
+          transform: translateY(45%) rotate(15deg);
+        }
+      }
+
+      [data-reveal] {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      #hero-canvas {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+      }
+
+      #hero-svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0.6;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-mask {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(120deg, rgba(7, 11, 20, 0.82), rgba(7, 11, 20, 0.3));
+      }
+
+      .hero-photo {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+      }
+
+      .brand-display {
+        font-family: var(--font-display);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .beam-border::after {
+          animation: none;
+        }
+
+        * {
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="fixed top-0 left-0 right-0 z-30 border-b border-white/10 bg-black/25 backdrop-blur-md">
+      <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <div class="brand-display text-xl">{{brand_name}}</div>
+        <ul class="hidden gap-6 text-sm text-slate-200 md:flex">
+          <li><a href="#value">Value</a></li>
+          <li><a href="#proof">Proof</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a data-magnetic href="#contact" class="beam-border rounded-full border border-cyan-300/70 px-5 py-2 text-sm font-semibold text-cyan-200">
+          {{primary_cta}}
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="relative min-h-[86vh] overflow-hidden pt-28" id="hero">
+        <img
+          class="hero-photo"
+          src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=2000&q=80"
+          alt="Hero background"
+        />
+        <div class="hero-mask"></div>
+        <canvas id="hero-canvas" aria-hidden="true"></canvas>
+        <svg id="hero-svg" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.6" />
+              <stop offset="100%" stop-color="#7C3AED" stop-opacity="0.3" />
+            </linearGradient>
+          </defs>
+          <path id="blob-path" d="M0,350 C220,180 420,520 680,340 C890,210 1050,420 1200,260 L1200,700 L0,700 Z" fill="url(#g1)"></path>
+        </svg>
+
+        <div class="hero-content mx-auto max-w-6xl px-6 pb-16 pt-16">
+          <p data-reveal class="mb-4 inline-block rounded-full border border-white/20 px-4 py-1 text-xs uppercase tracking-[0.2em] text-cyan-200">
+            {{style_variant_label}}
+          </p>
+          <h1 data-reveal class="brand-display max-w-3xl text-4xl leading-tight text-white md:text-6xl">
+            {{hero_title}}
+          </h1>
+          <p data-reveal class="mt-5 max-w-2xl text-lg text-slate-200">
+            {{hero_subtitle}}
+          </p>
+          <div data-reveal class="mt-8 flex flex-wrap gap-4">
+            <a data-magnetic href="#contact" class="rounded-full bg-cyan-300 px-7 py-3 text-sm font-semibold text-slate-950">{{primary_cta}}</a>
+            <a href="#value" class="rounded-full border border-white/40 px-7 py-3 text-sm font-semibold text-white">了解更多</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="value" class="mx-auto grid max-w-6xl gap-6 px-6 py-20 md:grid-cols-3">
+        <article data-reveal class="glass rounded-2xl p-6">
+          <iconify-icon icon="solar:bolt-bold" width="28"></iconify-icon>
+          <h3 class="mt-3 text-xl font-bold">{{value_prop_1}}</h3>
+          <p class="mt-2 text-sm text-slate-300">以可量化成果替代模糊承諾，讓訪客一眼理解價值。</p>
+        </article>
+        <article data-reveal class="glass rounded-2xl p-6">
+          <iconify-icon icon="solar:shield-check-bold" width="28"></iconify-icon>
+          <h3 class="mt-3 text-xl font-bold">{{value_prop_2}}</h3>
+          <p class="mt-2 text-sm text-slate-300">透過高可讀與高可信設計，降低決策疑慮。</p>
+        </article>
+        <article data-reveal class="glass rounded-2xl p-6">
+          <iconify-icon icon="solar:rocket-bold" width="28"></iconify-icon>
+          <h3 class="mt-3 text-xl font-bold">{{value_prop_3}}</h3>
+          <p class="mt-2 text-sm text-slate-300">用節奏清晰的內容路徑推進轉換行為。</p>
+        </article>
+      </section>
+
+      <section id="proof" class="mx-auto max-w-6xl px-6 pb-20">
+        <div data-reveal class="glass rounded-3xl p-8">
+          <h2 class="brand-display text-3xl">Proof that Converts</h2>
+          <div class="mt-6 grid gap-6 text-sm text-slate-200 md:grid-cols-3">
+            <div><strong class="text-2xl text-cyan-300">+38%</strong><p>平均轉換率提升</p></div>
+            <div><strong class="text-2xl text-cyan-300">-27%</strong><p>跳出率下降</p></div>
+            <div><strong class="text-2xl text-cyan-300">3.4x</strong><p>行銷素材迭代速度</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="mx-auto max-w-6xl px-6 pb-24">
+        <div data-reveal class="beam-border glass rounded-3xl p-10 text-center">
+          <h2 class="brand-display text-4xl">{{final_cta_title}}</h2>
+          <p class="mx-auto mt-4 max-w-2xl text-slate-200">{{final_cta_subtitle}}</p>
+          <a data-magnetic href="#" class="mt-8 inline-flex rounded-full bg-white px-8 py-3 text-sm font-bold text-slate-900">{{primary_cta}}</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-white/10 py-8 text-center text-xs text-slate-400">
+      <p>© {{year}} {{brand_name}}. Built with landing-page-studio.</p>
+      <p class="mt-1">Images: Unsplash (attribution required in final output).</p>
+    </footer>
+
+    <script>
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const canWebGL = (() => {
+        try {
+          const canvas = document.createElement("canvas");
+          return !!(window.WebGLRenderingContext && (canvas.getContext("webgl") || canvas.getContext("experimental-webgl")));
+        } catch (_) {
+          return false;
+        }
+      })();
+
+      anime({
+        targets: "#blob-path",
+        d: [
+          { value: "M0,350 C220,180 420,520 680,340 C890,210 1050,420 1200,260 L1200,700 L0,700 Z" },
+          { value: "M0,300 C250,220 470,520 700,360 C930,240 1090,390 1200,300 L1200,700 L0,700 Z" },
+        ],
+        duration: 4000,
+        direction: "alternate",
+        easing: "easeInOutSine",
+        loop: !prefersReducedMotion,
+      });
+
+      if (!prefersReducedMotion) {
+        gsap.to("[data-reveal]", {
+          opacity: 1,
+          y: 0,
+          stagger: 0.08,
+          duration: 0.85,
+          ease: "power2.out",
+        });
+
+        const magnets = document.querySelectorAll("[data-magnetic]");
+        magnets.forEach((el) => {
+          el.addEventListener("mousemove", (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            gsap.to(el, { x: x * 0.16, y: y * 0.16, duration: 0.25, overwrite: true });
+          });
+          el.addEventListener("mouseleave", () => gsap.to(el, { x: 0, y: 0, duration: 0.35 }));
+        });
+      } else {
+        document.querySelectorAll("[data-reveal]").forEach((el) => {
+          el.style.opacity = 1;
+          el.style.transform = "none";
+        });
+      }
+
+      if (canWebGL && !prefersReducedMotion) {
+        const canvas = document.getElementById("hero-canvas");
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(55, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+        camera.position.z = 6;
+
+        const particles = new THREE.BufferGeometry();
+        const count = 1000;
+        const positions = new Float32Array(count * 3);
+        for (let i = 0; i < count * 3; i += 3) {
+          positions[i] = (Math.random() - 0.5) * 12;
+          positions[i + 1] = (Math.random() - 0.5) * 8;
+          positions[i + 2] = (Math.random() - 0.5) * 10;
+        }
+        particles.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+        const material = new THREE.PointsMaterial({ color: 0x00e5ff, size: 0.03, transparent: true, opacity: 0.72 });
+        const points = new THREE.Points(particles, material);
+        scene.add(points);
+
+        const resize = () => {
+          const w = canvas.clientWidth;
+          const h = canvas.clientHeight;
+          renderer.setSize(w, h, false);
+          camera.aspect = w / h;
+          camera.updateProjectionMatrix();
+        };
+
+        resize();
+        window.addEventListener("resize", resize);
+
+        const tick = () => {
+          points.rotation.y += 0.0008;
+          points.rotation.x += 0.0004;
+          renderer.render(scene, camera);
+          requestAnimationFrame(tick);
+        };
+        tick();
+      }
+    </script>
+  </body>
+</html>

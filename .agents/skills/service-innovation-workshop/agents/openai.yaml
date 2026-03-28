@@ -1,0 +1,4 @@
+interface:
+  display_name: "服務創新工作坊"
+  short_description: "把服務創新題目整理成可比較的概念方案、測試與風險檢查"
+  default_prompt: "Use $service-innovation-workshop to turn a service innovation challenge into Traditional Chinese concept options, a prototype test plan, and a risk check."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "BCG 事業組合分析師"
+  short_description: "用 BCG 矩陣完成事業組合定位、資本配置與限制判讀"
+  default_prompt: "Use $bcg-growth-share-matrix to analyze a group or product portfolio in Traditional Chinese with BCG quadrant classification, capital allocation actions, and portfolio-level caveats."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "評論探勘 STP"
+  short_description: "將顧客評論相關的結構化 artifacts 轉成可局部執行的 STP 分析，涵蓋 segmentation、targeting、positioning 與知覺圖輸出。"
+  default_prompt: "Use $review-mining-stp to convert structured customer-review artifacts into a full or partial STP analysis in Traditional Chinese, including segmentation, targeting, positioning, and a perceptual map."

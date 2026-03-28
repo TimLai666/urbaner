@@ -1,0 +1,4 @@
+interface:
+  display_name: "Data Analysis Workflow"
+  short_description: "用標準 12 步驟規劃並執行資料分析流程"
+  default_prompt: "Use $data-analysis-workflow to run an end-to-end analytics workflow from schema inspection and data quality audit to EDA, modeling, evaluation, and final report generation."

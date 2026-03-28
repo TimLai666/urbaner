@@ -1,0 +1,4 @@
+interface:
+  display_name: "服務設計工作坊"
+  short_description: "把服務設計題目整理成可執行的藍圖、架構、驗證與工作坊輸出"
+  default_prompt: "Use $service-design-workshop to turn a service design challenge into a Traditional Chinese workshop-style brief, touchpoint structure, and prototype validation plan."

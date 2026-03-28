@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Convergence"
+  short_description: "Keep multi-agent projects convergent and handoff-ready"
+  default_prompt: "Use $project-convergence to turn this drifting project into a delivery-plan, OpenSpec, and agent handoff workflow."

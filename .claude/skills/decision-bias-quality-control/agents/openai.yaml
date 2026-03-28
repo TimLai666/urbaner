@@ -1,0 +1,4 @@
+interface:
+  display_name: "Decision Bias Quality Control"
+  short_description: "Bias-aware quality control for high-stakes decisions"
+  default_prompt: "Use $decision-bias-quality-control to run a full 12-question dual-track review on this major decision."

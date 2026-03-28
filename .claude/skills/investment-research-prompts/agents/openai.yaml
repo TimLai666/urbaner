@@ -1,0 +1,4 @@
+interface:
+  display_name: "Investment Research Prompts"
+  short_description: "用 8 種投資研究情境快速路由分析模板與輸出格式"
+  default_prompt: "Use $investment-research-prompts to route this request into the right investment research scenario, check the minimum required inputs, and produce the matching stock research prompt or analysis framework."
