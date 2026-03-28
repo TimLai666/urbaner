@@ -3,7 +3,11 @@
     "allow": [
       "Bash(uv run python -c \":*)",
       "Bash(python -c \":*)",
-      "Bash(uv run:*)"
+      "Bash(uv run:*)",
+      "Bash(pandoc --version)",
+      "Bash(.venv/Scripts/python -c \"import weasyprint; print\\(''weasyprint ok''\\)\")",
+      "Bash(.venv/Scripts/python -c \"import pdfkit; print\\(''pdfkit ok''\\)\")",
+      "Bash(.venv/Scripts/python -c \"import reportlab; print\\(''reportlab ok''\\)\")"
     ]
   }
 }
