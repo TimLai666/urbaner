@@ -1,0 +1,19 @@
+﻿Run,A,B,C,D,E,F,G,H,A_label,B_label,C_label,D_label,E_label,F_label,G_label,H_label,weighted_utility,est_price_usd,utility_rank,target_segment
+1,A1,B1,C1,D1,E1,F1,G1,H1,Generic Motor,AA/AAA Battery,No Waterproofing,3mm Minimum,Economy (ABS body),Basic Retail Box,Fixed / 1–2 Pos,1 Function (Beard),3.911,9.5,18,Value
+2,A1,B1,C2,D2,E2,F2,G2,H2,Generic Motor,AA/AAA Battery,IPX4 Splash Resist,1mm Minimum,Mid (Reinforced),Gift-Ready Box,3–5 Step Comb,2–3 Functions,5.549,26.5,14,Niche
+3,A1,B1,C3,D3,E3,F3,G3,H3,Generic Motor,AA/AAA Battery,IPX8 Submersible,0.5mm Minimum,Premium (Metal+Steel),Premium Gift Set,Stepless Dial,4+ Functions,6.989,39.5,3,Premium-Gift
+4,A1,B2,C1,D1,E2,F2,G3,H3,Generic Motor,USB Dock Rechargeable,No Waterproofing,3mm Minimum,Mid (Reinforced),Gift-Ready Box,Stepless Dial,4+ Functions,5.096,27.0,16,Niche
+5,A1,B2,C2,D2,E3,F3,G1,H1,Generic Motor,USB Dock Rechargeable,IPX4 Splash Resist,1mm Minimum,Premium (Metal+Steel),Premium Gift Set,Fixed / 1–2 Pos,1 Function (Beard),6.104,31.0,9,Premium-Gift
+6,A1,B2,C3,D3,E1,F1,G2,H2,Generic Motor,USB Dock Rechargeable,IPX8 Submersible,0.5mm Minimum,Economy (ABS body),Basic Retail Box,3–5 Step Comb,2–3 Functions,6.383,29.5,7,Convenience
+7,A1,B3,C1,D2,E1,F3,G2,H3,Generic Motor,USB-C Rechargeable,No Waterproofing,1mm Minimum,Economy (ABS body),Premium Gift Set,3–5 Step Comb,4+ Functions,5.738,28.0,12,Niche
+8,A1,B3,C2,D3,E2,F1,G3,H1,Generic Motor,USB-C Rechargeable,IPX4 Splash Resist,0.5mm Minimum,Mid (Reinforced),Basic Retail Box,Stepless Dial,1 Function (Beard),6.443,31.0,6,Convenience
+9,A1,B3,C3,D1,E3,F2,G1,H2,Generic Motor,USB-C Rechargeable,IPX8 Submersible,3mm Minimum,Premium (Metal+Steel),Gift-Ready Box,Fixed / 1–2 Pos,2–3 Functions,7.184,33.0,1,Niche
+10,A2,B1,C1,D3,E3,F2,G2,H1,Japanese Motor,AA/AAA Battery,No Waterproofing,0.5mm Minimum,Premium (Metal+Steel),Gift-Ready Box,3–5 Step Comb,1 Function (Beard),5.092,28.0,17,Niche
+11,A2,B1,C2,D1,E1,F3,G3,H2,Japanese Motor,AA/AAA Battery,IPX4 Splash Resist,3mm Minimum,Economy (ABS body),Premium Gift Set,Stepless Dial,2–3 Functions,5.603,27.5,13,Niche
+12,A2,B1,C3,D2,E2,F1,G1,H3,Japanese Motor,AA/AAA Battery,IPX8 Submersible,1mm Minimum,Mid (Reinforced),Basic Retail Box,Fixed / 1–2 Pos,4+ Functions,6.204,30.5,8,Performance
+13,A2,B2,C1,D2,E3,F1,G3,H2,Japanese Motor,USB Dock Rechargeable,No Waterproofing,1mm Minimum,Premium (Metal+Steel),Basic Retail Box,Stepless Dial,2–3 Functions,5.324,33.0,15,Niche
+14,A2,B2,C2,D3,E1,F2,G1,H3,Japanese Motor,USB Dock Rechargeable,IPX4 Splash Resist,0.5mm Minimum,Economy (ABS body),Gift-Ready Box,Fixed / 1–2 Pos,4+ Functions,5.91,30.5,11,Niche
+15,A2,B2,C3,D1,E2,F3,G2,H1,Japanese Motor,USB Dock Rechargeable,IPX8 Submersible,3mm Minimum,Mid (Reinforced),Premium Gift Set,3–5 Step Comb,1 Function (Beard),6.799,34.5,4,"Convenience, Premium-Gift"
+16,A2,B3,C1,D3,E2,F3,G1,H2,Japanese Motor,USB-C Rechargeable,No Waterproofing,0.5mm Minimum,Mid (Reinforced),Premium Gift Set,Fixed / 1–2 Pos,2–3 Functions,6.047,33.0,10,Premium-Gift
+17,A2,B3,C2,D1,E3,F1,G2,H3,Japanese Motor,USB-C Rechargeable,IPX4 Splash Resist,3mm Minimum,Premium (Metal+Steel),Basic Retail Box,3–5 Step Comb,4+ Functions,6.615,36.0,5,Convenience
+18,A2,B3,C3,D2,E1,F2,G3,H1,Japanese Motor,USB-C Rechargeable,IPX8 Submersible,1mm Minimum,Economy (ABS body),Gift-Ready Box,Stepless Dial,1 Function (Beard),7.153,33.5,2,"Convenience, Performance"
