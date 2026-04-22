@@ -1,5 +1,6 @@
-# Choice Logit Report
+# Choice Logit Report (Detailed)
 
+## 1) Dataset Scope
 - Reviews used: 7,118
 - Products in choice set: 40
 - Alternatives per choice set: 40
@@ -7,29 +8,33 @@
 - Model features: 16
 - Reviews used for fit: 2,500
 
-## Step 1. Choice Data
+## 2) Conjoint Workflow (Choice-Based)
+### Step 1. Choice Data Construction
 Each review is treated as one purchase occasion. The reviewed ASIN becomes the chosen alternative; all other products in the category are coded as 0.
 
-## Step 2. Dummy Encoding
+### Step 2. Product Attribute Aggregation
+Review-level attribute scores are aggregated into product-level mean profiles, so each product has one comparable feature vector.
+
+### Step 3. Tiering and Dummy Encoding
 Product-level attribute scores are aggregated from review text, then bucketed into low / mid / high tiers and one-hot encoded. Low tier is the reference category.
 
-### Attributes used
-- rechargeable_design: 充電式設計
-- blade_sharpness: 刀片鋒利度
-- blade_hair_pulling: 刀片拉毛問題
-- motor_power_rpm: 馬達功率轉速
-- waterproof_rating_ipx8: IPX8防水等級
-- adjustable_comb_settings: 可調式導梳長度設定
-- ease_of_use_overall: 整體易用性
-- price_value_ratio: 性價比
+### Attributes Used (English + Chinese)
+- rechargeable_design: Rechargeable Design / 充電式設計
+- blade_sharpness: Blade Sharpness / 刀片鋒利度
+- blade_hair_pulling: Blade Hair Pulling / Snagging / 刀片拉毛問題
+- motor_power_rpm: Motor Power / Speed / 馬達功率轉速
+- waterproof_rating_ipx8: IPX8 Waterproof Rating / IPX8防水等級
+- adjustable_comb_settings: Adjustable Comb Length Settings / 可調式導梳長度設定
+- ease_of_use_overall: Ease of Use (Overall) / 整體易用性
+- price_value_ratio: Price-to-Value Ratio / 性價比
 
-## Step 3. Logit Fit
+### Step 4. Conditional Logit Estimation
 - Log-likelihood: -8589.749
 - Null log-likelihood: -26257.444
 - McFadden pseudo R^2: 0.6729
 - Top-1 hit rate: 0.0701
 
-## Coefficients
+## 3) Coefficients
 | term | coefficient | std_err | z_value | p_value | odds_ratio | direction |
 |---|---:|---:|---:|---:|---:|---|
 | ease_of_use_overall_tier_high | 2.0320 | 0.1709 | 11.890 | 0.0000 | 7.630 | positive |
@@ -49,6 +54,10 @@ Product-level attribute scores are aggregated from review text, then bucketed in
 | blade_hair_pulling_tier_high | -1.4617 | 0.1865 | -7.837 | 0.0000 | 0.232 | negative |
 | adjustable_comb_settings_tier_high | -3.4765 | 0.2281 | -15.242 | 0.0000 | 0.031 | negative |
 
-## Interpretation
+## 4) Interpretation
 Positive coefficients increase utility and purchase probability relative to the omitted (low) tier. Negative coefficients reduce utility.
 The coefficient itself is the part-worth utility on the log-odds scale; exponentiating it gives the odds ratio.
+
+## 5) Reporting Notes
+- For business slides, prioritize effects that are both statistically significant and practically large in odds ratio.
+- If willingness-to-pay (WTP) is required, refit with true selling price as an explicit variable.

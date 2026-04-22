@@ -1,95 +1,155 @@
-# Amazon 顧客評論選擇模型分析報告草稿
+# Amazon 顧客評論聯合分析（Choice / Logit）完整報告
 
 ## 一、研究目的
 
-本分析將 Amazon 顧客評論視為一次次購買決策，進一步建立 choice data，觀察消費者在面對同一產品類別中多個替代方案時，會如何受到產品屬性影響。研究目的是把評論探勘得到的屬性，轉換為可估計的 long format 選擇資料，並以 Logit 模型估計各屬性的部分效用值（part-worth utility），作為後續產品定位與組合設計的依據。
+本報告的目標，是把 Amazon 評論資料轉成可估計的選擇行為資料（choice data），用聯合分析思路估計消費者對各屬性的部分效用（part-worth utility），進而回答三個問題：
 
-## 二、資料與方法
+1. 什麼屬性會顯著提升產品被選擇機率？
+2. 哪些屬性組合最值得優先投入開發？
+3. 產品定位與定價訊息要先打哪幾個賣點？
 
-本次使用 Beard / Mustache Trimmers 類別的 Amazon 顧客評論，共納入 40 個產品、7,118 筆評論。每一筆評論被視為一位消費者的一次購買情境：實際評論所對應的產品編碼為 `choice = 1`，同一 choice set 中其餘產品編碼為 `0`。
+## 二、資料範圍與模型設定
 
-在資料處理上，先將評論探勘後的產品屬性彙整為產品層級分數，再將連續或半連續的屬性分數切分為 `low / mid / high` 三個等級，並轉成 dummy variables，建立 long format 資料。模型估計使用 Conditional Logit，低階屬性等級作為參照組，估計結果可直接解讀為相對於低階狀態的效用增減。
+- 產品類別：Beard / Mustache Trimmers
+- 產品數：40
+- 評論數：7,118
+- 選擇集合大小（alternatives per set）：40
+- long-format 列數：284,720
+- 模型估計樣本：2,500 則評論（固定隨機抽樣）
+- 模型：Conditional Logit（低階水準作為參照組）
 
-## 三、模型結果摘要
+## 三、聯合分析流程（完整版）
 
-本模型以 2,500 筆評論樣本進行估計，以控制運算時間並確保模型可穩定收斂。整體模型表現如下：
+### Step 1：評論資料標準化
+
+先整合標題、內文、星等、語言、國家欄位，並排除過短或資訊不足的評論，確保後續屬性評分穩定。
+
+### Step 2：評論屬性評分
+
+依據 attribute catalog 關鍵詞規則，對每篇評論計算屬性分數，形成 review-level attribute profile。
+
+### Step 3：聚合為產品層級特徵
+
+將評論層級分數彙整為產品層級平均值，得到 product-level attribute vector。
+
+### Step 4：屬性分層（low / mid / high）
+
+把連續分數切為 low / mid / high。當唯一值不足時採穩健替代切分，避免 dummy 編碼失真。
+
+### Step 5：Dummy 編碼
+
+每個屬性轉為 mid/high 兩個 dummy（low 為參照組），後續係數即為相對於 low 的效用差。
+
+### Step 6：建構 long-format choice data
+
+每一筆評論都展開成 40 筆候選產品資料：
+
+- 實際評論產品：`choice = 1`
+- 其餘 39 款替代品：`choice = 0`
+
+### Step 7：Conditional Logit 估計
+
+以 BFGS 迭代求解，輸出每個屬性水準的係數、標準誤、z 值、p 值與 odds ratio。
+
+### Step 8：效用轉決策
+
+將係數解讀為部分效用，並連結到產品組合排序與定位訊息，形成實際策略建議。
+
+## 四、核心屬性中英對照（含中文備註）
+
+| 屬性代碼 | 英文屬性 | 中文備註 |
+|---|---|---|
+| rechargeable_design | Rechargeable Design | 充電式設計 |
+| blade_sharpness | Blade Sharpness | 刀片鋒利度 |
+| blade_hair_pulling | Blade Hair Pulling / Snagging | 刀片拉毛問題 |
+| motor_power_rpm | Motor Power / Speed | 馬達功率轉速 |
+| waterproof_rating_ipx8 | IPX8 Waterproof Rating | IPX8防水等級 |
+| adjustable_comb_settings | Adjustable Comb Length Settings | 可調式導梳長度設定 |
+| price_value_ratio | Price-to-Value Ratio | 性價比 |
+| ease_of_use_overall | Ease of Use (Overall) | 整體易用性 |
+
+## 五、模型表現摘要
 
 | 指標 | 數值 |
 |---|---:|
-| Long-format rows | 284,720 |
-| Choice set size | 40 |
-| 估計用評論數 | 2,500 |
 | Log-likelihood | -8,589.749 |
 | Null log-likelihood | -26,257.444 |
 | McFadden pseudo R² | 0.6729 |
 | Top-1 hit rate | 0.0701 |
 
-這代表模型在解釋選擇行為上具有相當高的相對擬合度。需要注意的是，top-1 hit rate 不是這類 choice model 的唯一判準，因為 choice set 很大、且本資料屬於以評論推估的近似選擇情境，因此 pseudo R² 更能反映模型相對於隨機基準的改善幅度。
+解讀重點：
 
-## 四、係數解讀
+- McFadden pseudo R² 達 0.6729，代表相對於隨機基準有強解釋力。
+- Top-1 hit rate 在大 choice set 下通常偏低，應與 pseudo R²、係數顯著性一起解讀。
 
-本模型中的係數可視為部分效用值：係數為正，代表該屬性水準相較於低階參照組更能提高被選擇機率；係數為負，則代表相對吸引力較弱。若將係數取指數，即可得到 odds ratio，代表該水準相對於參照組的選擇機率倍率。
+## 六、係數結果與管理意涵
 
-### 屬性效用差與 WTP 轉換
+### 1) 正向驅動屬性
 
-若模型中有一個真正的價格係數，記為 β_price，則各屬性的願付價格（WTP）可用下面公式換算：
+- `ease_of_use_overall_tier_high`（整體易用性高階）係數最高：2.0320
+- `price_value_ratio_tier_high`（性價比高階）係數：1.2132
+- `blade_sharpness_tier_high`（刀片鋒利度高階）係數：0.8915
+- `waterproof_rating_ipx8_tier_mid`（IPX8 防水中階）係數：0.8938
 
-WTP = - β_attribute / β_price
+管理含意：優先強化「好上手、值得買、夠鋒利、可防水」會最直接提升選擇機率。
 
-若是比較兩個水準之間的差異，則先算效用差，再除以價格係數：
+### 2) 負向風險屬性
 
-WTP(high vs. low) = - (β_high - β_low) / β_price
+- `adjustable_comb_settings_tier_high` 係數：-3.4765
+- `adjustable_comb_settings_tier_mid` 係數：-0.9470
+- `blade_hair_pulling_tier_high` 係數：-1.4617
 
-由於本次模型中的 price_value_ratio 代表的是價格感知與價值感，不是實際的商品價格，所以它比較適合當成「價格感知屬性」來解讀，而不是直接換算成美元。若後續要得到絕對金額版的 WTP，建議把模型中的價格變數改成真實售價，再重新估計一次。
+管理含意：過度複雜的導梳設定與拉毛體驗會明顯削弱轉換，應優先簡化操作並降低卡毛風險。
 
-以下先用目前模型的係數，整理各屬性的效用差：
+### 3) 屬性效用差（high - low）
 
-| 屬性 | low | mid | high | high - low |
-|---|---:|---:|---:|---:|
-| adjustable_comb_settings | 0.0000 | -0.9470 | -3.4765 | -3.4765 |
-| blade_hair_pulling | 0.0000 | 0.2961 | -1.4617 | -1.4617 |
-| blade_sharpness | 0.0000 | 0.1134 | 0.8915 | 0.8915 |
-| ease_of_use_overall | 0.0000 | 0.5148 | 2.0320 | 2.0320 |
-| motor_power_rpm | 0.0000 | 0.1881 | 0.5415 | 0.5415 |
-| price_value_ratio | 0.0000 | 0.3679 | 1.2132 | 1.2132 |
-| rechargeable_design | 0.0000 | 0.6162 | 0.2828 | 0.2828 |
-| waterproof_rating_ipx8 | 0.0000 | 0.8938 | 0.3365 | 0.3365 |
+| 屬性 | high - low |
+|---|---:|
+| ease_of_use_overall | 2.0320 |
+| price_value_ratio | 1.2132 |
+| blade_sharpness | 0.8915 |
+| motor_power_rpm | 0.5415 |
+| waterproof_rating_ipx8 | 0.3365 |
+| rechargeable_design | 0.2828 |
+| blade_hair_pulling | -1.4617 |
+| adjustable_comb_settings | -3.4765 |
 
-如果你的價格係數是 β_price，只要把上表的 high - low 效用差代入，就能得到每個屬性的 WTP。舉例來說：
+## 七、WTP（願付價格）換算方式
 
-- `ease_of_use_overall` 的 WTP = - 2.0320 / β_price
-- `price_value_ratio` 的 WTP = - 1.2132 / β_price
-- `blade_sharpness` 的 WTP = - 0.8915 / β_price
-- `waterproof_rating_ipx8` 的 WTP = - 0.3365 / β_price
+若後續模型加入真實價格係數 $\beta_{price}$，可用下式換算：
 
-如果 β_price 為負值，這些正向屬性的 WTP 會轉成正的貨幣溢價，代表消費者願意為該屬性多付多少錢。
+$$
+WTP = -\frac{\beta_{attribute}}{\beta_{price}}
+$$
 
-### 主要正向效用
+比較兩個水準時：
 
-1. `ease_of_use_overall_tier_high` 的係數最高，顯示整體易用性是最強的正向驅動因子之一。
-2. `price_value_ratio_tier_high` 係數也明顯為正，表示價格與價值感的平衡，對購買選擇具有重要影響。
-3. `waterproof_rating_ipx8_tier_mid`、`blade_sharpness_tier_high`、`rechargeable_design_tier_mid`、`motor_power_rpm_tier_high` 皆呈現正向效果，代表防水、刀片鋒利度、充電設計與馬達性能都是使用者會納入判斷的關鍵條件。
+$$
+WTP(high\ vs.\ low) = -\frac{\beta_{high}-\beta_{low}}{\beta_{price}}
+$$
 
-### 主要負向效用
+本次 `price_value_ratio` 為感知價值，不是實際售價，因此目前結果建議做「相對效用」解讀，不直接轉美元金額。
 
-1. `adjustable_comb_settings_tier_high` 係數明顯為負，表示當屬性落在這一組高階區間時，並未帶來相對吸引力，反而可能反映使用者對過多調整選項的複雜感受。
-2. `adjustable_comb_settings_tier_mid` 也為負，顯示這個屬性在本資料中的選擇驅動性偏弱。
-3. `blade_hair_pulling_tier_high` 為負，表示若產品在評論中被描述為有較明顯的拉毛、卡毛感受，其選擇吸引力會明顯下降。
+## 八、圖表建議與逐圖說明（可直接放簡報）
 
-## 五、報告可直接使用的結論
+1. 係數條圖（`logit_coefficients_bar.png`）
+說明：比較各屬性水準對效用的正負與強弱。
+口頭解讀：正向越長代表越能拉升選擇機率；負向越長代表應優先排除的設計風險。
 
-綜合模型結果可推論，消費者在 Beard / Mustache Trimmers 類別中的決策，核心不是單一功能堆疊，而是幾個具體且容易被感知的價值點：操作是否簡單、是否值得、刀片是否夠銳利、充電與防水是否符合日常使用情境。換句話說，產品若想提升選擇機率，應優先強化「易用性」、「價值感」、「鋒利度」與「使用便利性」，再談多功能或更複雜的設計擴張。
+2. 前五名組合機率圖（`top5_choice_probabilities.png`）
+說明：顯示前五組產品組合的 raw 與 normalized 機率。
+口頭解讀：可用來決定新品先後上架順序與資源分配。
 
-對品牌實務來說，這份模型也提供了清楚方向：與其單純增加功能數量，不如優先把高頻使用情境中的痛點處理好，例如減少卡毛、提升上手速度、強化充電便利性與防水可用性。這些項目雖然不一定最顯眼，但從選擇模型來看，會直接反映在消費者的 part-worth utility 上。
+3. 選擇資料流程圖（建議新增）
+說明：從評論清理、屬性評分、dummy 編碼到 logit 估計。
+口頭解讀：讓非技術部門理解模型如何連到實際決策。
 
-## 六、建議後續呈現方式
+## 九、可直接採用的結論
 
-若要放入正式報告，建議搭配三個圖表或表格：
+1. 核心勝出邏輯不是功能越多越好，而是「使用感知價值」越清晰越好。
+2. 優先投資屬性順序建議：整體易用性 → 性價比 → 刀片鋒利度 → 防水便利性。
+3. 產品開發需避免複雜度失控，導梳設計與卡毛問題是目前最明確的負向訊號。
 
-1. choice data 建構流程圖，說明從評論到 long format 的轉換邏輯。
-2. 係數條圖，呈現各屬性 dummy 的正負效應與強弱。
-3. 一頁式重點摘要，將「易用性、價值感、鋒利度、防水/充電便利性」整理成簡潔的管理意涵。
+## 十、附註
 
-## 七、附註
-
-本次估計使用 2,500 筆評論樣本進行模型 fit，以確保流程穩定且能在合理時間內完成。完整 long format 資料與係數輸出已另存於同一資料夾，後續若要改成全樣本估計、加入更多屬性，或改用其他選擇模型，仍可直接沿用目前的資料管線。
+本次估計使用 2,500 筆評論樣本進行模型 fit，以兼顧收斂穩定與運算效率。完整資料與係數輸出已存於同資料夾，後續可延伸至全樣本估計或加入真實價格變數。 

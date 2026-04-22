@@ -4,9 +4,9 @@ import sys
 from fpdf import FPDF
 
 # ── fonts ──────────────────────────────────────────────────────────────────
-# Use a CJK-capable font that ships with Windows
-FONT_REGULAR = r"C:\Windows\Fonts\msyh.ttc"   # Microsoft YaHei
-FONT_BOLD    = r"C:\Windows\Fonts\msyhbd.ttc"  # Microsoft YaHei Bold
+# Use 標楷體 when available on Windows
+FONT_REGULAR = r"C:\Windows\Fonts\kaiu.ttf"   # DFKai-SB / 標楷體
+FONT_BOLD    = r"C:\Windows\Fonts\kaiu.ttf"
 FALLBACK_REGULAR = r"C:\Windows\Fonts\simsun.ttc"
 FALLBACK_BOLD    = r"C:\Windows\Fonts\simhei.ttf"
 
