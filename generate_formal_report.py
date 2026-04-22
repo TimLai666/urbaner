@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 from docx import Document
 from docx.enum.section import WD_ORIENT, WD_SECTION
@@ -263,12 +264,19 @@ def main() -> None:
 
     doc.add_heading("7. 產品組合排序與購買機率", level=1)
     prob = pd.read_csv(STP_DIR / "L18_probability_table.csv")
+    utility = pd.to_numeric(prob["total_utility"], errors="coerce").fillna(0.0)
+    prob["sigmoid_score"] = 1.0 / (1.0 + np.exp(-utility))
+    softmax_num = np.exp(utility - utility.max())
+    prob["softmax_prob"] = softmax_num / softmax_num.sum()
+
     top5 = prob.sort_values("rank").head(5).copy()
     top5["產品組合"] = top5[["A", "B", "C", "D", "E", "F", "G", "H"]].agg("-".join, axis=1)
-    top5 = top5[["rank", "Run", "產品組合", "total_utility", "purchase_prob_raw", "purchase_prob_norm", "est_price_usd"]]
-    top5.columns = ["排名", "Run", "產品組合", "總效用", "logistic 機率", "標準化機率", "估計價格(USD)"]
-    top5 = top5.round({"總效用": 4, "logistic 機率": 6, "標準化機率": 6, "估計價格(USD)": 1})
+    top5 = top5[["rank", "Run", "產品組合", "total_utility", "sigmoid_score", "softmax_prob", "est_price_usd"]]
+    top5.columns = ["排名", "Run", "產品組合", "總效用", "sigmoid 分數", "softmax 機率", "估計價格(USD)"]
+    top5 = top5.round({"總效用": 4, "sigmoid 分數": 6, "softmax 機率": 6, "估計價格(USD)": 1})
     add_table(doc, top5, "表 5. 前 5 名產品組合")
+    add_para(doc, "機率欄位說明：sigmoid 分數可視為效用轉換後的單點吸引力，不適合作跨方案機率比較；softmax 機率則是多方案競爭下的相對被選擇機率，較適合做組合排序與資源配置。")
+    add_para(doc, "先前表格中『標準化機率』接近 0.055 的主因是 sigmoid 已高度飽和（幾乎都接近 1），再做標準化後自然接近 1/18；這不代表方案吸引力低，而是轉換尺度造成的可讀性問題。")
     add_para(doc, "最佳組合是 Run 9：A1-B3-C3-D1-E3-F2-G1-H2。它不是所有屬性都極端拉滿，而是把高權重屬性集中在 USB-C 充電、IPX8 防水、高質感機身與中度功能配置上，因此在效用與市場吸引力上都最均衡。")
 
     doc.add_heading("8. 產品定位與策略解讀", level=1)
