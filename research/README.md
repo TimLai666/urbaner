@@ -20,9 +20,15 @@ Top competitors: ASIN + 標題 + 評論數
 評分|日期|評論內容(截斷至170字)
 ```
 
-### 4. 社群媒體觀點
+### 4. 社群媒體觀點（產品聚焦）
 - [`social_us/insights.md`](social_us/insights.md) — Reddit + 美國論壇 + 部落格綜合，按 9 類別整理痛點、好評、競品偏好
 - [`social_jp/insights.md`](social_jp/insights.md) — Yahoo!知恵袋 + 価格.com + マイベスト + note + 楽天みんなのレビュー 綜合
+
+### 5. 廣義消費者情緒洞察（**主題式、非產品聚焦**）
+- [`social_us/sentiment.md`](social_us/sentiment.md) — 7 大主題：刮鬍、身體除毛、鼻毛/耳毛、眉毛/臉部、寵物毛髮、寵物指甲、嬰兒理髮。每主題涵蓋核心情緒、痛點集合、願望清單、送禮場景、文化情境
+- [`social_jp/sentiment.md`](social_jp/sentiment.md) — 同 7-8 大主題的日本版本，附日本特有「身嗜み」「父の日ギフト」「節約意識」文化分析
+
+> 此兩檔回應「想了解消費者對主題的想法、心情、痛點與願望」需求 — 不限產品評論，包含日常生活情境、約會、送禮、自我形象、寵物溝通、育兒等情緒層面
 
 ---
 
