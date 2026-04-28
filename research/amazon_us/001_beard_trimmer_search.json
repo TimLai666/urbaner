@@ -1,0 +1,17 @@
+{
+  "category": "001_Beard_Mustache_Trimmers",
+  "market": "US",
+  "search_query": "beard trimmer",
+  "search_url": "https://www.amazon.com/s?k=beard+trimmer&s=review-rank",
+  "scraped_at": "2026-04-28",
+  "top_competitors": [
+    {"asin":"B07XJZ2HVC","title":"Braun Beard Trimmer Hair Clippers for Men, Cordless & Rechargeable, Mini Foil Shaver with Gillette ProGlide Razor","rating":"4.6","reviews":978,"price":"$49.94"},
+    {"asin":"B0FHP7DKK1","title":"Valano Beard Trimmer All-in-One Self-Sharpening Cordless Mustache Grooming Kit","rating":"4.3","reviews":809,"price":"$18.99"},
+    {"asin":"B0GKP4YH1L","title":"Professional Hair Clippers Cordless Barber kit with LED Display","rating":"4.7","reviews":714,"price":"$39.99"},
+    {"asin":"B0CWSG3TY9","title":"Novah Professional Hair Clippers Cordless, Fade Haircut Kit","rating":"4.7","reviews":700,"price":"varies"},
+    {"asin":"B0DSWCM81T","title":"ANGFAN Professional Hair Clippers for Men - 8000RPM Brushless Motor & 440C Steel Blades","rating":"4.8","reviews":422,"price":"$55.99"},
+    {"asin":"B0GQ2HN122","title":"BaBylissPRO x Tomb45 Wireless Charging Hair Clipper","rating":"4.8","reviews":231,"price":"$389.99"},
+    {"asin":"B0GHQNMM1W","title":"Beard Trimmer Vacuum Suction, 40-Precision Ceramic & Stainless Steel Blade","rating":"5.0","reviews":26,"price":"$79.99"},
+    {"asin":"B0GGMH7RT7","title":"Beard Trimmer 40 Adjustable Length Settings, LCD Display, Waterproof","rating":"4.8","reviews":96,"price":"$99.99"}
+  ]
+}
