@@ -1,0 +1,13 @@
+{
+  "category": "001_Beard_Mustache_Trimmers",
+  "market": "US",
+  "reviews_by_asin": {
+    "B07XJZ2HVC": {
+      "title": "Braun Beard Trimmer 6-Piece Set",
+      "reviews": [
+        {"rating":"5.0","title":"Quality Product","date":"2025-10-23","verified":true,"body":"These trim coarse beard hairs easily. It's easy to adjust for length and will trim very close to the skin without irritation. Also holds a charge for quite awhile."},
+        {"rating":"5.0","title":"First Trim and I'm Amazed","date":"2020-08-06","verified":true,"body":"Coming from a Philips Norelco 5000 series. Tried Panasonic but build quality was cheap and adjustable cuts a struggle. Braun offer included multiple attachments, adjustable, and even a razor. Feels solid, much better build than Panasonic."}
+      ]
+    }
+  }
+}
