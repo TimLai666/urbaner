@@ -257,9 +257,11 @@ def build_strength_df(scores_df: pd.DataFrame, attr_cols: list[str]) -> pd.DataF
         row: dict[str, object] = {"product": product}
         for attr_col in attr_cols:
             series = grp[attr_col]
-            mention_rate = float(series.notna().mean())
-            avg_salience = float(series.mean(skipna=True)) if series.notna().any() else 0.0
-            row[f"{attr_col}_strength"] = round(avg_salience * mention_rate, 2)
+            # Stage 2 uses only Stage-1 scored reviews (non-NA) for each attribute.
+            if series.notna().any():
+                row[f"{attr_col}_strength"] = round(float(series.mean(skipna=True)), 2)
+            else:
+                row[f"{attr_col}_strength"] = pd.NA
         strength_rows.append(row)
 
     return pd.DataFrame(strength_rows)
