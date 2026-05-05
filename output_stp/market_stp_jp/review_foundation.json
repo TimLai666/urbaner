@@ -1,0 +1,3723 @@
+{
+  "market": "JP",
+  "dimension_catalog": [
+    {
+      "column": "power_source_type",
+      "label": "Power Source Type",
+      "label_zh": "電源類型",
+      "theme": "Power Source",
+      "attribute_group": "attribute_function",
+      "salience_column": "power_source_type_salience",
+      "quality_column": "power_source_type_quality",
+      "mention_count": 38,
+      "plain_language_definition": "Whether the product uses disposable batteries (AA/AAA) vs USB rechargeable power. High=rechargeable; Low=disposable battery only.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "the only MB line trimmer from urbaner that is rechargeable, the rest of the MB line uses AA batteries",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional",
+          "security"
+        ]
+      }
+    },
+    {
+      "column": "rechargeable_design",
+      "label": "Rechargeable Design",
+      "label_zh": "充電式設計",
+      "theme": "Power Source",
+      "attribute_group": "attribute_function",
+      "salience_column": "rechargeable_design_salience",
+      "quality_column": "rechargeable_design_quality",
+      "mention_count": 35,
+      "plain_language_definition": "Whether the product supports USB or dock recharging without replacing batteries. High=USB rechargeable; Low=battery only.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Great and USB C – Before I talk about the actual device, I want to mention that this charges with a USB C cable, which is the current standard.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "physiological"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "usb_c_charging",
+      "label": "USB-C Charging",
+      "label_zh": "USB-C充電",
+      "theme": "Power Source",
+      "attribute_group": "attribute_function",
+      "salience_column": "usb_c_charging_salience",
+      "quality_column": "usb_c_charging_quality",
+      "mention_count": 12,
+      "plain_language_definition": "Whether the product charges via USB-C (modern universal standard). High=USB-C supported; Low=proprietary or older port.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "I have another grooming kit that charges with micro USB, but this one charges with USB C",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "charging_dock_base",
+      "label": "Charging Dock / Base",
+      "label_zh": "充電底座",
+      "theme": "Power Source",
+      "attribute_group": "attribute_function",
+      "salience_column": "charging_dock_base_salience",
+      "quality_column": "charging_dock_base_quality",
+      "mention_count": 10,
+      "plain_language_definition": "Whether a standalone charging dock or base is included. High=dedicated charging base included; Low=no base.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "I do wish the charger plugged right into the clipper, rather than having a charging base",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "battery_type_aa",
+      "label": "AA Battery Power",
+      "label_zh": "AA電池驅動",
+      "theme": "Power Source",
+      "attribute_group": "attribute_function",
+      "salience_column": "battery_type_aa_salience",
+      "quality_column": "battery_type_aa_quality",
+      "mention_count": 28,
+      "plain_language_definition": "Whether the product uses AA batteries (larger capacity vs AAA). High=AA powered; relevant for products not rechargeable.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "I'm not sure I like the idea of a battery because I'd rather have a USB rechargeable",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "battery_type_aaa",
+      "label": "AAA Battery Power",
+      "label_zh": "AAA電池驅動",
+      "theme": "Power Source",
+      "attribute_group": "attribute_function",
+      "salience_column": "battery_type_aaa_salience",
+      "quality_column": "battery_type_aaa_quality",
+      "mention_count": 6,
+      "plain_language_definition": "Whether the product uses AAA batteries (compact, lighter). Relevant for pen-type devices.",
+      "example_review_id": "B091C37P34",
+      "example_quote": "Requires 1 AAA battery (included) – pen-type eyebrow trimmer",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ]
+      }
+    },
+    {
+      "column": "battery_included",
+      "label": "Battery Included in Package",
+      "label_zh": "隨附電池",
+      "theme": "Power Source",
+      "attribute_group": "benefit_use",
+      "salience_column": "battery_included_salience",
+      "quality_column": "battery_included_quality",
+      "mention_count": 22,
+      "plain_language_definition": "Whether the package includes batteries so the device is ready to use out of box. High=batteries included; Low=batteries not included.",
+      "example_review_id": "B0GL2GP74J",
+      "example_quote": "The Battery IS Included!!! Classy elegant gift for the man who is always fully groomed!!! Comes beautifully boxed and actually includes a very good quality name brand AA battery",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "purchase_motivation": [
+          "functional",
+          "relational"
+        ]
+      }
+    },
+    {
+      "column": "battery_life_duration",
+      "label": "Battery / Charge Life Duration",
+      "label_zh": "電池續航時間",
+      "theme": "Power Source",
+      "attribute_group": "attribute_function",
+      "salience_column": "battery_life_duration_salience",
+      "quality_column": "battery_life_duration_quality",
+      "mention_count": 14,
+      "plain_language_definition": "How long the device operates on a single charge or battery set. High=long runtime (90min+); Low=short runtime.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Holds a charge for quite a while and cuts well!",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "wall_plug_included",
+      "label": "Wall Plug / Adapter Included",
+      "label_zh": "隨附充電頭",
+      "theme": "Power Source",
+      "attribute_group": "attribute_function",
+      "salience_column": "wall_plug_included_salience",
+      "quality_column": "wall_plug_included_quality",
+      "mention_count": 7,
+      "plain_language_definition": "Whether a wall plug/power adapter is included with the USB charging cable. High=included; Low=cable only, no plug.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "the shaver comes with a charging base and USB cable to allow it to be connected – wall plug not included",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "motor_origin",
+      "label": "Japanese Motor",
+      "label_zh": "日本馬達",
+      "theme": "Motor & Blade",
+      "attribute_group": "attribute_function",
+      "salience_column": "motor_origin_salience",
+      "quality_column": "motor_origin_quality",
+      "mention_count": 18,
+      "plain_language_definition": "Whether the motor is sourced from Japan (typically higher torque, quieter). High=genuine Japanese motor; Low=generic.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Japanese Motor, USB Charger, IPX8 Waterproof – top-listed feature on product page",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "esteem"
+        ],
+        "purchase_motivation": [
+          "security"
+        ]
+      }
+    },
+    {
+      "column": "blade_material_japanese_steel",
+      "label": "Japanese High-Carbon Steel Blade",
+      "label_zh": "日本高碳鋼刀片",
+      "theme": "Motor & Blade",
+      "attribute_group": "attribute_function",
+      "salience_column": "blade_material_japanese_steel_salience",
+      "quality_column": "blade_material_japanese_steel_quality",
+      "mention_count": 20,
+      "plain_language_definition": "Whether blades are made from Japanese high-carbon steel (sharper, more durable). High=Japanese steel confirmed; Low=unspecified steel.",
+      "example_review_id": "B0842PLHY1",
+      "example_quote": "high-carbon steel blade from Japan ensuring safety without risk of scratching or hurting skin",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "safety"
+        ],
+        "purchase_motivation": [
+          "security"
+        ]
+      }
+    },
+    {
+      "column": "blade_sharpness",
+      "label": "Blade Sharpness",
+      "label_zh": "刀片鋒利度",
+      "theme": "Motor & Blade",
+      "attribute_group": "attribute_function",
+      "salience_column": "blade_sharpness_salience",
+      "quality_column": "blade_sharpness_quality",
+      "mention_count": 42,
+      "plain_language_definition": "Perceived cutting sharpness from reviews. High=reviewers praise clean cuts; Low=dull, hair-snagging complaints.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "Cheap, Cheerful, and Surprisingly Sharp – I've used this URBANER Precision Mustache Trimmer a handful of times now",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ],
+        "wom_motivation": [
+          "altruistic"
+        ]
+      }
+    },
+    {
+      "column": "blade_hair_pulling",
+      "label": "Blade Hair Pulling / Snagging",
+      "label_zh": "刀片拉毛問題",
+      "theme": "Motor & Blade",
+      "attribute_group": "attribute_function",
+      "salience_column": "blade_hair_pulling_salience",
+      "quality_column": "blade_hair_pulling_quality",
+      "mention_count": 25,
+      "plain_language_definition": "Whether blade snags or pulls hair during use. High=smooth, no pulling; Low=frequent pulling complaints.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Dull razor – The blade for this trimmer is not very sharp. Instead of gliding smooth, it tends to snag the hair.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "maslow": [
+          "physiological"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ],
+        "wom_motivation": [
+          "altruistic"
+        ]
+      }
+    },
+    {
+      "column": "motor_power_rpm",
+      "label": "Motor Power / Speed",
+      "label_zh": "馬達功率轉速",
+      "theme": "Motor & Blade",
+      "attribute_group": "attribute_function",
+      "salience_column": "motor_power_rpm_salience",
+      "quality_column": "motor_power_rpm_quality",
+      "mention_count": 30,
+      "plain_language_definition": "Perceived motor power and RPM. High=strong, powerful motor; Low=weak, slow motor.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "Does not trim well at all. Motor speed is slow. No adjustable speeds.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "blade_width",
+      "label": "Blade Width",
+      "label_zh": "刀片寬度",
+      "theme": "Motor & Blade",
+      "attribute_group": "attribute_function",
+      "salience_column": "blade_width_salience",
+      "quality_column": "blade_width_quality",
+      "mention_count": 12,
+      "plain_language_definition": "Physical width of the cutting blade. High=wider blade (faster coverage); Low=narrower blade (more precision).",
+      "example_review_id": "B0GL2GP74J",
+      "example_quote": "The 0.8-inch blade on this URBANER Mustache Trimmer is exactly what I needed for precision work",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "blade_replaceable",
+      "label": "Replaceable Blade",
+      "label_zh": "可替換刀片",
+      "theme": "Motor & Blade",
+      "attribute_group": "attribute_function",
+      "salience_column": "blade_replaceable_salience",
+      "quality_column": "blade_replaceable_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Whether the trimmer blade can be replaced when worn. High=replaceable blade; Low=non-replaceable.",
+      "example_review_id": "B0BRVTRPXM",
+      "example_quote": "2 blades included in package",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional",
+          "security"
+        ]
+      }
+    },
+    {
+      "column": "ceramic_blade",
+      "label": "Ceramic Blade (Heat Reduction)",
+      "label_zh": "陶瓷刀片（低熱）",
+      "theme": "Motor & Blade",
+      "attribute_group": "attribute_function",
+      "salience_column": "ceramic_blade_salience",
+      "quality_column": "ceramic_blade_quality",
+      "mention_count": 4,
+      "plain_language_definition": "Whether a ceramic blade is used to reduce heat by up to 70% (relevant for pet/sensitive skin use). High=ceramic blade; Low=standard metal blade.",
+      "example_review_id": "B09138YH5R",
+      "example_quote": "The ceramic blade can effectively reduce heat by up to 70%",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "safety"
+        ]
+      }
+    },
+    {
+      "column": "cutting_precision",
+      "label": "Cutting Precision",
+      "label_zh": "裁剪精確度",
+      "theme": "Motor & Blade",
+      "attribute_group": "attribute_function",
+      "salience_column": "cutting_precision_salience",
+      "quality_column": "cutting_precision_quality",
+      "mention_count": 35,
+      "plain_language_definition": "Precision of the cut for detail work (mustache edges, eyebrow lines). High=highly precise; Low=imprecise, can't hold lines.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "If you're looking for a dedicated mustache trimmer, this is fantastic! The adjustable blade delivers incredibly precise cuts",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ],
+        "wom_motivation": [
+          "altruistic"
+        ]
+      }
+    },
+    {
+      "column": "foil_shaver_head",
+      "label": "Foil Shaver Head Included",
+      "label_zh": "附網狀刮鬍刀頭",
+      "theme": "Motor & Blade",
+      "attribute_group": "attribute_function",
+      "salience_column": "foil_shaver_head_salience",
+      "quality_column": "foil_shaver_head_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Whether a foil shaver attachment is included in the kit. High=foil shaver head included; Low=not included.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "The foil shaver works fine, but it's not a replacement for a dedicated foil shaver",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "waterproof_rating_ipx8",
+      "label": "IPX8 Waterproof Rating",
+      "label_zh": "IPX8防水等級",
+      "theme": "Waterproof",
+      "attribute_group": "attribute_function",
+      "salience_column": "waterproof_rating_ipx8_salience",
+      "quality_column": "waterproof_rating_ipx8_quality",
+      "mention_count": 22,
+      "plain_language_definition": "Whether the product carries the IPX8 waterproof certification (submersible). High=IPX8 certified; Low=water resistant or not rated.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "Capable Travel Trimmer – IPX8 Rating Shines",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "safety"
+        ],
+        "purchase_motivation": [
+          "security"
+        ]
+      }
+    },
+    {
+      "column": "shower_use_safe",
+      "label": "Shower-Safe Use",
+      "label_zh": "可淋浴使用",
+      "theme": "Waterproof",
+      "attribute_group": "benefit_use",
+      "salience_column": "shower_use_safe_salience",
+      "quality_column": "shower_use_safe_quality",
+      "mention_count": 18,
+      "plain_language_definition": "Whether the product can be used safely during a shower. High=shower-safe confirmed; Low=only splash resistant.",
+      "example_review_id": "B0BRVTRPXM",
+      "example_quote": "totally waterproof, meaning you can trim up in the shower if that's your style",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "maslow": [
+          "physiological"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "rinse_under_tap",
+      "label": "Rinse-Under-Tap Cleaning",
+      "label_zh": "水龍頭沖洗清潔",
+      "theme": "Waterproof",
+      "attribute_group": "benefit_use",
+      "salience_column": "rinse_under_tap_salience",
+      "quality_column": "rinse_under_tap_quality",
+      "mention_count": 26,
+      "plain_language_definition": "Whether the head/body can be rinsed under running water for cleaning. High=fully rinsable; Low=only brush cleaning.",
+      "example_review_id": "B06Y65N73X",
+      "example_quote": "You can simply rinse it clean when you've finished",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "wet_dry_dual_use",
+      "label": "Wet & Dry Dual Use",
+      "label_zh": "乾濕兩用",
+      "theme": "Waterproof",
+      "attribute_group": "benefit_use",
+      "salience_column": "wet_dry_dual_use_salience",
+      "quality_column": "wet_dry_dual_use_quality",
+      "mention_count": 15,
+      "plain_language_definition": "Whether the product can be used both wet (shower/cream) and dry. High=full wet+dry capability; Low=dry use only.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "Works Wet/Dry, AA Battery Operated",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "num_grooming_functions",
+      "label": "Number of Grooming Functions",
+      "label_zh": "修容功能數量",
+      "theme": "Functions",
+      "attribute_group": "attribute_function",
+      "salience_column": "num_grooming_functions_salience",
+      "quality_column": "num_grooming_functions_quality",
+      "mention_count": 40,
+      "plain_language_definition": "Total count of distinct grooming functions (beard, nose, ear, eyebrow, etc.). High=4+ functions; Low=single function.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "4-in-1 Grooming Set – Ear and Nose Hair Trimmer, Eyebrows Trimmer, Portable Electric Shaver",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "maslow": [
+          "self_actualization"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "beard_trimming_function",
+      "label": "Beard Trimming Function",
+      "label_zh": "鬍鬚修剪功能",
+      "theme": "Functions",
+      "attribute_group": "attribute_function",
+      "salience_column": "beard_trimming_function_salience",
+      "quality_column": "beard_trimming_function_quality",
+      "mention_count": 40,
+      "plain_language_definition": "Effectiveness at trimming beard hair. High=good beard coverage and cut; Low=poor beard performance.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "Great beard trimmer – The small lightweight unit that works great. I even use it to trim my hair.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ],
+        "wom_motivation": [
+          "altruistic"
+        ]
+      }
+    },
+    {
+      "column": "nose_hair_trimming_function",
+      "label": "Nose Hair Trimming Function",
+      "label_zh": "鼻毛修剪功能",
+      "theme": "Functions",
+      "attribute_group": "attribute_function",
+      "salience_column": "nose_hair_trimming_function_salience",
+      "quality_column": "nose_hair_trimming_function_quality",
+      "mention_count": 38,
+      "plain_language_definition": "Effectiveness at trimming nose hair including how well the head fits the nostril. High=powerful and fits well; Low=too large or weak.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Bad size nose trimmer – The nose trimmer is useless as it is too large for the nose hair.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ],
+        "wom_motivation": [
+          "altruistic"
+        ]
+      }
+    },
+    {
+      "column": "ear_hair_trimming_function",
+      "label": "Ear Hair Trimming Function",
+      "label_zh": "耳毛修剪功能",
+      "theme": "Functions",
+      "attribute_group": "attribute_function",
+      "salience_column": "ear_hair_trimming_function_salience",
+      "quality_column": "ear_hair_trimming_function_quality",
+      "mention_count": 24,
+      "plain_language_definition": "Effectiveness at trimming ear hair. High=works well in ears; Low=not effective or hard to use in ears.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "Works well, even against aggressive ear hair – Turning 50 was rough. My hair just gave up.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "eyebrow_trimming_function",
+      "label": "Eyebrow Trimming Function",
+      "label_zh": "眉毛修剪功能",
+      "theme": "Functions",
+      "attribute_group": "attribute_function",
+      "salience_column": "eyebrow_trimming_function_salience",
+      "quality_column": "eyebrow_trimming_function_quality",
+      "mention_count": 20,
+      "plain_language_definition": "Effectiveness at shaping eyebrows. High=precise and painless; Low=imprecise or uncomfortable.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "Eyebrow trimmer works well. I already had a nose hair trimmer by this brand which works really well.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "mustache_trimming_function",
+      "label": "Mustache Trimming Function",
+      "label_zh": "鬍子修剪功能",
+      "theme": "Functions",
+      "attribute_group": "attribute_function",
+      "salience_column": "mustache_trimming_function_salience",
+      "quality_column": "mustache_trimming_function_quality",
+      "mention_count": 32,
+      "plain_language_definition": "Effectiveness and precision for mustache trimming specifically. High=clean edges, good detail; Low=imprecise.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "Nice Dedicated Mustache Trimmer – I'm a mustache guy, so having a dedicated tool just for mustache work makes a big difference.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ],
+        "wom_motivation": [
+          "self_enhancement"
+        ]
+      }
+    },
+    {
+      "column": "sideburn_trimming_function",
+      "label": "Sideburn Trimming Function",
+      "label_zh": "鬢角修剪功能",
+      "theme": "Functions",
+      "attribute_group": "attribute_function",
+      "salience_column": "sideburn_trimming_function_salience",
+      "quality_column": "sideburn_trimming_function_quality",
+      "mention_count": 10,
+      "plain_language_definition": "Effectiveness at styling and trimming sideburns. High=good line and precision; Low=not suitable.",
+      "example_review_id": "B0BRVTRPXM",
+      "example_quote": "Grooming zones include beard, sideburns, and mustache",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "chest_body_hair_function",
+      "label": "Chest / Body Hair Trimming",
+      "label_zh": "胸毛/體毛修剪",
+      "theme": "Functions",
+      "attribute_group": "attribute_function",
+      "salience_column": "chest_body_hair_function_salience",
+      "quality_column": "chest_body_hair_function_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Whether the product can handle chest or body hair. High=explicitly designed for body hair; Low=face-only.",
+      "example_review_id": "B0BRVTRPXM",
+      "example_quote": "Waterproof Chest Razors for Men, Safe Blade",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "peach_fuzz_removal",
+      "label": "Peach Fuzz / Fine Hair Removal",
+      "label_zh": "汗毛去除",
+      "theme": "Functions",
+      "attribute_group": "attribute_function",
+      "salience_column": "peach_fuzz_removal_salience",
+      "quality_column": "peach_fuzz_removal_quality",
+      "mention_count": 12,
+      "plain_language_definition": "Ability to remove fine facial hair (peach fuzz) especially for women. High=gentle and effective; Low=misses fine hairs.",
+      "example_review_id": "B091C37P34",
+      "example_quote": "Painless for Face Chin Upper-Lip Neck Peach-Fuzz",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "pet_grooming_function",
+      "label": "Pet Grooming Function",
+      "label_zh": "寵物修毛功能",
+      "theme": "Functions",
+      "attribute_group": "attribute_function",
+      "salience_column": "pet_grooming_function_salience",
+      "quality_column": "pet_grooming_function_quality",
+      "mention_count": 5,
+      "plain_language_definition": "Whether the product is designed for grooming pets (cats/dogs). High=purpose-built for pets; Low=human use only.",
+      "example_review_id": "B09138YH5R",
+      "example_quote": "Cordless Small Pet Hair Grooming Trimmer, Low Noise for Trimming Cats and Dogs Hair Around Paws, Eyes, Ears",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "maslow": [
+          "safety"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "haircutting_head_function",
+      "label": "Head / Scalp Hair Trimming",
+      "label_zh": "剪頭髮功能",
+      "theme": "Functions",
+      "attribute_group": "attribute_function",
+      "salience_column": "haircutting_head_function_salience",
+      "quality_column": "haircutting_head_function_quality",
+      "mention_count": 6,
+      "plain_language_definition": "Whether the product can trim scalp/head hair. High=usable for head hair trimming; Low=face/body only.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "The small lightweight unit that works great. I even use it to trim my hair.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "adjustable_comb_settings",
+      "label": "Adjustable Comb Length Settings",
+      "label_zh": "可調式導梳長度設定",
+      "theme": "Adjustability",
+      "attribute_group": "attribute_function",
+      "salience_column": "adjustable_comb_settings_salience",
+      "quality_column": "adjustable_comb_settings_quality",
+      "mention_count": 30,
+      "plain_language_definition": "Number and range of adjustable length settings via comb. High=many settings with fine increments; Low=fixed or few settings.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Decent Assortment of Attachments – adjustable (5 level) beard trimming attachment",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "min_cut_length_mm",
+      "label": "Minimum Cut Length (mm)",
+      "label_zh": "最短裁剪長度(mm)",
+      "theme": "Adjustability",
+      "attribute_group": "attribute_function",
+      "salience_column": "min_cut_length_mm_salience",
+      "quality_column": "min_cut_length_mm_quality",
+      "mention_count": 14,
+      "plain_language_definition": "Shortest hair length the trimmer can achieve. High=very short (under 1mm); Low=longer minimum (3mm+).",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "adjustable blade (0.5mm to 14mm) delivers incredibly precise cuts",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "max_cut_length_mm",
+      "label": "Maximum Cut Length (mm)",
+      "label_zh": "最長裁剪長度(mm)",
+      "theme": "Adjustability",
+      "attribute_group": "attribute_function",
+      "salience_column": "max_cut_length_mm_salience",
+      "quality_column": "max_cut_length_mm_quality",
+      "mention_count": 10,
+      "plain_language_definition": "Longest hair length achievable with included combs. High=wide range (14mm+); Low=short max range.",
+      "example_review_id": "B0BRVTRPXM",
+      "example_quote": "3/4/5/6mm combs included",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "guide_comb_variety",
+      "label": "Number of Guide Combs Included",
+      "label_zh": "導梳種類數",
+      "theme": "Adjustability",
+      "attribute_group": "attribute_function",
+      "salience_column": "guide_comb_variety_salience",
+      "quality_column": "guide_comb_variety_quality",
+      "mention_count": 16,
+      "plain_language_definition": "Number of different guide comb attachments included. High=many combs; Low=single or no comb.",
+      "example_review_id": "B0BRVTRPXM",
+      "example_quote": "3/4/5/6mm combs – 4 guide combs included",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "stepless_adjustment",
+      "label": "Stepless / Continuous Length Adjustment",
+      "label_zh": "無段式調整",
+      "theme": "Adjustability",
+      "attribute_group": "attribute_function",
+      "salience_column": "stepless_adjustment_salience",
+      "quality_column": "stepless_adjustment_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Whether length adjustment is continuous (stepless) or in fixed steps. High=stepless dial; Low=fixed step positions only.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "adjustable range 0.5mm to 14mm – continuous precision dial",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "speed_settings",
+      "label": "Speed Settings",
+      "label_zh": "速度段數",
+      "theme": "Adjustability",
+      "attribute_group": "attribute_function",
+      "salience_column": "speed_settings_salience",
+      "quality_column": "speed_settings_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Number of speed modes available. High=2+ speeds; Low=single speed only.",
+      "example_review_id": "B09138YH5R",
+      "example_quote": "There are 2 speed switches to choose from: High and Low speed",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "pen_shaped_design",
+      "label": "Pen-Shaped Design",
+      "label_zh": "筆型設計",
+      "theme": "Design",
+      "attribute_group": "attribute_function",
+      "salience_column": "pen_shaped_design_salience",
+      "quality_column": "pen_shaped_design_quality",
+      "mention_count": 14,
+      "plain_language_definition": "Whether the product has a slim pen-like form factor for precision handling. High=pen-shaped; Low=standard handle shape.",
+      "example_review_id": "B091C37P34",
+      "example_quote": "Small Battery Powered Pen-Shaped Facial Hair Remover",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "esteem"
+        ]
+      }
+    },
+    {
+      "column": "product_weight_g",
+      "label": "Product Weight (grams)",
+      "label_zh": "產品重量(g)",
+      "theme": "Design",
+      "attribute_group": "attribute_function",
+      "salience_column": "product_weight_g_salience",
+      "quality_column": "product_weight_g_quality",
+      "mention_count": 16,
+      "plain_language_definition": "Weight of the device. High=heavier (stable); Low=very light (travel-friendly). Measured in grams.",
+      "example_review_id": "B091C37P34",
+      "example_quote": "13.5 grams (excluding battery) – extremely lightweight pen trimmer",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "grip_ergonomics",
+      "label": "Grip Ergonomics",
+      "label_zh": "握持人體工學",
+      "theme": "Design",
+      "attribute_group": "benefit_use",
+      "salience_column": "grip_ergonomics_salience",
+      "quality_column": "grip_ergonomics_quality",
+      "mention_count": 20,
+      "plain_language_definition": "Comfort and control during hand-held use. High=comfortable non-slip grip; Low=slippery or awkward.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "grip is good and the attack angle allows accurate detailing",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "maslow": [
+          "physiological"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "handle_slipperiness",
+      "label": "Handle Slipperiness",
+      "label_zh": "握柄滑手問題",
+      "theme": "Design",
+      "attribute_group": "attribute_function",
+      "salience_column": "handle_slipperiness_salience",
+      "quality_column": "handle_slipperiness_quality",
+      "mention_count": 10,
+      "plain_language_definition": "Whether the handle is slippery during wet or dry use. High=non-slip confirmed; Low=slippery complaints.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "Teensy Blades & Slippery Trimmer Body – complaint about the trimmer body",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "physiological"
+        ]
+      }
+    },
+    {
+      "column": "compact_size",
+      "label": "Compact Size",
+      "label_zh": "緊湊尺寸",
+      "theme": "Design",
+      "attribute_group": "benefit_use",
+      "salience_column": "compact_size_salience",
+      "quality_column": "compact_size_quality",
+      "mention_count": 38,
+      "plain_language_definition": "How small/compact the device is overall. High=very compact and pocket-sized; Low=bulkier full-size trimmer.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "Small, compact, easy to use and gets the job done!",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "physiological"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "color_style_aesthetics",
+      "label": "Color / Style Aesthetics",
+      "label_zh": "外觀配色設計",
+      "theme": "Design",
+      "attribute_group": "brand_image",
+      "salience_column": "color_style_aesthetics_salience",
+      "quality_column": "color_style_aesthetics_quality",
+      "mention_count": 12,
+      "plain_language_definition": "Aesthetic appeal of the product color scheme and overall appearance. High=stylish and attractive; Low=plain or dated.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "The trimmer looks chic and has a good weight to it. It is simple, yet comfortable to use.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "esteem"
+        ]
+      }
+    },
+    {
+      "column": "protective_cap_cover",
+      "label": "Protective Cap / Cover for Blade Head",
+      "label_zh": "刀頭保護蓋",
+      "theme": "Design",
+      "attribute_group": "attribute_function",
+      "salience_column": "protective_cap_cover_salience",
+      "quality_column": "protective_cap_cover_quality",
+      "mention_count": 12,
+      "plain_language_definition": "Whether a protective cap or cover is included to protect the blade when not in use. High=cap included; Low=no cap.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "Works as expected – it also has a cover, which makes it easy for traveling",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "dust_proof_cover",
+      "label": "Dust-Proof Head Cover",
+      "label_zh": "防塵保護蓋",
+      "theme": "Design",
+      "attribute_group": "attribute_function",
+      "salience_column": "dust_proof_cover_salience",
+      "quality_column": "dust_proof_cover_quality",
+      "mention_count": 6,
+      "plain_language_definition": "Whether the trimmer head has a dust-proof design to protect blades during storage. High=dust-proof cover; Low=no protection.",
+      "example_review_id": "B0D5B8ZT1K",
+      "example_quote": "user-friendly handy body design with a dust-proof cover to protect the trimmer head",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ]
+      }
+    },
+    {
+      "column": "blade_head_storage_base",
+      "label": "Blade Head Storage Base",
+      "label_zh": "刀頭收納底座",
+      "theme": "Design",
+      "attribute_group": "attribute_function",
+      "salience_column": "blade_head_storage_base_salience",
+      "quality_column": "blade_head_storage_base_quality",
+      "mention_count": 6,
+      "plain_language_definition": "Whether a base or organizer is included specifically for storing multiple blade heads. High=included; Low=no dedicated storage.",
+      "example_review_id": "B0D5B8ZT1K",
+      "example_quote": "a base for organizing blade heads when not in use",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "travel_suitability",
+      "label": "Travel Suitability",
+      "label_zh": "旅行攜帶適用性",
+      "theme": "Portability",
+      "attribute_group": "benefit_use",
+      "salience_column": "travel_suitability_salience",
+      "quality_column": "travel_suitability_quality",
+      "mention_count": 35,
+      "plain_language_definition": "Overall suitability for travel use (size, weight, packaging, battery independence). High=explicitly travel-ready; Low=not travel-oriented.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "Super portable, easy to clean – I picked up this URBANER precision mustache trimmer because I needed something small and accurate for quick touch-ups between full shaves",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "self_actualization"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "carrying_case_pouch",
+      "label": "Carrying Case / Pouch Included",
+      "label_zh": "隨附旅行收納包",
+      "theme": "Portability",
+      "attribute_group": "benefit_use",
+      "salience_column": "carrying_case_pouch_salience",
+      "quality_column": "carrying_case_pouch_quality",
+      "mention_count": 16,
+      "plain_language_definition": "Whether a carrying case or pouch is included for storage and travel. High=case included; Low=no case (common complaint).",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "What would have made the set perfect was a small pouch or bag to carry everything in for travel.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "storage_box_tray",
+      "label": "Storage Box / Tray for Attachments",
+      "label_zh": "附件收納盒/托盤",
+      "theme": "Portability",
+      "attribute_group": "benefit_use",
+      "salience_column": "storage_box_tray_salience",
+      "quality_column": "storage_box_tray_quality",
+      "mention_count": 18,
+      "plain_language_definition": "Whether a box or tray is included to organize all attachments. High=well-organized box with slots; Low=loose attachments.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "It is compact and stores away nicely in the container included.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "cordless_during_use",
+      "label": "Truly Cordless During Use",
+      "label_zh": "使用中完全無線",
+      "theme": "Portability",
+      "attribute_group": "attribute_function",
+      "salience_column": "cordless_during_use_salience",
+      "quality_column": "cordless_during_use_quality",
+      "mention_count": 20,
+      "plain_language_definition": "Whether the device operates completely cord-free during use (no tethering to charger). High=fully cordless; Low=must stay plugged in.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Mighty But Compact Facial & Body Hair Cordless Trimmer – This multi-functional groomer is cordless",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "total_attachments_count",
+      "label": "Total Attachments Count",
+      "label_zh": "附件總數",
+      "theme": "Accessories",
+      "attribute_group": "attribute_function",
+      "salience_column": "total_attachments_count_salience",
+      "quality_column": "total_attachments_count_quality",
+      "mention_count": 28,
+      "plain_language_definition": "Total number of attachments/heads included in the package. High=6+ items; Low=1-2 items.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "6 Pieces Set – Beard Trimmer for Men, Waterproof Grooming Kit, 6 Pieces Set",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "cleaning_brush_included",
+      "label": "Cleaning Brush Included",
+      "label_zh": "隨附清潔刷",
+      "theme": "Accessories",
+      "attribute_group": "attribute_function",
+      "salience_column": "cleaning_brush_included_salience",
+      "quality_column": "cleaning_brush_included_quality",
+      "mention_count": 14,
+      "plain_language_definition": "Whether a cleaning brush is included. High=brush included; Low=no brush.",
+      "example_review_id": "B0BRVTRPXM",
+      "example_quote": "cleaning brush included in package",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "maintenance_oil_included",
+      "label": "Maintenance Oil Included",
+      "label_zh": "隨附保養油",
+      "theme": "Accessories",
+      "attribute_group": "attribute_function",
+      "salience_column": "maintenance_oil_included_salience",
+      "quality_column": "maintenance_oil_included_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Whether lubricating/maintenance oil is included. High=oil included; Low=not included.",
+      "example_review_id": "B0BRVTRPXM",
+      "example_quote": "maintenance oil included in package",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ]
+      }
+    },
+    {
+      "column": "spare_blade_included",
+      "label": "Spare Blade Included",
+      "label_zh": "隨附備用刀片",
+      "theme": "Accessories",
+      "attribute_group": "attribute_function",
+      "salience_column": "spare_blade_included_salience",
+      "quality_column": "spare_blade_included_quality",
+      "mention_count": 6,
+      "plain_language_definition": "Whether a spare replacement blade is included. High=spare blade included; Low=only one blade.",
+      "example_review_id": "B0BRVTRPXM",
+      "example_quote": "2 blades included in package",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "instruction_manual_quality",
+      "label": "Instruction Manual Clarity",
+      "label_zh": "說明書清晰度",
+      "theme": "Accessories",
+      "attribute_group": "benefit_use",
+      "salience_column": "instruction_manual_quality_salience",
+      "quality_column": "instruction_manual_quality_quality",
+      "mention_count": 10,
+      "plain_language_definition": "How clear and useful the instruction manual is. High=clear instructions, good translations; Low=confusing or missing.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "Works well! – The directions are straight foreword and even though it is made outside of the US no grammatical mistakes",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "usage_context_service_experience"
+        ],
+        "wom_motivation": [
+          "altruistic"
+        ]
+      }
+    },
+    {
+      "column": "rounded_blade_tip",
+      "label": "Rounded Safety Blade Tip",
+      "label_zh": "圓頭安全刀片",
+      "theme": "Safety",
+      "attribute_group": "attribute_function",
+      "salience_column": "rounded_blade_tip_salience",
+      "quality_column": "rounded_blade_tip_quality",
+      "mention_count": 14,
+      "plain_language_definition": "Whether the blade tip is rounded to prevent cuts inside nose/ears. High=rounded safety tip; Low=exposed sharp tip.",
+      "example_review_id": "B06Y65N73X",
+      "example_quote": "The rounded tip of the razor is great for trimming unneeded hairs in nose, ears, and around the face",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "safety"
+        ],
+        "purchase_motivation": [
+          "security"
+        ]
+      }
+    },
+    {
+      "column": "painless_operation",
+      "label": "Painless Operation",
+      "label_zh": "無痛操作",
+      "theme": "Safety",
+      "attribute_group": "benefit_use",
+      "salience_column": "painless_operation_salience",
+      "quality_column": "painless_operation_quality",
+      "mention_count": 22,
+      "plain_language_definition": "Whether the trimmer operates without causing pain, pulling, or skin irritation. High=painless confirmed; Low=painful complaints.",
+      "example_review_id": "B083NFMGZH",
+      "example_quote": "Compact and Painless Facial Hair Shaver",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "physiological"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "skin_friendly_blade",
+      "label": "Skin-Friendly Blade",
+      "label_zh": "皮膚友善刀片",
+      "theme": "Safety",
+      "attribute_group": "benefit_use",
+      "salience_column": "skin_friendly_blade_salience",
+      "quality_column": "skin_friendly_blade_quality",
+      "mention_count": 16,
+      "plain_language_definition": "Whether the blade material and design prevents skin scratching, redness, or irritation. High=no irritation; Low=scratching/redness issues.",
+      "example_review_id": "B0842PLHY1",
+      "example_quote": "high-carbon steel blade from Japan ensuring safety without risk of scratching or hurting skin",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "safety"
+        ],
+        "purchase_motivation": [
+          "security"
+        ]
+      }
+    },
+    {
+      "column": "low_noise_operation",
+      "label": "Low Noise Operation",
+      "label_zh": "低噪音操作",
+      "theme": "Safety",
+      "attribute_group": "attribute_function",
+      "salience_column": "low_noise_operation_salience",
+      "quality_column": "low_noise_operation_quality",
+      "mention_count": 14,
+      "plain_language_definition": "Whether the device operates quietly. High=very low noise; Low=loud/noisy operation.",
+      "example_review_id": "B09138YH5R",
+      "example_quote": "ultra-quiet and low-vibrant design effectively lowers the noise to less than 58db",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "physiological"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "low_vibration_design",
+      "label": "Low Vibration Design",
+      "label_zh": "低震動設計",
+      "theme": "Safety",
+      "attribute_group": "attribute_function",
+      "salience_column": "low_vibration_design_salience",
+      "quality_column": "low_vibration_design_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Whether the device minimizes vibration for user comfort and pet safety. High=explicitly low vibration; Low=noticeable vibration.",
+      "example_review_id": "B09138YH5R",
+      "example_quote": "ultra-quiet and low-vibrant design",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "physiological"
+        ]
+      }
+    },
+    {
+      "column": "build_quality_perception",
+      "label": "Build Quality Perception",
+      "label_zh": "整體做工感受",
+      "theme": "Build Quality",
+      "attribute_group": "attribute_function",
+      "salience_column": "build_quality_perception_salience",
+      "quality_column": "build_quality_perception_quality",
+      "mention_count": 35,
+      "plain_language_definition": "Perceived overall build quality and material feel. High=feels solid, premium; Low=feels cheap or flimsy.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "My husband thought this was going to be cheap because it looks a bit cheap but he was pleasantly surprised at how great this ended up being.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "esteem"
+        ],
+        "purchase_motivation": [
+          "security"
+        ]
+      }
+    },
+    {
+      "column": "product_longevity",
+      "label": "Product Longevity / Lifespan",
+      "label_zh": "產品使用壽命",
+      "theme": "Build Quality",
+      "attribute_group": "attribute_function",
+      "salience_column": "product_longevity_salience",
+      "quality_column": "product_longevity_quality",
+      "mention_count": 20,
+      "plain_language_definition": "How long the product lasts before failure. High=years of reliable use; Low=failure within weeks.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Stopped working in two weeks – This 4-in-1 Beard Trimmer is not so recommendable. It has stopped working after two weeks.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "safety"
+        ],
+        "purchase_motivation": [
+          "security"
+        ],
+        "wom_motivation": [
+          "altruistic"
+        ]
+      }
+    },
+    {
+      "column": "plastic_material_quality",
+      "label": "Plastic Material Quality",
+      "label_zh": "塑料材質品質",
+      "theme": "Build Quality",
+      "attribute_group": "attribute_function",
+      "salience_column": "plastic_material_quality_salience",
+      "quality_column": "plastic_material_quality_quality",
+      "mention_count": 14,
+      "plain_language_definition": "Quality and durability of plastic body materials. High=solid, durable plastic; Low=brittle or cheap-feeling plastic.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "Fun Concept, Lacks in Craftsmanship – feels budget in hand",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "security"
+        ]
+      }
+    },
+    {
+      "column": "motor_durability",
+      "label": "Motor Durability",
+      "label_zh": "馬達耐用性",
+      "theme": "Build Quality",
+      "attribute_group": "attribute_function",
+      "salience_column": "motor_durability_salience",
+      "quality_column": "motor_durability_quality",
+      "mention_count": 12,
+      "plain_language_definition": "Long-term durability and reliability of the motor. High=motor still going strong after heavy use; Low=motor fails early.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Stopped working in two weeks – The quality is not so great",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "security"
+        ]
+      }
+    },
+    {
+      "column": "attachment_fitment",
+      "label": "Attachment Head Fitment Quality",
+      "label_zh": "刀頭安裝配合度",
+      "theme": "Build Quality",
+      "attribute_group": "attribute_function",
+      "salience_column": "attachment_fitment_salience",
+      "quality_column": "attachment_fitment_quality",
+      "mention_count": 14,
+      "plain_language_definition": "How securely and easily attachment heads click on and stay in place. High=secure, easy-click; Low=loose or hard to attach.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Good but hard to change heads – Overall this product works great. I have had a little difficulty changing heads",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "ease_of_use_overall",
+      "label": "Ease of Use (Overall)",
+      "label_zh": "整體易用性",
+      "theme": "Ease of Use",
+      "attribute_group": "benefit_use",
+      "salience_column": "ease_of_use_overall_salience",
+      "quality_column": "ease_of_use_overall_quality",
+      "mention_count": 40,
+      "plain_language_definition": "Overall ease of learning and operating the trimmer. High=intuitive, beginner-friendly; Low=confusing or complex.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "Easy to use. Easy to change grooming options. Price.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "physiological"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "ease_of_cleaning",
+      "label": "Ease of Cleaning",
+      "label_zh": "清潔便利性",
+      "theme": "Ease of Use",
+      "attribute_group": "benefit_use",
+      "salience_column": "ease_of_cleaning_salience",
+      "quality_column": "ease_of_cleaning_quality",
+      "mention_count": 28,
+      "plain_language_definition": "How easy the trimmer is to clean after use. High=quick rinse or easy to brush; Low=hard to disassemble or clean.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "It's very sturdy and easy to clean.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "head_change_ease",
+      "label": "Ease of Changing Attachment Heads",
+      "label_zh": "更換刀頭便利性",
+      "theme": "Ease of Use",
+      "attribute_group": "benefit_use",
+      "salience_column": "head_change_ease_salience",
+      "quality_column": "head_change_ease_quality",
+      "mention_count": 16,
+      "plain_language_definition": "How easily users can switch between different trimmer heads. High=quick, no-tool swap; Low=difficult or confusing.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Good but hard to change heads",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "on_off_switch_design",
+      "label": "On/Off Switch Design",
+      "label_zh": "開關設計",
+      "theme": "Ease of Use",
+      "attribute_group": "attribute_function",
+      "salience_column": "on_off_switch_design_salience",
+      "quality_column": "on_off_switch_design_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Ease and intuition of the power switch. High=simple, clear switch; Low=confusing or hard to operate.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Easy to swap heads, just lock in place",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ]
+      }
+    },
+    {
+      "column": "initial_setup_ease",
+      "label": "Initial Setup / Out-of-Box Experience",
+      "label_zh": "開箱初始設定",
+      "theme": "Ease of Use",
+      "attribute_group": "benefit_use",
+      "salience_column": "initial_setup_ease_salience",
+      "quality_column": "initial_setup_ease_quality",
+      "mention_count": 12,
+      "plain_language_definition": "Ease of setting up and using the product right out of box. High=ready to use immediately; Low=confusing setup.",
+      "example_review_id": "B0GL2GP74J",
+      "example_quote": "Simple and ready to use mustache trimmer. This trimmer includes a battery so that you can operate the device right away.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "gift_packaging_quality",
+      "label": "Gift-Ready Packaging Quality",
+      "label_zh": "禮品包裝品質",
+      "theme": "Gifting",
+      "attribute_group": "brand_image",
+      "salience_column": "gift_packaging_quality_salience",
+      "quality_column": "gift_packaging_quality_quality",
+      "mention_count": 22,
+      "plain_language_definition": "Quality and attractiveness of the retail box for gifting purposes. High=elegant, giftable box; Low=plain or damaged packaging.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Pleasantly surprised that this beard trimming kit came giftable: not your typical display box",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "esteem"
+        ],
+        "purchase_motivation": [
+          "relational"
+        ],
+        "wom_motivation": [
+          "social_identity"
+        ]
+      }
+    },
+    {
+      "column": "gift_suitability_men",
+      "label": "Gift Suitability for Men",
+      "label_zh": "男性禮品適合度",
+      "theme": "Gifting",
+      "attribute_group": "brand_image",
+      "salience_column": "gift_suitability_men_salience",
+      "quality_column": "gift_suitability_men_quality",
+      "mention_count": 20,
+      "plain_language_definition": "Perceived suitability as a gift for men (spouse, father, boyfriend). High=ideal men's gift; Low=not mentioned as gift.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "The perfect gift! – I got this for my husband and he says he prefers this over any other top brand he has tried!",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "belongingness"
+        ],
+        "purchase_motivation": [
+          "relational"
+        ],
+        "wom_motivation": [
+          "altruistic"
+        ]
+      }
+    },
+    {
+      "column": "gift_suitability_women",
+      "label": "Gift Suitability for Women",
+      "label_zh": "女性禮品適合度",
+      "theme": "Gifting",
+      "attribute_group": "brand_image",
+      "salience_column": "gift_suitability_women_salience",
+      "quality_column": "gift_suitability_women_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Perceived suitability as a gift for women. High=widely bought as women's gift; Low=not positioned as women's gift.",
+      "example_review_id": "B091C37P34",
+      "example_quote": "pen-shaped, designed specifically for women's facial hair removal needs",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "belongingness"
+        ],
+        "purchase_motivation": [
+          "relational"
+        ]
+      }
+    },
+    {
+      "column": "box_presentation",
+      "label": "Box / Packaging Presentation",
+      "label_zh": "包裝展示效果",
+      "theme": "Gifting",
+      "attribute_group": "brand_image",
+      "salience_column": "box_presentation_salience",
+      "quality_column": "box_presentation_quality",
+      "mention_count": 14,
+      "plain_language_definition": "Visual presentation and structure of product packaging. High=professional, well-structured box; Low=plain or flimsy.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Comes well packed looks pretty professional everything is exactly as advertised by the seller",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "esteem"
+        ]
+      }
+    },
+    {
+      "column": "price_value_ratio",
+      "label": "Price-to-Value Ratio",
+      "label_zh": "性價比",
+      "theme": "Price & Value",
+      "attribute_group": "benefit_use",
+      "salience_column": "price_value_ratio_salience",
+      "quality_column": "price_value_ratio_quality",
+      "mention_count": 38,
+      "plain_language_definition": "Perceived value relative to price paid. High=great value; Low=overpriced for quality delivered.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "Solid Quality for the Cost – This trimmer is an excellent choice for anyone who needs a portable, low-profile grooming tool",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "physiological"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ],
+        "wom_motivation": [
+          "altruistic"
+        ]
+      }
+    },
+    {
+      "column": "budget_tier_positioning",
+      "label": "Budget Tier Positioning",
+      "label_zh": "價格帶定位",
+      "theme": "Price & Value",
+      "attribute_group": "brand_image",
+      "salience_column": "budget_tier_positioning_salience",
+      "quality_column": "budget_tier_positioning_quality",
+      "mention_count": 12,
+      "plain_language_definition": "Whether the product is positioned as budget, mid-range, or premium. High=mid/premium perceived; Low=budget only.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "Utter Junk – Very poor quality, very light weight and weak item. Its rechargeable but feels incredibly cheap",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "esteem"
+        ]
+      }
+    },
+    {
+      "column": "competitor_brand_comparison",
+      "label": "Favorable vs Competitor Brands",
+      "label_zh": "優於競品品牌",
+      "theme": "Price & Value",
+      "attribute_group": "brand_image",
+      "salience_column": "competitor_brand_comparison_salience",
+      "quality_column": "competitor_brand_comparison_quality",
+      "mention_count": 16,
+      "plain_language_definition": "Whether reviewers compare to competitor brands (Philips, Panasonic, Norelco) favorably. High=preferred over competitors; Low=loses to competitors.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "I got this for my husband and he says he prefers this over any other top brand he has tried!",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "esteem"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ],
+        "wom_motivation": [
+          "self_enhancement"
+        ]
+      }
+    },
+    {
+      "column": "primary_user_gender",
+      "label": "Primary Target Gender",
+      "label_zh": "主要目標性別",
+      "theme": "Target User",
+      "attribute_group": "brand_image",
+      "salience_column": "primary_user_gender_salience",
+      "quality_column": "primary_user_gender_quality",
+      "mention_count": 18,
+      "plain_language_definition": "Whether the product is explicitly designed for men, women, or unisex use. High=clear gender targeting; Low=unisex/ambiguous.",
+      "example_review_id": "B091C37P34",
+      "example_quote": "Electric Eyebrow Trimmer for Women – specifically designed for women",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "belongingness"
+        ]
+      }
+    },
+    {
+      "column": "unisex_suitability",
+      "label": "Unisex / Gender-Neutral Suitability",
+      "label_zh": "男女通用適用性",
+      "theme": "Target User",
+      "attribute_group": "brand_image",
+      "salience_column": "unisex_suitability_salience",
+      "quality_column": "unisex_suitability_quality",
+      "mention_count": 12,
+      "plain_language_definition": "Whether the product works well for both men and women. High=truly unisex; Low=gender-specific design/function.",
+      "example_review_id": "B083NFMGZH",
+      "example_quote": "Eyebrow Trimmer for Men and Women, Precision Detailer for Shaping",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "beginner_friendliness",
+      "label": "Beginner Friendliness",
+      "label_zh": "初學者友善度",
+      "theme": "Target User",
+      "attribute_group": "benefit_use",
+      "salience_column": "beginner_friendliness_salience",
+      "quality_column": "beginner_friendliness_quality",
+      "mention_count": 14,
+      "plain_language_definition": "Suitability for users who have never used a trimmer before. High=easy for first-timers; Low=requires skill.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "Game changer – This is my 1st time using a mustache trimmer. I usually used manual. This is great.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "self_actualization"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "couple_shared_use",
+      "label": "Couple / Shared Use Suitability",
+      "label_zh": "情侶/共用適用性",
+      "theme": "Target User",
+      "attribute_group": "benefit_use",
+      "salience_column": "couple_shared_use_salience",
+      "quality_column": "couple_shared_use_quality",
+      "mention_count": 10,
+      "plain_language_definition": "Whether the product is used and suitable for sharing between partners. High=reported shared use; Low=personal-only design.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "My partner and I use this interchangeably. I mostly use only two attachments and they work great.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "belongingness"
+        ],
+        "purchase_motivation": [
+          "relational"
+        ]
+      }
+    },
+    {
+      "column": "professional_home_positioning",
+      "label": "Professional vs Home Use Positioning",
+      "label_zh": "專業/家用定位",
+      "theme": "Target User",
+      "attribute_group": "brand_image",
+      "salience_column": "professional_home_positioning_salience",
+      "quality_column": "professional_home_positioning_quality",
+      "mention_count": 10,
+      "plain_language_definition": "Whether the product targets professional barbers or home users. High=professional-grade; Low=home/personal use only.",
+      "example_review_id": "B0BRVTRPXM",
+      "example_quote": "Professional facial hair trimmer",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "esteem"
+        ]
+      }
+    },
+    {
+      "column": "blade_small_head_size",
+      "label": "Small / Precision Blade Head Size",
+      "label_zh": "小型刀頭尺寸",
+      "theme": "Blade Specs",
+      "attribute_group": "attribute_function",
+      "salience_column": "blade_small_head_size_salience",
+      "quality_column": "blade_small_head_size_quality",
+      "mention_count": 14,
+      "plain_language_definition": "Whether the blade head is specifically small for precision detailing. High=very small, fine head; Low=standard wide head.",
+      "example_review_id": "B09138YH5R",
+      "example_quote": "The trimmer has a small blade of only 1 cm, which can gently remove pet hair from difficult-to-reach areas",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "rotary_blade_type",
+      "label": "Rotary Cutting Mechanism",
+      "label_zh": "旋轉式刀頭設計",
+      "theme": "Blade Specs",
+      "attribute_group": "attribute_function",
+      "salience_column": "rotary_blade_type_salience",
+      "quality_column": "rotary_blade_type_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Whether the trimmer uses a rotary (360-degree) cutting mechanism. High=rotary for nose/ear; Low=linear/reciprocating only.",
+      "example_review_id": "B06Y65N73X",
+      "example_quote": "rotary ear and nose hair trimmer",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "integrated_length_dial",
+      "label": "Integrated Length Dial (No-Comb)",
+      "label_zh": "刀片本身可調式（無需梳子）",
+      "theme": "Blade Specs",
+      "attribute_group": "attribute_function",
+      "salience_column": "integrated_length_dial_salience",
+      "quality_column": "integrated_length_dial_quality",
+      "mention_count": 10,
+      "plain_language_definition": "Whether the blade length is adjustable via built-in dial without needing separate comb attachments. High=integrated dial adjustment; Low=separate comb-only adjustment.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "adjustable blade (0.5mm to 14mm) delivers incredibly precise cuts",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "product_listing_accuracy",
+      "label": "Product Listing Accuracy",
+      "label_zh": "商品頁面描述準確度",
+      "theme": "Brand & Trust",
+      "attribute_group": "usage_context_service_experience",
+      "salience_column": "product_listing_accuracy_salience",
+      "quality_column": "product_listing_accuracy_quality",
+      "mention_count": 12,
+      "plain_language_definition": "Whether the actual product matches its Amazon listing description and photos. High=accurate listing; Low=misleading listing.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Came well packed looks pretty professional everything is exactly as advertised by the seller",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "usage_context_service_experience"
+        ],
+        "wom_motivation": [
+          "altruistic"
+        ]
+      }
+    },
+    {
+      "column": "brand_trust_loyalty",
+      "label": "Brand Trust / Repeat Loyalty",
+      "label_zh": "品牌信任度與回購",
+      "theme": "Brand & Trust",
+      "attribute_group": "brand_image",
+      "salience_column": "brand_trust_loyalty_salience",
+      "quality_column": "brand_trust_loyalty_quality",
+      "mention_count": 18,
+      "plain_language_definition": "Level of brand trust with existing customers. High=repeat buyers, brand loyalty; Low=first-time skeptics.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "I already had a nose hair trimmer by this brand, Urbaner, which works really well.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "belongingness"
+        ],
+        "purchase_motivation": [
+          "relational"
+        ],
+        "wom_motivation": [
+          "social_identity"
+        ]
+      }
+    },
+    {
+      "column": "repeat_purchase_intent",
+      "label": "Repeat Purchase Intent",
+      "label_zh": "回購意願",
+      "theme": "Brand & Trust",
+      "attribute_group": "usage_context_service_experience",
+      "salience_column": "repeat_purchase_intent_salience",
+      "quality_column": "repeat_purchase_intent_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Whether reviewers mention buying again or having bought previous Urbaner products. High=strong repeat intent; Low=one-time purchase.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "I already had a nose hair trimmer by this brand and this one also works really well",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "usage_context_service_experience"
+        ],
+        "purchase_motivation": [
+          "relational"
+        ],
+        "wom_motivation": [
+          "social_identity"
+        ]
+      }
+    },
+    {
+      "column": "cut_smoothness",
+      "label": "Cut Smoothness / Glide Feel",
+      "label_zh": "裁剪滑順感",
+      "theme": "Sensory Experience",
+      "attribute_group": "benefit_use",
+      "salience_column": "cut_smoothness_salience",
+      "quality_column": "cut_smoothness_quality",
+      "mention_count": 20,
+      "plain_language_definition": "How smooth the trimmer glides over skin during use. High=smooth glide; Low=rough, scratchy, or snagging motion.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "It cuts like a dream, bladerunner good",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "physiological"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "operation_vibration_feel",
+      "label": "Vibration Feel During Use",
+      "label_zh": "使用中的震動感",
+      "theme": "Sensory Experience",
+      "attribute_group": "attribute_function",
+      "salience_column": "operation_vibration_feel_salience",
+      "quality_column": "operation_vibration_feel_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Perceptible vibration felt through the hand during use. High=minimal vibration; Low=strong vibration complaints.",
+      "example_review_id": "B09138YH5R",
+      "example_quote": "ultra-quiet and low-vibrant design",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "physiological"
+        ]
+      }
+    },
+    {
+      "column": "thick_hair_handling",
+      "label": "Thick / Coarse Hair Handling",
+      "label_zh": "粗硬毛髮處理能力",
+      "theme": "Sensory Experience",
+      "attribute_group": "attribute_function",
+      "salience_column": "thick_hair_handling_salience",
+      "quality_column": "thick_hair_handling_quality",
+      "mention_count": 16,
+      "plain_language_definition": "Whether the trimmer handles thick or coarse hair without jamming. High=handles thick hair well; Low=jams or struggles.",
+      "example_review_id": "B0GL2GP74J",
+      "example_quote": "Convenient and easy to use, but a bit weak on thicker beard – I do have particularly thick beard hair and there were times when this trimmer struggled",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ],
+        "wom_motivation": [
+          "altruistic"
+        ]
+      }
+    },
+    {
+      "column": "trimming_evenness",
+      "label": "Trimming Evenness / Uniformity",
+      "label_zh": "修剪均勻度",
+      "theme": "Sensory Experience",
+      "attribute_group": "attribute_function",
+      "salience_column": "trimming_evenness_salience",
+      "quality_column": "trimming_evenness_quality",
+      "mention_count": 14,
+      "plain_language_definition": "Whether trimming results are even and uniform across the treated area. High=consistently even cuts; Low=uneven results.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "Looks great, performs decently, but feels budget in hand",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "grey_hair_handling",
+      "label": "Grey / Coarse Grey Hair Handling",
+      "label_zh": "白/灰髮處理能力",
+      "theme": "Hair Capability",
+      "attribute_group": "attribute_function",
+      "salience_column": "grey_hair_handling_salience",
+      "quality_column": "grey_hair_handling_quality",
+      "mention_count": 6,
+      "plain_language_definition": "Effectiveness on grey or coarse grey hair specifically. High=handles grey hair well; Low=struggles with grey hair.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "it is small but powerful – the shaver removes even thicker grey facial hair",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "close_shave_capability",
+      "label": "Close-Shave / Near-Skin Capability",
+      "label_zh": "貼膚剃光能力",
+      "theme": "Hair Capability",
+      "attribute_group": "attribute_function",
+      "salience_column": "close_shave_capability_salience",
+      "quality_column": "close_shave_capability_quality",
+      "mention_count": 12,
+      "plain_language_definition": "Whether the trimmer can trim hair down to near skin level. High=skin-close possible; Low=leaves visible stubble.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "It's not smooth-skin close but for mustache trimming it's exactly right",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "fine_hair_precision",
+      "label": "Fine / Thin Hair Precision",
+      "label_zh": "細軟毛髮精準度",
+      "theme": "Hair Capability",
+      "attribute_group": "attribute_function",
+      "salience_column": "fine_hair_precision_salience",
+      "quality_column": "fine_hair_precision_quality",
+      "mention_count": 10,
+      "plain_language_definition": "Effectiveness on fine, thin, or soft hair. High=works well on fine hair; Low=misses fine hair.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "Price is good and feels decent – My facial hair is very thin and this doesn't catch all of them",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "social_gifting_context",
+      "label": "Purchased as Gift Context",
+      "label_zh": "作為禮品購買場景",
+      "theme": "Social Context",
+      "attribute_group": "usage_context_service_experience",
+      "salience_column": "social_gifting_context_salience",
+      "quality_column": "social_gifting_context_quality",
+      "mention_count": 20,
+      "plain_language_definition": "Whether the product is bought as a gift (for husband, father, boyfriend). High=strong gifting purchase pattern; Low=self-purchase only.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "Got as a gift for my husband and he absolutely loves it. Definitely worth it",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "maslow": [
+          "belongingness"
+        ],
+        "purchase_motivation": [
+          "relational"
+        ],
+        "wom_motivation": [
+          "altruistic"
+        ]
+      }
+    },
+    {
+      "column": "shareable_between_partners",
+      "label": "Shareable Between Partners",
+      "label_zh": "夫妻/伴侶共享設計",
+      "theme": "Social Context",
+      "attribute_group": "benefit_use",
+      "salience_column": "shareable_between_partners_salience",
+      "quality_column": "shareable_between_partners_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Whether the product design facilitates use by both partners. High=explicitly suitable for sharing; Low=single-user design.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "My partner and I use this interchangeably.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "belongingness"
+        ],
+        "purchase_motivation": [
+          "relational"
+        ]
+      }
+    },
+    {
+      "column": "battery_independence",
+      "label": "Battery Independence (Rechargeable)",
+      "label_zh": "可充電免拋棄式電池",
+      "theme": "Eco & Sustainability",
+      "attribute_group": "benefit_use",
+      "salience_column": "battery_independence_salience",
+      "quality_column": "battery_independence_quality",
+      "mention_count": 14,
+      "plain_language_definition": "Whether the product reduces need for disposable batteries (rechargeable = eco-positive). High=rechargeable, no disposables; Low=requires disposable batteries.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "rechargeable grooming kit – nice that its rechargeable so you can use whenever you need it",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "self_actualization"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "narrow_cutter_head",
+      "label": "Narrow Cutter Head for Line Definition",
+      "label_zh": "窄刀頭線條定義",
+      "theme": "Blade Specs",
+      "attribute_group": "attribute_function",
+      "salience_column": "narrow_cutter_head_salience",
+      "quality_column": "narrow_cutter_head_quality",
+      "mention_count": 10,
+      "plain_language_definition": "Whether the product has a specifically narrow cutter head for creating clean beard/mustache lines. High=narrow head; Low=wide standard head.",
+      "example_review_id": "B0842PLHY1",
+      "example_quote": "The narrow cutter head helps create clean lines for mustache or sideburns",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "attachment_nose_head_size_fit",
+      "label": "Nose Trimmer Head Fit in Nostril",
+      "label_zh": "鼻毛刀頭鼻孔適配尺寸",
+      "theme": "Blade Specs",
+      "attribute_group": "attribute_function",
+      "salience_column": "attachment_nose_head_size_fit_salience",
+      "quality_column": "attachment_nose_head_size_fit_quality",
+      "mention_count": 10,
+      "plain_language_definition": "Whether the nose trimmer head is appropriately sized to fit comfortably in nostril. High=correctly sized; Low=too large or too small.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "Bad size nose trimmer – The nose trimmer is useless as it is too large for the nose hair.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "physiological"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ],
+        "wom_motivation": [
+          "altruistic"
+        ]
+      }
+    },
+    {
+      "column": "product_dimensions_size",
+      "label": "Product Physical Dimensions",
+      "label_zh": "產品實體尺寸規格",
+      "theme": "Design",
+      "attribute_group": "attribute_function",
+      "salience_column": "product_dimensions_size_salience",
+      "quality_column": "product_dimensions_size_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Exact physical dimensions (length x width x depth in cm). Smaller dimensions = more portable.",
+      "example_review_id": "B0842PLHY1",
+      "example_quote": "14 x 2 x 2 cm – compact slim profile for travel",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "battery_cover_ease",
+      "label": "Battery Cover / Compartment Ease",
+      "label_zh": "電池蓋易用性",
+      "theme": "Design",
+      "attribute_group": "attribute_function",
+      "salience_column": "battery_cover_ease_salience",
+      "quality_column": "battery_cover_ease_quality",
+      "mention_count": 6,
+      "plain_language_definition": "Ease of accessing and replacing the battery compartment cover. High=easy open/close; Low=fiddly or hard to open.",
+      "example_review_id": "B0BRVTRPXM",
+      "example_quote": "battery cover design for 2 AA batteries",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ]
+      }
+    },
+    {
+      "column": "multi_use_versatility_score",
+      "label": "Overall Multi-Use Versatility Score",
+      "label_zh": "全功能多用途評分",
+      "theme": "Functions",
+      "attribute_group": "benefit_use",
+      "salience_column": "multi_use_versatility_score_salience",
+      "quality_column": "multi_use_versatility_score_quality",
+      "mention_count": 30,
+      "plain_language_definition": "Composite sense of how many different grooming tasks the product can handle well. High=true all-in-one; Low=single-task only.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "Perfect trimmer for all the little places – This trimmer kit includes everything you need to trim hair from all those odd places such as nose, ears, eyebrows, facial hair",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "self_actualization"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "maintenance_requirement",
+      "label": "Maintenance / Oiling Requirement",
+      "label_zh": "維護保養需求",
+      "theme": "Ease of Use",
+      "attribute_group": "attribute_function",
+      "salience_column": "maintenance_requirement_salience",
+      "quality_column": "maintenance_requirement_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Whether the product requires regular oiling or maintenance to keep performance. High=low-maintenance; Low=requires frequent oiling.",
+      "example_review_id": "B0BRVTRPXM",
+      "example_quote": "maintenance oil included in package",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "usage_context_service_experience"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "waterproof_body_full",
+      "label": "Full Body Waterproof (Not Just Head)",
+      "label_zh": "全機身防水",
+      "theme": "Waterproof",
+      "attribute_group": "attribute_function",
+      "salience_column": "waterproof_body_full_salience",
+      "quality_column": "waterproof_body_full_quality",
+      "mention_count": 12,
+      "plain_language_definition": "Whether the entire device body (not just the head) is waterproof. High=fully submersible body; Low=only head is water-resistant.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "IPX8 Waterproof – can be fully submerged",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "maslow": [
+          "safety"
+        ],
+        "purchase_motivation": [
+          "security"
+        ]
+      }
+    },
+    {
+      "column": "grooming_kit_completeness",
+      "label": "Grooming Kit Completeness",
+      "label_zh": "修容套組完整度",
+      "theme": "Accessories",
+      "attribute_group": "benefit_use",
+      "salience_column": "grooming_kit_completeness_salience",
+      "quality_column": "grooming_kit_completeness_quality",
+      "mention_count": 22,
+      "plain_language_definition": "How complete the grooming kit is for all common facial hair needs in one package. High=all-in-one complete kit; Low=partial kit.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "A nice selection of cutting heads – I have used a variety of different powered trimmers over the years but this one has the widest selection of trimming attachments.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "self_actualization"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "lightweight_design",
+      "label": "Lightweight Design",
+      "label_zh": "輕量化設計",
+      "theme": "Design",
+      "attribute_group": "benefit_use",
+      "salience_column": "lightweight_design_salience",
+      "quality_column": "lightweight_design_quality",
+      "mention_count": 18,
+      "plain_language_definition": "Whether the product is specifically lightweight for ease of one-hand use and travel. High=very light; Low=heavier/bulkier.",
+      "example_review_id": "B06Y65N73X",
+      "example_quote": "Small and Safe Grooming Tool, Lightweight",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "physiological"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "eyebrow_comb_attachment",
+      "label": "Dedicated Eyebrow Comb Attachment",
+      "label_zh": "獨立眉毛導梳",
+      "theme": "Accessories",
+      "attribute_group": "attribute_function",
+      "salience_column": "eyebrow_comb_attachment_salience",
+      "quality_column": "eyebrow_comb_attachment_quality",
+      "mention_count": 8,
+      "plain_language_definition": "Whether a dedicated eyebrow guide comb is included. High=separate eyebrow comb included; Low=no dedicated eyebrow comb.",
+      "example_review_id": "B0823PD6XD",
+      "example_quote": "includes eyebrow comb attachment",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "attributes"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "quick_touch_up_design",
+      "label": "Quick Touch-Up / Daily Use Design",
+      "label_zh": "快速補修設計",
+      "theme": "Ease of Use",
+      "attribute_group": "benefit_use",
+      "salience_column": "quick_touch_up_design_salience",
+      "quality_column": "quick_touch_up_design_quality",
+      "mention_count": 16,
+      "plain_language_definition": "Whether the product is optimized for quick daily touch-ups rather than full grooming sessions. High=fast, daily-use friendly; Low=setup-intensive.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "I needed something small and accurate for quick touch-ups between full shaves",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "physiological"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    },
+    {
+      "column": "product_perceived_premium",
+      "label": "Perceived Premium Feel",
+      "label_zh": "質感高級感",
+      "theme": "Brand & Trust",
+      "attribute_group": "brand_image",
+      "salience_column": "product_perceived_premium_salience",
+      "quality_column": "product_perceived_premium_quality",
+      "mention_count": 14,
+      "plain_language_definition": "Whether the product feels premium/high-end beyond its price point. High=feels premium; Low=feels cheap for price.",
+      "example_review_id": "B0BVVKKXFZ",
+      "example_quote": "I was not expecting it to be this good – I bought a ton of these kind of things over my lifetime and most of them are cheap garbage. But I was really not expecting a whole lot from these.",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "benefits"
+        ],
+        "maslow": [
+          "esteem"
+        ],
+        "purchase_motivation": [
+          "security"
+        ],
+        "wom_motivation": [
+          "self_enhancement"
+        ]
+      }
+    },
+    {
+      "column": "grooming_angle_control",
+      "label": "Grooming Angle / Attack Angle Control",
+      "label_zh": "修容角度控制",
+      "theme": "Ease of Use",
+      "attribute_group": "benefit_use",
+      "salience_column": "grooming_angle_control_salience",
+      "quality_column": "grooming_angle_control_quality",
+      "mention_count": 10,
+      "plain_language_definition": "Ease of controlling the trimming angle for precise detailing work. High=good angle control; Low=awkward angle.",
+      "example_review_id": "B0GL2DKVQH",
+      "example_quote": "Grip is good and the attack angle allows accurate detailing",
+      "stat_roles": [
+        "segmentation",
+        "targeting",
+        "positioning"
+      ],
+      "theory_annotations": {
+        "product_positioning": [
+          "functions"
+        ],
+        "purchase_motivation": [
+          "functional"
+        ]
+      }
+    }
+  ],
+  "theme_mapping": {
+    "Power Source": [
+      "power_source_type",
+      "rechargeable_design",
+      "usb_c_charging",
+      "charging_dock_base",
+      "battery_type_aa",
+      "battery_type_aaa",
+      "battery_included",
+      "battery_life_duration",
+      "wall_plug_included"
+    ],
+    "Motor & Blade": [
+      "motor_origin",
+      "blade_material_japanese_steel",
+      "blade_sharpness",
+      "blade_hair_pulling",
+      "motor_power_rpm",
+      "blade_width",
+      "blade_replaceable",
+      "ceramic_blade",
+      "cutting_precision",
+      "foil_shaver_head"
+    ],
+    "Waterproof": [
+      "waterproof_rating_ipx8",
+      "shower_use_safe",
+      "rinse_under_tap",
+      "wet_dry_dual_use",
+      "waterproof_body_full"
+    ],
+    "Functions": [
+      "num_grooming_functions",
+      "beard_trimming_function",
+      "nose_hair_trimming_function",
+      "ear_hair_trimming_function",
+      "eyebrow_trimming_function",
+      "mustache_trimming_function",
+      "sideburn_trimming_function",
+      "chest_body_hair_function",
+      "peach_fuzz_removal",
+      "pet_grooming_function",
+      "haircutting_head_function",
+      "multi_use_versatility_score"
+    ],
+    "Adjustability": [
+      "adjustable_comb_settings",
+      "min_cut_length_mm",
+      "max_cut_length_mm",
+      "guide_comb_variety",
+      "stepless_adjustment",
+      "speed_settings"
+    ],
+    "Design": [
+      "pen_shaped_design",
+      "product_weight_g",
+      "grip_ergonomics",
+      "handle_slipperiness",
+      "compact_size",
+      "color_style_aesthetics",
+      "protective_cap_cover",
+      "dust_proof_cover",
+      "blade_head_storage_base",
+      "product_dimensions_size",
+      "battery_cover_ease",
+      "lightweight_design"
+    ],
+    "Portability": [
+      "travel_suitability",
+      "carrying_case_pouch",
+      "storage_box_tray",
+      "cordless_during_use"
+    ],
+    "Accessories": [
+      "total_attachments_count",
+      "cleaning_brush_included",
+      "maintenance_oil_included",
+      "spare_blade_included",
+      "instruction_manual_quality",
+      "grooming_kit_completeness",
+      "eyebrow_comb_attachment"
+    ],
+    "Safety": [
+      "rounded_blade_tip",
+      "painless_operation",
+      "skin_friendly_blade",
+      "low_noise_operation",
+      "low_vibration_design"
+    ],
+    "Build Quality": [
+      "build_quality_perception",
+      "product_longevity",
+      "plastic_material_quality",
+      "motor_durability",
+      "attachment_fitment"
+    ],
+    "Ease of Use": [
+      "ease_of_use_overall",
+      "ease_of_cleaning",
+      "head_change_ease",
+      "on_off_switch_design",
+      "initial_setup_ease",
+      "maintenance_requirement",
+      "quick_touch_up_design",
+      "grooming_angle_control"
+    ],
+    "Gifting": [
+      "gift_packaging_quality",
+      "gift_suitability_men",
+      "gift_suitability_women",
+      "box_presentation"
+    ],
+    "Price & Value": [
+      "price_value_ratio",
+      "budget_tier_positioning",
+      "competitor_brand_comparison"
+    ],
+    "Target User": [
+      "primary_user_gender",
+      "unisex_suitability",
+      "beginner_friendliness",
+      "couple_shared_use",
+      "professional_home_positioning"
+    ],
+    "Blade Specs": [
+      "blade_small_head_size",
+      "rotary_blade_type",
+      "integrated_length_dial",
+      "narrow_cutter_head",
+      "attachment_nose_head_size_fit"
+    ],
+    "Brand & Trust": [
+      "product_listing_accuracy",
+      "brand_trust_loyalty",
+      "repeat_purchase_intent",
+      "product_perceived_premium"
+    ],
+    "Sensory Experience": [
+      "cut_smoothness",
+      "operation_vibration_feel",
+      "thick_hair_handling",
+      "trimming_evenness"
+    ],
+    "Hair Capability": [
+      "grey_hair_handling",
+      "close_shave_capability",
+      "fine_hair_precision"
+    ],
+    "Social Context": [
+      "social_gifting_context",
+      "shareable_between_partners"
+    ],
+    "Eco & Sustainability": [
+      "battery_independence"
+    ]
+  },
+  "attribute_extraction_summary": {
+    "target_minimum": 30,
+    "actual_count": 114,
+    "shortfall_reason": "none — pre-frozen catalog of 114 attributes reused across markets",
+    "theory_gap": [],
+    "themes_discovered": [
+      "Power Source",
+      "Motor & Blade",
+      "Waterproof",
+      "Functions",
+      "Adjustability",
+      "Design",
+      "Portability",
+      "Accessories",
+      "Safety",
+      "Build Quality",
+      "Ease of Use",
+      "Gifting",
+      "Price & Value",
+      "Target User",
+      "Blade Specs",
+      "Brand & Trust",
+      "Sensory Experience",
+      "Hair Capability",
+      "Social Context",
+      "Eco & Sustainability"
+    ],
+    "source_corpus": "7163 URBANER own-product reviews (market=JP)",
+    "scoring_note": "Salience via bilingual keyword matching, length & density weighted; quality via star-rating proxy + attribute-specific negative-signal adjustment."
+  },
+  "people_insights": {
+    "B001K85BN2": {
+      "lang_dominant": "ja",
+      "n_reviews": 394,
+      "avg_rating": 3.39,
+      "dominant_concerns": [
+        "power_source_type",
+        "beard_trimming_function",
+        "adjustable_comb_settings",
+        "product_dimensions_size",
+        "price_value_ratio"
+      ]
+    },
+    "B001K85BNC": {
+      "lang_dominant": "ja",
+      "n_reviews": 160,
+      "avg_rating": 3.97,
+      "dominant_concerns": [
+        "adjustable_comb_settings",
+        "beard_trimming_function",
+        "product_dimensions_size",
+        "power_source_type",
+        "ease_of_use_overall"
+      ]
+    },
+    "B016JNKVHI": {
+      "lang_dominant": "ja",
+      "n_reviews": 215,
+      "avg_rating": 4.2,
+      "dominant_concerns": [
+        "adjustable_comb_settings",
+        "beard_trimming_function",
+        "product_dimensions_size",
+        "ease_of_use_overall",
+        "competitor_brand_comparison"
+      ]
+    },
+    "B0742G961R": {
+      "lang_dominant": "ja",
+      "n_reviews": 40,
+      "avg_rating": 4.55,
+      "dominant_concerns": [
+        "beard_trimming_function",
+        "adjustable_comb_settings",
+        "product_dimensions_size",
+        "competitor_brand_comparison",
+        "power_source_type"
+      ]
+    },
+    "B07CYQVK16": {
+      "lang_dominant": "ja",
+      "n_reviews": 16,
+      "avg_rating": 3.25,
+      "dominant_concerns": [
+        "power_source_type",
+        "motor_power_rpm",
+        "low_noise_operation",
+        "eyebrow_trimming_function",
+        "attachment_fitment"
+      ]
+    },
+    "B07CYZH2XC": {
+      "lang_dominant": "ja",
+      "n_reviews": 231,
+      "avg_rating": 3.51,
+      "dominant_concerns": [
+        "beard_trimming_function",
+        "adjustable_comb_settings",
+        "power_source_type",
+        "product_dimensions_size",
+        "ease_of_use_overall"
+      ]
+    },
+    "B07CZ3KDN9": {
+      "lang_dominant": "ja",
+      "n_reviews": 32,
+      "avg_rating": 4.09,
+      "dominant_concerns": [
+        "price_value_ratio",
+        "beard_trimming_function",
+        "nose_hair_trimming_function",
+        "ease_of_use_overall",
+        "eyebrow_trimming_function"
+      ]
+    },
+    "B07YFFLDQB": {
+      "lang_dominant": "ja",
+      "n_reviews": 101,
+      "avg_rating": 4.45,
+      "dominant_concerns": [
+        "low_noise_operation",
+        "ease_of_use_overall",
+        "blade_sharpness",
+        "competitor_brand_comparison",
+        "adjustable_comb_settings"
+      ]
+    },
+    "B08LGGMP5W": {
+      "lang_dominant": "ja",
+      "n_reviews": 300,
+      "avg_rating": 3.0,
+      "dominant_concerns": [
+        "adjustable_comb_settings",
+        "power_source_type",
+        "beard_trimming_function",
+        "rechargeable_design",
+        "price_value_ratio"
+      ]
+    },
+    "B0B7R5TJLD": {
+      "lang_dominant": "ja",
+      "n_reviews": 156,
+      "avg_rating": 3.63,
+      "dominant_concerns": [
+        "power_source_type",
+        "adjustable_comb_settings",
+        "rechargeable_design",
+        "price_value_ratio",
+        "blade_sharpness"
+      ]
+    },
+    "B0BL2YWH3N": {
+      "lang_dominant": "ja",
+      "n_reviews": 43,
+      "avg_rating": 4.33,
+      "dominant_concerns": [
+        "nose_hair_trimming_function",
+        "total_attachments_count",
+        "adjustable_comb_settings",
+        "eyebrow_trimming_function",
+        "beard_trimming_function"
+      ]
+    },
+    "B0BVQDYVTS": {
+      "lang_dominant": "ja",
+      "n_reviews": 214,
+      "avg_rating": 3.88,
+      "dominant_concerns": [
+        "adjustable_comb_settings",
+        "beard_trimming_function",
+        "price_value_ratio",
+        "power_source_type",
+        "product_dimensions_size"
+      ]
+    },
+    "B0BY18J8D9": {
+      "lang_dominant": "ja",
+      "n_reviews": 117,
+      "avg_rating": 3.99,
+      "dominant_concerns": [
+        "adjustable_comb_settings",
+        "beard_trimming_function",
+        "total_attachments_count",
+        "attachment_fitment",
+        "ease_of_use_overall"
+      ]
+    },
+    "B0BY1KRJZ1": {
+      "lang_dominant": "ja",
+      "n_reviews": 115,
+      "avg_rating": 4.16,
+      "dominant_concerns": [
+        "adjustable_comb_settings",
+        "beard_trimming_function",
+        "product_dimensions_size",
+        "ease_of_use_overall",
+        "power_source_type"
+      ]
+    },
+    "B0DSB44YJZ": {
+      "lang_dominant": "ja",
+      "n_reviews": 231,
+      "avg_rating": 3.51,
+      "dominant_concerns": [
+        "beard_trimming_function",
+        "adjustable_comb_settings",
+        "power_source_type",
+        "product_dimensions_size",
+        "ease_of_use_overall"
+      ]
+    },
+    "B0F2M2NSBX": {
+      "lang_dominant": "ja",
+      "n_reviews": 151,
+      "avg_rating": 3.25,
+      "dominant_concerns": [
+        "adjustable_comb_settings",
+        "beard_trimming_function",
+        "competitor_brand_comparison",
+        "on_off_switch_design",
+        "power_source_type"
+      ]
+    },
+    "B0FJS3QR1W": {
+      "lang_dominant": "ja",
+      "n_reviews": 141,
+      "avg_rating": 4.34,
+      "dominant_concerns": [
+        "adjustable_comb_settings",
+        "price_value_ratio",
+        "power_source_type",
+        "beard_trimming_function",
+        "product_dimensions_size"
+      ]
+    },
+    "B0FJS3TF3V": {
+      "lang_dominant": "ja",
+      "n_reviews": 141,
+      "avg_rating": 4.34,
+      "dominant_concerns": [
+        "adjustable_comb_settings",
+        "price_value_ratio",
+        "power_source_type",
+        "beard_trimming_function",
+        "product_dimensions_size"
+      ]
+    },
+    "B0FQW4KWRD": {
+      "lang_dominant": "ja",
+      "n_reviews": 36,
+      "avg_rating": 3.94,
+      "dominant_concerns": [
+        "beard_trimming_function",
+        "adjustable_comb_settings",
+        "product_dimensions_size",
+        "blade_sharpness",
+        "power_source_type"
+      ]
+    },
+    "B0FQWLR3BW": {
+      "lang_dominant": "ja",
+      "n_reviews": 36,
+      "avg_rating": 3.94,
+      "dominant_concerns": [
+        "beard_trimming_function",
+        "adjustable_comb_settings",
+        "product_dimensions_size",
+        "blade_sharpness",
+        "power_source_type"
+      ]
+    }
+  },
+  "product_triggers": {
+    "B001K85BN2": [
+      "Top concern: power_source_type",
+      "Avg rating: 3.39",
+      "n=394"
+    ],
+    "B001K85BNC": [
+      "Top concern: adjustable_comb_settings",
+      "Avg rating: 3.97",
+      "n=160"
+    ],
+    "B016JNKVHI": [
+      "Top concern: adjustable_comb_settings",
+      "Avg rating: 4.2",
+      "n=215"
+    ],
+    "B0742G961R": [
+      "Top concern: beard_trimming_function",
+      "Avg rating: 4.55",
+      "n=40"
+    ],
+    "B07CYQVK16": [
+      "Top concern: power_source_type",
+      "Avg rating: 3.25",
+      "n=16"
+    ],
+    "B07CYZH2XC": [
+      "Top concern: beard_trimming_function",
+      "Avg rating: 3.51",
+      "n=231"
+    ],
+    "B07CZ3KDN9": [
+      "Top concern: price_value_ratio",
+      "Avg rating: 4.09",
+      "n=32"
+    ],
+    "B07YFFLDQB": [
+      "Top concern: low_noise_operation",
+      "Avg rating: 4.45",
+      "n=101"
+    ],
+    "B08LGGMP5W": [
+      "Top concern: adjustable_comb_settings",
+      "Avg rating: 3.0",
+      "n=300"
+    ],
+    "B0B7R5TJLD": [
+      "Top concern: power_source_type",
+      "Avg rating: 3.63",
+      "n=156"
+    ],
+    "B0BL2YWH3N": [
+      "Top concern: nose_hair_trimming_function",
+      "Avg rating: 4.33",
+      "n=43"
+    ],
+    "B0BVQDYVTS": [
+      "Top concern: adjustable_comb_settings",
+      "Avg rating: 3.88",
+      "n=214"
+    ],
+    "B0BY18J8D9": [
+      "Top concern: adjustable_comb_settings",
+      "Avg rating: 3.99",
+      "n=117"
+    ],
+    "B0BY1KRJZ1": [
+      "Top concern: adjustable_comb_settings",
+      "Avg rating: 4.16",
+      "n=115"
+    ],
+    "B0DSB44YJZ": [
+      "Top concern: beard_trimming_function",
+      "Avg rating: 3.51",
+      "n=231"
+    ],
+    "B0F2M2NSBX": [
+      "Top concern: adjustable_comb_settings",
+      "Avg rating: 3.25",
+      "n=151"
+    ],
+    "B0FJS3QR1W": [
+      "Top concern: adjustable_comb_settings",
+      "Avg rating: 4.34",
+      "n=141"
+    ],
+    "B0FJS3TF3V": [
+      "Top concern: adjustable_comb_settings",
+      "Avg rating: 4.34",
+      "n=141"
+    ],
+    "B0FQW4KWRD": [
+      "Top concern: beard_trimming_function",
+      "Avg rating: 3.94",
+      "n=36"
+    ],
+    "B0FQWLR3BW": [
+      "Top concern: beard_trimming_function",
+      "Avg rating: 3.94",
+      "n=36"
+    ]
+  },
+  "context_scenarios": [
+    "Daily home grooming",
+    "Travel / portability",
+    "Gift purchase",
+    "Shower / wet use",
+    "Senior or special-needs grooming"
+  ],
+  "system1_system2_split": {
+    "system1_attributes": [
+      "compact_size",
+      "color_style_aesthetics",
+      "gift_packaging_quality",
+      "product_perceived_premium",
+      "grip_ergonomics",
+      "low_noise_operation",
+      "painless_operation",
+      "cut_smoothness"
+    ],
+    "system2_attributes": [
+      "battery_life_duration",
+      "adjustable_comb_settings",
+      "min_cut_length_mm",
+      "max_cut_length_mm",
+      "waterproof_rating_ipx8",
+      "blade_sharpness",
+      "price_value_ratio",
+      "product_longevity",
+      "motor_power_rpm",
+      "num_grooming_functions",
+      "total_attachments_count"
+    ],
+    "rationale": "System 1 = sensory cues at first contact; System 2 = deliberate comparison features."
+  },
+  "maslow_keywords": {
+    "physiological": [
+      "comfort",
+      "pain",
+      "grip",
+      "ergonomic",
+      "weight",
+      "noise",
+      "vibration"
+    ],
+    "safety": [
+      "waterproof",
+      "IPX8",
+      "skin-friendly",
+      "rounded tip",
+      "safe",
+      "no irritation"
+    ],
+    "belongingness": [
+      "gift",
+      "partner",
+      "couple",
+      "husband",
+      "wife",
+      "family",
+      "share"
+    ],
+    "esteem": [
+      "professional",
+      "premium",
+      "stylish",
+      "brand",
+      "Japanese",
+      "quality"
+    ],
+    "self_actualization": [
+      "versatile",
+      "all-in-one",
+      "precise",
+      "achieve",
+      "best",
+      "perfect"
+    ]
+  }
+}
