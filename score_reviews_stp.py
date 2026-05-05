@@ -685,137 +685,138 @@ def score_quality_from_review(text: str, attr_key: str, star: int, lang: str) ->
     return max(0.0, min(10.0, star_base + sentiment_delta))
 
 
-# ── Load reviews ──────────────────────────────────────────────────────────────
-TARGETS = {
-    "B001K85BN2": "Panasonic ER-GB42",   # placeholder — will be read from file
-    "B001K85BNC": "Panasonic ER-GB62",
-    "B008KEJ1LM": "Conair GMT175CS",
-}
-BRAND_MAP = {
-    "B001K85BN2": "Panasonic",
-    "B001K85BNC": "Panasonic",
-    "B008KEJ1LM": "Conair",
-}
-
-all_reviews = []
-for asin in ["B001K85BN2", "B001K85BNC", "B008KEJ1LM"]:
-    path = f"rawdata_Urbaner/amazon_reviews/001_Beard_Mustache_Trimmers/{asin}.xlsx"
-    df = pd.read_excel(path)
-    df["asin"] = asin
-    all_reviews.append(df)
-
-raw = pd.concat(all_reviews, ignore_index=True)
-
-# Normalise column names
-raw = raw.rename(columns={
-    "ASIN": "asin_orig",
-    "标题": "title",
-    "内容": "review_text",
-    "星级": "rating",
-    "型号": "model",
-    "评论人": "reviewer",
-    "所属国家": "country",
-    "评论时间": "review_date",
-})
-# Use our asin column
-raw["product"] = raw["asin"]
-raw["brand"] = raw["asin"].map(BRAND_MAP)
-raw["review_id"] = raw.index.map(lambda i: f"R{i+1:05d}")
-raw["unit_id"] = raw["review_id"]
-
-# Fill missing review_text
-raw["review_text"] = raw["review_text"].fillna("").astype(str)
-raw["combined_text"] = raw["title"].fillna("").astype(str) + " " + raw["review_text"]
-raw["lang"] = raw["combined_text"].apply(detect_language)
-raw["rating"] = pd.to_numeric(raw["rating"], errors="coerce").fillna(3)
-
-print(f"Loaded {len(raw)} reviews across {raw['product'].nunique()} products")
-print(raw.groupby("product")["review_id"].count())
-
-# ── Score every review × attribute ───────────────────────────────────────────
-print("Scoring reviews... (this may take a minute)")
-scoring_rows = []
-
-for _, row in raw.iterrows():
-    text = row["combined_text"]
-    lang = row["lang"]
-    star = row["rating"]
-
-    score_row = {
-        "review_id": row["review_id"],
-        "unit_id": row["unit_id"],
-        "brand": row["brand"],
-        "product": row["product"],
-        "review_text": row["review_text"],
-        "rating": star,
-        "lang": lang,
-        "country": row.get("country", ""),
-        "review_date": row.get("review_date", ""),
+if __name__ == "__main__":
+    # ── Load reviews ──────────────────────────────────────────────────────────────
+    TARGETS = {
+        "B001K85BN2": "Panasonic ER-GB42",
+        "B001K85BNC": "Panasonic ER-GB62",
+        "B008KEJ1LM": "Conair GMT175CS",
+    }
+    BRAND_MAP = {
+        "B001K85BN2": "Panasonic",
+        "B001K85BNC": "Panasonic",
+        "B008KEJ1LM": "Conair",
     }
 
-    for attr_key in ATTR_KEYS:
-        sal = score_salience(text, attr_key, lang)
-        score_row[f"{attr_key}_salience"] = sal
+    all_reviews = []
+    for asin in ["B001K85BN2", "B001K85BNC", "B008KEJ1LM"]:
+        path = f"rawdata_Urbaner/amazon_reviews/001_Beard_Mustache_Trimmers/{asin}.xlsx"
+        df = pd.read_excel(path)
+        df["asin"] = asin
+        all_reviews.append(df)
 
-    scoring_rows.append(score_row)
+    raw = pd.concat(all_reviews, ignore_index=True)
 
-scoring_df = pd.DataFrame(scoring_rows)
-scoring_df.to_csv(OUT_DIR / "review_scoring_table.csv", index=False, encoding="utf-8-sig")
-print(f"Saved review_scoring_table.csv ({len(scoring_df)} rows)")
+    # Normalise column names
+    raw = raw.rename(columns={
+        "ASIN": "asin_orig",
+        "标题": "title",
+        "内容": "review_text",
+        "星级": "rating",
+        "型号": "model",
+        "评论人": "reviewer",
+        "所属国家": "country",
+        "评论时间": "review_date",
+    })
+    # Use our asin column
+    raw["product"] = raw["asin"]
+    raw["brand"] = raw["asin"].map(BRAND_MAP)
+    raw["review_id"] = raw.index.map(lambda i: f"R{i+1:05d}")
+    raw["unit_id"] = raw["review_id"]
 
-# ── Build product quality scorecard ──────────────────────────────────────────
-print("Computing product quality scorecard...")
-quality_rows = []
+    # Fill missing review_text
+    raw["review_text"] = raw["review_text"].fillna("").astype(str)
+    raw["combined_text"] = raw["title"].fillna("").astype(str) + " " + raw["review_text"]
+    raw["lang"] = raw["combined_text"].apply(detect_language)
+    raw["rating"] = pd.to_numeric(raw["rating"], errors="coerce").fillna(3)
 
-for asin, grp in raw.groupby("asin"):
-    q_row = {
-        "product": asin,
-        "brand": BRAND_MAP[asin],
-        "n_reviews": len(grp),
-    }
+    print(f"Loaded {len(raw)} reviews across {raw['product'].nunique()} products")
+    print(raw.groupby("product")["review_id"].count())
 
-    for attr_key in ATTR_KEYS:
-        quality_vals = []
-        for _, row in grp.iterrows():
-            text = row["combined_text"]
-            lang = row["lang"]
-            star = row["rating"]
-            q = score_quality_from_review(text, attr_key, star, lang)
-            if q is not None:
-                quality_vals.append(q)
+    # ── Score every review × attribute ───────────────────────────────────────────
+    print("Scoring reviews... (this may take a minute)")
+    scoring_rows = []
 
-        if quality_vals:
-            q_score = sum(quality_vals) / len(quality_vals)
-        else:
-            # Attribute not mentioned: use overall product rating as neutral proxy
-            avg_star = grp["rating"].mean()
-            q_score = {5: 9.0, 4: 7.5, 3: 5.5, 2: 3.0, 1: 1.5}.get(round(avg_star), 5.5)
-            # Apply mild shrinkage toward neutral when unmentioned
-            q_score = 0.5 * q_score + 0.5 * 5.5
+    for _, row in raw.iterrows():
+        text = row["combined_text"]
+        lang = row["lang"]
+        star = row["rating"]
 
-        q_row[f"{attr_key}_quality"] = round(q_score, 2)
+        score_row = {
+            "review_id": row["review_id"],
+            "unit_id": row["unit_id"],
+            "brand": row["brand"],
+            "product": row["product"],
+            "review_text": row["review_text"],
+            "rating": star,
+            "lang": lang,
+            "country": row.get("country", ""),
+            "review_date": row.get("review_date", ""),
+        }
 
-    quality_rows.append(q_row)
+        for attr_key in ATTR_KEYS:
+            sal = score_salience(text, attr_key, lang)
+            score_row[f"{attr_key}_salience"] = sal
 
-quality_df = pd.DataFrame(quality_rows)
-quality_df.to_csv(OUT_DIR / "product_quality_scorecard.csv", index=False, encoding="utf-8-sig")
-print(f"Saved product_quality_scorecard.csv")
+        scoring_rows.append(score_row)
 
-# ── Copy attribute catalog ────────────────────────────────────────────────────
-import shutil
-shutil.copy("attribute_catalog.csv", OUT_DIR / "attribute_catalog.csv")
-print("Copied attribute_catalog.csv")
+    scoring_df = pd.DataFrame(scoring_rows)
+    scoring_df.to_csv(OUT_DIR / "review_scoring_table.csv", index=False, encoding="utf-8-sig")
+    print(f"Saved review_scoring_table.csv ({len(scoring_df)} rows)")
 
-# ── Print summary stats ───────────────────────────────────────────────────────
-sal_cols = [c for c in scoring_df.columns if c.endswith("_salience")]
-mentioned = scoring_df[sal_cols].gt(0).sum().sum()
-total_cells = len(scoring_df) * len(sal_cols)
-print(f"\nSalience coverage: {mentioned}/{total_cells} cells ({mentioned/total_cells*100:.1f}%) with salience > 0")
+    # ── Build product quality scorecard ──────────────────────────────────────────
+    print("Computing product quality scorecard...")
+    quality_rows = []
 
-for asin in ["B001K85BN2", "B001K85BNC", "B008KEJ1LM"]:
-    subset = scoring_df[scoring_df["product"] == asin]
-    avg_sal = subset[sal_cols].values.mean()
-    avg_rating = subset["rating"].mean()
-    print(f"{asin}: {len(subset)} reviews | avg_rating={avg_rating:.2f} | avg_salience={avg_sal:.3f}")
+    for asin, grp in raw.groupby("asin"):
+        q_row = {
+            "product": asin,
+            "brand": BRAND_MAP[asin],
+            "n_reviews": len(grp),
+        }
 
-print("\nDone. Artifacts written to:", OUT_DIR)
+        for attr_key in ATTR_KEYS:
+            quality_vals = []
+            for _, row in grp.iterrows():
+                text = row["combined_text"]
+                lang = row["lang"]
+                star = row["rating"]
+                q = score_quality_from_review(text, attr_key, star, lang)
+                if q is not None:
+                    quality_vals.append(q)
+
+            if quality_vals:
+                q_score = sum(quality_vals) / len(quality_vals)
+            else:
+                # Attribute not mentioned: use overall product rating as neutral proxy
+                avg_star = grp["rating"].mean()
+                q_score = {5: 9.0, 4: 7.5, 3: 5.5, 2: 3.0, 1: 1.5}.get(round(avg_star), 5.5)
+                # Apply mild shrinkage toward neutral when unmentioned
+                q_score = 0.5 * q_score + 0.5 * 5.5
+
+            q_row[f"{attr_key}_quality"] = round(q_score, 2)
+
+        quality_rows.append(q_row)
+
+    quality_df = pd.DataFrame(quality_rows)
+    quality_df.to_csv(OUT_DIR / "product_quality_scorecard.csv", index=False, encoding="utf-8-sig")
+    print(f"Saved product_quality_scorecard.csv")
+
+    # ── Copy attribute catalog ────────────────────────────────────────────────────
+    import shutil
+    shutil.copy("attribute_catalog.csv", OUT_DIR / "attribute_catalog.csv")
+    print("Copied attribute_catalog.csv")
+
+    # ── Print summary stats ───────────────────────────────────────────────────────
+    sal_cols = [c for c in scoring_df.columns if c.endswith("_salience")]
+    mentioned = scoring_df[sal_cols].gt(0).sum().sum()
+    total_cells = len(scoring_df) * len(sal_cols)
+    print(f"\nSalience coverage: {mentioned}/{total_cells} cells ({mentioned/total_cells*100:.1f}%) with salience > 0")
+
+    for asin in ["B001K85BN2", "B001K85BNC", "B008KEJ1LM"]:
+        subset = scoring_df[scoring_df["product"] == asin]
+        avg_sal = subset[sal_cols].values.mean()
+        avg_rating = subset["rating"].mean()
+        print(f"{asin}: {len(subset)} reviews | avg_rating={avg_rating:.2f} | avg_salience={avg_sal:.3f}")
+
+    print("\nDone. Artifacts written to:", OUT_DIR)
