@@ -1,0 +1,4 @@
+interface:
+  display_name: "Stacksmith Plan"
+  short_description: "Planning gauntlet for mystack — ideate, scope, architect, and converge coordination artifacts"
+  default_prompt: "Use $stacksmith-plan to plan this feature or project. Convergence artifacts (delivery-plan.md, AGENTS.md, CLAUDE.md, OpenSpec proposals) are created automatically at the end of the eng phase."

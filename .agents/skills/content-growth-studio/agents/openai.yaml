@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "Content Growth Studio"
+  short_description: "跨文章、影片、社群的內容增長協調與生成 skill"
+  default_prompt: "Use $content-growth-studio to analyze, ideate, package, produce, or systemize growth content across article, video, and social channels."

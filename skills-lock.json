@@ -4,62 +4,122 @@
     "bcg-growth-share-matrix": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "bcg-growth-share-matrix/SKILL.md",
       "computedHash": "b421da738097c813bc5099a42fdd02781dd0b55eb565bff4a7a216d3f71b11e4"
     },
     "business-model-architect": {
       "source": "TimLai666/skills",
       "sourceType": "github",
-      "computedHash": "45f4ce52ad719a496eca9ba538b4a769d3fdaae97a05aef867272093c67a4f68"
+      "skillPath": "business-model-architect/SKILL.md",
+      "computedHash": "70b539d430dc78a6f294eb8a7f9dfa1b3821efda7183eac0981b6ced9ab27ac4"
+    },
+    "cinematic-ui": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "cinematic-ui/SKILL.md",
+      "computedHash": "4cfc18fce12021dfe7bae11df3b7751f5c01b3bc1759214fb781a7ee6866fd82"
     },
     "commercial-proposal-writing": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "commercial-proposal-writing/SKILL.md",
       "computedHash": "7841496856f8efba91b0e109aaf4c7518a9f613f4a320d7859dfc8516121912d"
+    },
+    "content-growth-studio": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "content-growth-studio/SKILL.md",
+      "computedHash": "05f8ba1b854a41d218656d9970a88dcffbafa69578a0ac4f165c1cd4472acc36"
     },
     "customer-journey-mapper": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "customer-journey-mapper/SKILL.md",
       "computedHash": "e90c089f5381cb2e61b83ff13830828621155ade88d5c6a300bdd652d3f00115"
     },
     "customer-persona-framer": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "customer-persona-framer/SKILL.md",
       "computedHash": "6aaae3f8e0bfb190d1545794169263d43947c655fd2147a1580faf68f0656811"
     },
     "data-analysis-workflow": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "data-analysis-workflow/SKILL.md",
       "computedHash": "c81eba2b0ac22877cf5a50c685b91f6e934994b0c3c77090220e50f76567ae47"
     },
     "decision-bias-quality-control": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "decision-bias-quality-control/SKILL.md",
       "computedHash": "5804fca57b77d278197315f86db1278e29220432cf1ab01ffe50e1e424014fb9"
     },
     "ecosystem-map-and-blueprint": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "ecosystem-map-and-blueprint/SKILL.md",
       "computedHash": "dd4f7c1f525f9431fd35b43ac21953648a9e04734a13d331cf4569cec12f5319"
+    },
+    "experiential-guerrilla-marketing": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "experiential-guerrilla-marketing/SKILL.md",
+      "computedHash": "8243ae4ec040943b0ccad8d044d38ecaee6df0c35a3e7f75d6f7297588eac1a6"
+    },
+    "folder-organizer": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "folder-organizer/SKILL.md",
+      "computedHash": "7809ce525cf0b4b666adc8cac5fc02f7553d1a65697e1fc819a8a70854ee47a6"
+    },
+    "human-writing": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "human-writing/SKILL.md",
+      "computedHash": "13cce34a6c2181bc14e61e07b80bbd8343b333178889f8324660551c9a3790bc"
+    },
+    "investigate": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "investigate/SKILL.md",
+      "computedHash": "25b3e01579f948c6657adacbc588bb19c85ac08bd4357a6cd2c38ac186be1c08"
     },
     "investment-research-prompts": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "investment-research-prompts/SKILL.md",
       "computedHash": "1c90e297e53239b3e470ac7f33a8793426703aa7d672425a86efe016a0cfde86"
     },
     "landing-page-studio": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "landing-page-studio/SKILL.md",
       "computedHash": "02a58142ce6a80c413827856fa7da02b473434d9f73a76ff2063ffdf559007c3"
     },
     "maslow-five-needs-marketing": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "maslow-five-needs-marketing/SKILL.md",
       "computedHash": "8cd3d724a93d07cfd2e67e54394588f425de126019cc092bc116077f44303609"
     },
     "orchestrating-mixed-methods": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "orchestrating-mixed-methods/SKILL.md",
       "computedHash": "8480cfd1ae590f831ea835a4f06a9082e0fc7a7046bfd45d184797518bf64a3a"
+    },
+    "pestel-analysis": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "pestel-analysis/SKILL.md",
+      "computedHash": "d6de8dc3d2a88fa3c3f8b75ccd99021c79298a856a90981bca8f7eea7e725f9f"
+    },
+    "product-conjoint-analysis": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "product-conjoint-analysis/SKILL.md",
+      "computedHash": "12b9e861294dffd4c17d4defe2a156cd4dfe8f108c888e33ee839ec4570d8459"
     },
     "project-convergence": {
       "source": "TimLai666/skills",
@@ -69,51 +129,127 @@
     "psychological-trigger-marketing": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "psychological-trigger-marketing/SKILL.md",
       "computedHash": "91467f04bb6939c6eb444da567ae624c084feca5cb0c526264048c9b3599a2ab"
+    },
+    "red-flag-contract-scanner": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "red-flag-contract-scanner/SKILL.md",
+      "computedHash": "b253897e33300a7abce061f710576384d322933523c7f35292f910ecd85b9003"
     },
     "review-mining-stp": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "review-mining-stp/SKILL.md",
       "computedHash": "5f146a1c589ebf960cb3f2a9eec25359e299c9b8a983c56157e932daa13974d7"
     },
     "review-salience-xlsx": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "review-salience-xlsx/SKILL.md",
       "computedHash": "3dfb3eeac0f2f2b1e79bea12c015a8afc5012a3c9652acf220d1dba28e74a885"
     },
     "review-scoring-docx": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "review-scoring-docx/SKILL.md",
       "computedHash": "588dc10d868b7bfa0576dc62a90df86e841216aa7254df46a0978506a303d9f0"
+    },
+    "scamper": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "scamper/SKILL.md",
+      "computedHash": "6edd39902c2b92725f89d68d6ea73faae992f1da9c13765fc12a0ba52e4f8266"
     },
     "service-design-workshop": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "service-design-workshop/SKILL.md",
       "computedHash": "4d966f3d752af0f636f0c034af1bd93fac0e8af79287d0169e88d412036d4085"
+    },
+    "service-innovation-case-study": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "service-innovation-case-study/SKILL.md",
+      "computedHash": "62db18052c1010f2f6db64024ab670c08eac0b6b3ef6472066e06884ee51fa66"
     },
     "service-innovation-workshop": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "service-innovation-workshop/SKILL.md",
       "computedHash": "f8da0b2ce23f816016ada41af7cdd0e9a17ef3e1eaf085fbbbc4586d54e5da70"
     },
     "sor-marketing-strategy": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "sor-marketing-strategy/SKILL.md",
       "computedHash": "230a4abaf37a016079098c1b050969220f2f12ffa00e9bf2b2d941ab9b7cbebe"
+    },
+    "stacksmith-ops": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "stacksmith-ops/SKILL.md",
+      "computedHash": "824946e69e38652d05a20b35868c62e486b3750929cff3b2c282c11e48ae9ed1"
+    },
+    "stacksmith-plan": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "stacksmith-plan/SKILL.md",
+      "computedHash": "6fdc8a5c33ff222be1c6d223ca908bf2b31f238aa50281d1b26363eebf06d8f7"
+    },
+    "stacksmith-qa": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "stacksmith-qa/SKILL.md",
+      "computedHash": "c8f3a50f6fa9e1614dd96b904c27f97a9446e9c5943430e1bf949b3da7ba8362"
+    },
+    "stacksmith-release": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "stacksmith-release/SKILL.md",
+      "computedHash": "e89c79c3b5b0c82a9e207473c147443412d7119074f2d67035910e96e2600bf7"
+    },
+    "stacksmith-review": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "stacksmith-review/SKILL.md",
+      "computedHash": "809fd214de63cffd4348bbb10b3c69c2392605d5a4419ba14980d67e3f931609"
+    },
+    "stacksmith-safety": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "stacksmith-safety/SKILL.md",
+      "computedHash": "4469a72d2d5eaccdb8eacf0d4901704cb2e427cbb78370d504d1974a4cedaf6c"
+    },
+    "subtraction-thinking": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "subtraction-thinking/SKILL.md",
+      "computedHash": "631fa08a68732027807bbec1abea7b0ace5164563e3f62436f5db32f77e2dea7"
+    },
+    "swot-analysis": {
+      "source": "TimLai666/skills",
+      "sourceType": "github",
+      "skillPath": "swot-analysis/SKILL.md",
+      "computedHash": "cb046bbbfddc643fdbb85b1100b7184699bf246f56290ee92af09debe0b3f0ab"
     },
     "theory-analysis-product-positioning": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "theory-analysis-product-positioning/SKILL.md",
       "computedHash": "1aa71dc7a35b8012ee2e0811f369ad704406ccea6bc06bc1e896d924ee2df851"
     },
     "theory-analysis-purchase-motivation": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "theory-analysis-purchase-motivation/SKILL.md",
       "computedHash": "3abf157dfddebf7f7fcd999e628a351aef32716a9039e2b2314d7e5d831f2d28"
     },
     "theory-analysis-wom-motivation": {
       "source": "TimLai666/skills",
       "sourceType": "github",
+      "skillPath": "theory-analysis-wom-motivation/SKILL.md",
       "computedHash": "601f299a76f7fa78dc4df0fb6ac596a373bdff5d796609df6e7d9baca4bfebc7"
     }
   }

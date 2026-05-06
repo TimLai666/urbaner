@@ -4,7 +4,8 @@
       "Bash(uv add:*)",
       "Bash(uv --version)",
       "Bash(uv init:*)",
-      "Bash(uv sync:*)"
+      "Bash(uv sync:*)",
+      "PowerShell(Get-Command git -ErrorAction SilentlyContinue)"
     ]
   }
 }
