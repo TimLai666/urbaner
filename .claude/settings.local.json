@@ -5,7 +5,8 @@
       "Bash(uv --version)",
       "Bash(uv init:*)",
       "Bash(uv sync:*)",
-      "PowerShell(Get-Command git -ErrorAction SilentlyContinue)"
+      "PowerShell(Get-Command git -ErrorAction SilentlyContinue)",
+      "PowerShell(cd \"c:\\\\Users\\\\user\\\\Documents\\\\GitHub\\\\urbaner\"; $env:PYTHONIOENCODING = \"utf-8\"; & \".venv\\\\Scripts\\\\python.exe\" -X utf8 -c \"import sys; print\\(sys.executable\\); import site; print\\(site.getsitepackages\\(\\)\\)\")"
     ]
   }
 }
