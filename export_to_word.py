@@ -12,9 +12,26 @@ from docx.enum.table import WD_TABLE_ALIGNMENT, WD_ALIGN_VERTICAL
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 
-MD_PATH    = Path("output_conjoint/extended_analysis_report.md")
 CHART_DIR  = Path("output_conjoint/charts")
-OUTPUT     = Path("output_conjoint/URBANER_延伸分析報告.docx")
+
+JOBS = [
+    {
+        "md":     Path("output_conjoint/extended_analysis_report.md"),
+        "output": Path("output_conjoint/URBANER_延伸分析報告.docx"),
+    },
+    {
+        "md":     Path("output_conjoint/conjoint_report.md"),
+        "output": Path("output_conjoint/URBANER_聯合分析報告.docx"),
+    },
+    {
+        "md":     Path("output_conjoint/card_choice_prob_report.md"),
+        "output": Path("output_conjoint/URBANER_產品組合購買機率.docx"),
+    },
+    {
+        "md":     Path("output_conjoint/card_mnl_market_report.md"),
+        "output": Path("output_conjoint/URBANER_市場競爭力分析.docx"),
+    },
+]
 
 # ── 顏色定義 ──────────────────────────────────────────────────────────────────
 COLOR_BRAND   = RGBColor(0xE8, 0x47, 0x2A)   # Urbaner 紅
@@ -312,11 +329,17 @@ def build_doc(md_text: str) -> Document:
 
 
 def main():
-    md_text = MD_PATH.read_text(encoding="utf-8")
-    print("轉換中...")
-    doc = build_doc(md_text)
-    doc.save(OUTPUT)
-    print(f"✅ Word 文件已儲存：{OUTPUT}")
+    for job in JOBS:
+        md_path = job["md"]
+        output  = job["output"]
+        if not md_path.exists():
+            print(f"[SKIP] 找不到 {md_path}")
+            continue
+        print(f"轉換中：{md_path.name} ...")
+        md_text = md_path.read_text(encoding="utf-8")
+        doc = build_doc(md_text)
+        doc.save(output)
+        print(f"[OK] Word 文件已儲存：{output}")
 
 
 if __name__ == "__main__":

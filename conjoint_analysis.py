@@ -97,7 +97,10 @@ def build_df(df, attr_map):
 us_df = build_df(us, US_ALL)
 jp_df = build_df(jp, JP_ALL)
 
-# ── 3. Phase II：離散化屬性水準（Low=0, Mid=1, High=2）─────────────────────
+# ── 3. Phase II：Dummy Encoding（Low 為參照組，Mid/High 各一個 dummy）──────
+# 參照組 Low (0–4)：兩個 dummy 皆為 0
+# Mid (4–7)：attr_mid=1, attr_high=0
+# High (7–10)：attr_mid=0, attr_high=1
 
 def discretize(df, attrs):
     d = df.copy()
@@ -105,9 +108,11 @@ def discretize(df, attrs):
         if attr not in d.columns:
             continue
         bins = [0, 4, 7, 10]
-        d[f"{attr}_level"] = pd.cut(
+        level = pd.cut(
             d[attr], bins=bins, labels=[0, 1, 2], include_lowest=True
         ).astype(float)
+        d[f"{attr}_mid"]  = (level == 1).astype(float)
+        d[f"{attr}_high"] = (level == 2).astype(float)
     return d
 
 us_df = discretize(us_df, list(US_ALL.keys()))
@@ -118,40 +123,55 @@ jp_df = discretize(jp_df, list(JP_ALL.keys()))
 us_df["preferred"] = (us_df["avg_star"] >= us_df["avg_star"].mean()).astype(int)
 jp_df["preferred"] = (jp_df["avg_star"] >= jp_df["avg_star"].mean()).astype(int)
 
-# ── 5. Split-model 逐屬性 Logistic（使用離散水準）────────────────────────────
+# ── 5. Split-model 逐屬性 Logistic（Dummy Encoding）─────────────────────────
+# 每個屬性帶入 attr_mid 和 attr_high 兩個 dummy，Low 為參照組（截距）
+# 回傳 β_mid（Mid vs Low 的效用差）和 β_high（High vs Low 的效用差）
 
 def run_conjoint(df, attrs):
     results = {}
     y = df["preferred"]
     for attr in attrs:
-        col = f"{attr}_level"
-        if col not in df.columns:
+        col_mid  = f"{attr}_mid"
+        col_high = f"{attr}_high"
+        if col_mid not in df.columns or col_high not in df.columns:
             continue
-        X = sm.add_constant(df[[col]])
+        X = sm.add_constant(df[[col_mid, col_high]])
         try:
-            model = sm.Logit(y, X).fit(disp=False, maxiter=200)
+            model = sm.Logit(y, X).fit(disp=False, maxiter=200, method="bfgs")
+            bm = model.params.get(col_mid,  np.nan)
+            bh = model.params.get(col_high, np.nan)
+            pm = model.pvalues.get(col_mid,  np.nan)
+            ph = model.pvalues.get(col_high, np.nan)
+            # 完全分離保護：係數絕對值 > 100 視為不可靠，設為 NaN
+            if abs(bm) > 100: bm, pm = np.nan, np.nan
+            if abs(bh) > 100: bh, ph = np.nan, np.nan
             results[attr] = {
-                "coef": model.params[col],
-                "pval": model.pvalues[col],
+                "beta_mid":  bm, "beta_high": bh,
+                "pval_mid":  pm, "pval_high": ph,
                 "intercept": model.params["const"],
             }
         except Exception:
-            results[attr] = {"coef": np.nan, "pval": np.nan, "intercept": np.nan}
+            results[attr] = {
+                "beta_mid": np.nan, "beta_high": np.nan,
+                "pval_mid": np.nan, "pval_high": np.nan,
+                "intercept": np.nan,
+            }
     return results
 
 us_parts = run_conjoint(us_df, list(US_ALL.keys()))
 jp_parts = run_conjoint(jp_df, list(JP_ALL.keys()))
 
-# ── 6. 屬性重要性（range-based）─────────────────────────────────────────────
+# ── 6. 屬性重要性（range-based，Dummy Encoding 版）──────────────────────────
+# Low 參照組 part-worth = 0
+# range = max(0, β_mid, β_high) - min(0, β_mid, β_high)
 
 def compute_importance(parts):
     ranges = {}
     for attr, res in parts.items():
-        if np.isnan(res["coef"]):
-            ranges[attr] = 0.0
-            continue
-        # 水準 0→2 的效用差
-        ranges[attr] = abs(res["coef"]) * 2  # max_level - min_level = 2
+        bm = res.get("beta_mid",  np.nan)
+        bh = res.get("beta_high", np.nan)
+        vals = [v for v in [0.0, bm, bh] if not np.isnan(v)]
+        ranges[attr] = max(vals) - min(vals) if vals else 0.0
     total = sum(ranges.values())
     imp = {k: round(v / total * 100, 1) if total > 0 else 0.0
            for k, v in ranges.items()}
@@ -168,13 +188,14 @@ def choice_prob_ranked(df, parts, attrs):
         U = 0.0
         for attr in attrs:
             res = parts.get(attr, {})
-            coef = res.get("coef", np.nan)
-            if np.isnan(coef):
-                continue
-            lv = row.get(f"{attr}_level", np.nan)
-            if np.isnan(lv):
-                continue
-            U += coef * lv
+            bm = res.get("beta_mid",  np.nan)
+            bh = res.get("beta_high", np.nan)
+            mid_val  = row.get(f"{attr}_mid",  np.nan)
+            high_val = row.get(f"{attr}_high", np.nan)
+            if not np.isnan(bm) and not np.isnan(mid_val):
+                U += bm * mid_val
+            if not np.isnan(bh) and not np.isnan(high_val):
+                U += bh * high_val
         utilities.append(U)
 
     utilities = np.array(utilities, dtype=float)
@@ -191,26 +212,62 @@ def choice_prob_ranked(df, parts, attrs):
 us_ranked = choice_prob_ranked(us_df, us_parts, list(US_ALL.keys()))
 jp_ranked = choice_prob_ranked(jp_df, jp_parts, list(JP_ALL.keys()))
 
-# ── 8. R&D ROI（效用增益 per 屬性）─────────────────────────────────────────
+# ── 8. WTP 計算（需 β_price < 0 才可靠）─────────────────────────────────────
+# 公式：WTP(水準 k vs Low) = β_k / |β_price|
+# β_price 來自 extended_analysis.py 的 Split-model 真實售價迴歸結果
+# US：β_price = -0.0212（p=0.3864，符號正確，可計算，但顯著性偏低）
+# JP：β_price = +0.0004（正值，違反經濟理論，WTP 僅供方向參考）
+
+BETA_PRICE_US = -0.0212   # USD per quality-point
+BETA_PRICE_JP =  0.0004   # JPY per quality-point（正值，方向性參考）
+
+def compute_wtp(parts, beta_price, currency_symbol):
+    """
+    回傳 dict: attr → {low, mid, high, reliable}
+    low 永遠為 0（參照組）
+    mid = β_mid / |β_price|
+    high = β_high / |β_price|
+    reliable = True 若 β_price < 0
+    """
+    reliable = beta_price < 0
+    abs_bp = abs(beta_price) if beta_price != 0 else np.nan
+    wtp = {}
+    for attr, res in parts.items():
+        if attr == "price":
+            continue
+        bm = res.get("beta_mid",  np.nan)
+        bh = res.get("beta_high", np.nan)
+        wtp[attr] = {
+            "low":      0.0,
+            "mid":      round(bm / abs_bp, 2) if (not np.isnan(bm) and not np.isnan(abs_bp)) else np.nan,
+            "high":     round(bh / abs_bp, 2) if (not np.isnan(bh) and not np.isnan(abs_bp)) else np.nan,
+            "reliable": reliable,
+            "currency": currency_symbol,
+        }
+    return wtp
+
+us_wtp = compute_wtp(us_parts, BETA_PRICE_US, "$")
+jp_wtp = compute_wtp(jp_parts, BETA_PRICE_JP, "¥")
+
+# ── 8b. R&D ROI（效用增益 per 屬性）─────────────────────────────────────────
 
 def compute_roi(parts):
     roi = {}
     for attr, res in parts.items():
-        if attr == "price" or np.isnan(res.get("coef", np.nan)):
+        if attr == "price":
             continue
-        roi[attr] = round(abs(res["coef"]), 4)
+        bm = res.get("beta_mid",  np.nan)
+        bh = res.get("beta_high", np.nan)
+        vals = [v for v in [bm, bh] if not np.isnan(v)]
+        if vals:
+            roi[attr] = round(max(abs(v) for v in vals), 4)
     return roi
 
 us_roi = compute_roi(us_parts)
 jp_roi = compute_roi(jp_parts)
 
-# ── 9. WTP 說明（需真實售價） ─────────────────────────────────────────────────
-
-WTP_NOTE = (
-    "本模型使用 Axis B CP值品質分（0-10）作為 price 欄，係數方向為正（品質分越高偏好越強），"
-    "與傳統 WTP 推算所需的「價格越高偏好越低」不符。\n"
-    "**建議後續步驟**：補入各 ASIN 的實際 Amazon 售價（美元 / 日圓），以價格作為連續變數重估模型，即可得到可靠的 WTP 值。"
-)
+# ── 9. WTP 說明（已補入真實 β_price） ───────────────────────────────────────
+# β_price 來自 extended_analysis.py 的真實售價 Split-model 結果
 
 # ── 10. 生成 Markdown 報告 ────────────────────────────────────────────────────
 
@@ -231,21 +288,57 @@ def md_importance_table(imp, parts, market_label):
     lines = [
         f"### {market_label} — 屬性重要性",
         "",
-        "| 排名 | 屬性 | 重要性 | 係數(β) | p 值 | 顯著 | 水準定義 |",
-        "|---:|---|---:|---:|---:|:---:|---|",
+        "| 排名 | 屬性 | 重要性 | β_mid | p(mid) | β_high | p(high) | 水準定義 |",
+        "|---:|---|---:|---:|---:|---:|---:|---|",
     ]
     for i, (attr, pct) in enumerate(sorted(imp.items(), key=lambda x: -x[1]), 1):
         res = parts.get(attr, {})
-        coef = res.get("coef", np.nan)
-        pval = res.get("pval", np.nan)
-        zh = ATTR_ZH.get(attr, attr)
-        levels = " / ".join(ATTR_LEVELS.get(attr, ["Low", "Mid", "High"]))
-        coef_str = f"{coef:.4f}" if not np.isnan(coef) else "—"
-        pval_str = f"{pval:.4f}" if not np.isnan(pval) else "—"
+        bm   = res.get("beta_mid",  np.nan)
+        bh   = res.get("beta_high", np.nan)
+        pm   = res.get("pval_mid",  np.nan)
+        ph   = res.get("pval_high", np.nan)
+        zh   = ATTR_ZH.get(attr, attr)
+        lvls = ATTR_LEVELS.get(attr, ["Low", "Mid", "High"])
+        levels_str = f"{lvls[0]} / {lvls[1]} / {lvls[2]}"
+        bm_s  = f"{bm:.4f}"  if not np.isnan(bm)  else "—"
+        bh_s  = f"{bh:.4f}"  if not np.isnan(bh)  else "—"
+        pm_s  = f"{pm:.4f}"  if not np.isnan(pm)  else "—"
+        ph_s  = f"{ph:.4f}"  if not np.isnan(ph)  else "—"
         lines.append(
-            f"| {i} | {zh} | **{pct}%** | {coef_str} | {pval_str} | {sig_star(pval)} | {levels} |"
+            f"| {i} | {zh} | **{pct}%** | {bm_s}{sig_star(pm)} | {pm_s} | {bh_s}{sig_star(ph)} | {ph_s} | {levels_str} |"
         )
     lines += ["", "> \\* p<0.05 &nbsp; \\*\\* p<0.01 &nbsp; \\*\\*\\* p<0.001 &nbsp; † p<0.1", ""]
+    return "\n".join(lines)
+
+def md_wtp_table(wtp_dict, market_label):
+    """各屬性 Low / Mid / High 水準的 WTP 溢價表（相對 Low 參照組）"""
+    if not wtp_dict:
+        return ""
+    first = next(iter(wtp_dict.values()))
+    reliable = first.get("reliable", False)
+    cur = first.get("currency", "")
+    note = "" if reliable else "⚠️ β_price > 0，WTP 僅供方向性參考，不宜直接用於定價決策"
+    lines = [
+        f"### {market_label} — WTP 各水準溢價表",
+        "",
+    ]
+    if note:
+        lines += [f"> {note}", ""]
+    lines += [
+        f"| 屬性 | 參照組（Low） | Mid 溢價 | High 溢價 | 水準定義 |",
+        "|---|---:|---:|---:|---|",
+    ]
+    for attr, v in sorted(wtp_dict.items(), key=lambda x: abs(x[1].get("high", 0) or 0), reverse=True):
+        zh  = ATTR_ZH.get(attr, attr)
+        lvls = ATTR_LEVELS.get(attr, ["Low", "Mid", "High"])
+        mid_s  = f"{cur}{v['mid']:+.2f}"  if v["mid"]  is not None and not (isinstance(v["mid"],  float) and np.isnan(v["mid"]))  else "—"
+        high_s = f"{cur}{v['high']:+.2f}" if v["high"] is not None and not (isinstance(v["high"], float) and np.isnan(v["high"])) else "—"
+        lines.append(f"| {zh} | {cur}0.00 | {mid_s} | {high_s} | {lvls[0]} / {lvls[1]} / {lvls[2]} |")
+    lines += [
+        "",
+        "> WTP 解讀：High 溢價代表消費者願意為該屬性從 Low 水準升至 High 水準多付的金額。",
+        "",
+    ]
     return "\n".join(lines)
 
 def md_top_skus(ranked, market_label, n=5):
@@ -384,9 +477,13 @@ report_lines = [
     "",
     "## 六、WTP（願付溢價）",
     "",
-    f"> ⚠️ **本次無法計算**  ",
-    f"> {WTP_NOTE}",
+    "> **計算方式**：WTP(水準 k vs Low) = β_k / |β_price|  ",
+    "> β_price 來自 extended_analysis.py 以真實 Amazon 售價估計的 Split-model Logistic 結果。  ",
+    "> US β_price = -0.0212（p=0.3864，符號正確，結果可計算，但顯著性偏低，請視為方向性）  ",
+    "> JP β_price = +0.0004（正值，違反經濟理論，WTP 僅供方向性參考）",
     "",
+    md_wtp_table(us_wtp, "🇺🇸 美國市場（單位：USD）"),
+    md_wtp_table(jp_wtp, "🇯🇵 日本市場（單位：JPY）"),
     "---",
     "",
     "## 七、R&D 優先序（效用增益 ROI）",
@@ -484,5 +581,5 @@ print("\n【JP Top 5 SKU】")
 for i, (_, row) in enumerate(jp_ranked.head(5).iterrows(), 1):
     print(f"  {i}. {row['product']}  prob={row['choice_prob']:.4f}  avg★={row['avg_star']:.2f}")
 
-print(f"\n✅ Markdown 報告已儲存：{out_path}")
+print(f"\n[OK] Markdown 報告已儲存：{out_path}")
 print(f"   US n={len(us_df)} | JP n={len(jp_df)}")
