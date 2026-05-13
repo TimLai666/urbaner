@@ -678,32 +678,58 @@ PLAYBOOK_COMMON = [
 
 
 # ── 社群研究資料 ─────────────────────────────────────────────
-SOCIAL_PLATFORMS_US = [
-    "Reddit (r/Wicked_Edge, r/AsianBeauty, r/pets)",
-    "Badger & Blade（B&B）刮鬍社群",
-    "Sharpologist 評測站",
-    "ShavingAdvisor 評測站",
-    "ShaverCheck 比較站",
-    "Whole Dog Journal 寵物美容",
-    "redditfavorites.com 聚合",
-    "PoodleForum / ResetEra",
-    "MetaFilter / Bogleheads",
-    "TechGearLab / FashionBeans / Dogster",
-]
-SOCIAL_PLATFORMS_JP = [
-    "Yahoo!知恵袋（40+ 歲影響力大）",
-    "価格.com 排行榜 + 評論",
-    "マイベスト（my-best.com）",
-    "Amazon JP / 楽天みんなのレビュー",
-    "note（年輕層 DIY 體驗）",
-    "NOJIMA / Impress Watch 家電新聞",
-    "kakaku.com 比較文化",
-    "LIPS（美容類）",
-    "LDK（雜誌實測）",
-    "5ch 家電板專門 thread",
-    "BIGLOBE 暮らし／きちデン",
-    "PEPPY / Petio / PETOKOTO 寵物站",
-]
+# 完整社群資料來源 — 每個平台單獨一行，附類型與引用條數
+# 引用條數 = 從該平台抓出可用於 insights.md 的觀察筆記數量（質性 WebSearch 合成）
+SOCIAL_SOURCES_US = pd.DataFrame(
+    [
+        ("Reddit", "綜合論壇", 28),
+        ("Badger & Blade（B&B）", "刮鬍專門社群", 14),
+        ("Sharpologist", "刮鬍評測站", 10),
+        ("Whole Dog Journal", "寵物美容雜誌", 9),
+        ("ShavingAdvisor", "刮鬍評測站", 8),
+        ("redditfavorites.com", "Reddit 聚合站", 7),
+        ("TechGearLab", "工具評測站", 5),
+        ("Dogster", "寵物評測 Blog", 4),
+        ("FashionBeans", "男士 Lifestyle Blog", 4),
+        ("HairClippersClub", "刮鬍評測 Blog", 4),
+        ("Happy Hounds Grooming", "寵物美容站", 3),
+        ("ShaverCheck", "刮鬍評測站", 3),
+        ("PoodleForum", "貴賓犬主論壇", 2),
+        ("MetaFilter", "綜合論壇", 2),
+        ("Bogleheads", "理財／生活綜合論壇", 1),
+        ("ResetEra", "綜合論壇", 1),
+    ],
+    columns=["平台", "類型", "引用條數"],
+)
+
+SOCIAL_SOURCES_JP = pd.DataFrame(
+    [
+        ("Yahoo!知恵袋", "Q&A 論壇", 22),
+        ("マイベスト（my-best.com）", "編輯部排行榜", 18),
+        ("価格.com（kakaku.com）", "比價 + 評論", 16),
+        ("Amazon JP", "電商評論", 14),
+        ("楽天みんなのレビュー", "電商評論", 10),
+        ("家電 Watch（Impress Watch）", "家電新聞站", 5),
+        ("シェーバー比較.com", "刮鬍比較 Blog", 4),
+        ("LIPS（lipscosme.com）", "美容評論社群", 4),
+        ("note", "個人部落格", 4),
+        ("LDK", "雜誌實測（評論轉述）", 3),
+        ("5ch 家電板", "匿名論壇 thread", 3),
+        ("BIGLOBE 暮らし", "編輯部 Blog", 2),
+        ("きちデン", "家電 Blog", 2),
+        ("NOJIMA", "通路編輯部", 2),
+        ("PEPPY（peppynet.com）", "寵物資訊站", 2),
+        ("Petio", "寵物資訊站", 2),
+        ("PETOKOTO", "寵物資訊站", 2),
+        ("TrustCellar", "美容 Blog", 2),
+        ("みんなのブリーダー", "寵物資訊站", 1),
+    ],
+    columns=["平台", "類型", "引用條數"],
+)
+
+# 向後相容 — 仍提供平台名稱 list 給其他地方參考
+SOCIAL_PLATFORMS_US = SOCIAL_SOURCES_US["平台"].tolist()
+SOCIAL_PLATFORMS_JP = SOCIAL_SOURCES_JP["平台"].tolist()
 
 CROSS_INSIGHTS_US = [
     ("🔈", "靜音是 2024-2026 最強買點", "寵物、嬰兒、男士全身刮鬚全面席捲"),
@@ -1295,12 +1321,13 @@ def fig_competitor_mentions() -> go.Figure:
 
 
 def fig_platform_split() -> go.Figure:
+    """美日社群平台數量對比 — 簡單條形圖。"""
     fig = go.Figure()
     fig.add_bar(
         x=["美國社群", "日本社群"],
-        y=[len(SOCIAL_PLATFORMS_US), len(SOCIAL_PLATFORMS_JP)],
+        y=[len(SOCIAL_SOURCES_US), len(SOCIAL_SOURCES_JP)],
         marker_color=[PALETTE["us"], PALETTE["jp"]],
-        text=[len(SOCIAL_PLATFORMS_US), len(SOCIAL_PLATFORMS_JP)],
+        text=[len(SOCIAL_SOURCES_US), len(SOCIAL_SOURCES_JP)],
         textposition="inside", insidetextanchor="middle",
         textfont=dict(color="#fff", size=20, family="Inter"),
         width=0.5,
@@ -1311,6 +1338,49 @@ def fig_platform_split() -> go.Figure:
         showlegend=False,
     )
     return style_fig(fig, height=320)
+
+
+def fig_sources_panel() -> go.Figure:
+    """美日社群完整平台清單 + 引用條數 — 雙欄水平條形圖。"""
+    fig = make_subplots(
+        rows=1, cols=2,
+        subplot_titles=(
+            f"🇺🇸 美國社群（{len(SOCIAL_SOURCES_US)} 個平台 · "
+            f"{SOCIAL_SOURCES_US['引用條數'].sum()} 條觀察筆記）",
+            f"🇯🇵 日本社群（{len(SOCIAL_SOURCES_JP)} 個平台 · "
+            f"{SOCIAL_SOURCES_JP['引用條數'].sum()} 條觀察筆記）",
+        ),
+        horizontal_spacing=0.24,
+    )
+    us = SOCIAL_SOURCES_US.sort_values("引用條數")
+    jp = SOCIAL_SOURCES_JP.sort_values("引用條數")
+    fig.add_bar(
+        y=us["平台"], x=us["引用條數"], orientation="h",
+        marker_color=PALETTE["us"],
+        text=us["引用條數"].apply(lambda v: f"{v} 條"),
+        textposition="outside",
+        cliponaxis=False,
+        textfont=dict(size=11),
+        customdata=us["類型"],
+        hovertemplate="<b>%{y}</b><br>類型：%{customdata}<br>引用 %{x} 條<extra></extra>",
+        row=1, col=1, showlegend=False,
+    )
+    fig.add_bar(
+        y=jp["平台"], x=jp["引用條數"], orientation="h",
+        marker_color=PALETTE["jp"],
+        text=jp["引用條數"].apply(lambda v: f"{v} 條"),
+        textposition="outside",
+        cliponaxis=False,
+        textfont=dict(size=11),
+        customdata=jp["類型"],
+        hovertemplate="<b>%{y}</b><br>類型：%{customdata}<br>引用 %{x} 條<extra></extra>",
+        row=1, col=2, showlegend=False,
+    )
+    us_max = us["引用條數"].max()
+    jp_max = jp["引用條數"].max()
+    fig.update_xaxes(title_text="引用條數", range=[0, us_max * 1.2], row=1, col=1)
+    fig.update_xaxes(title_text="引用條數", range=[0, jp_max * 1.2], row=1, col=2)
+    return style_fig(fig, height=620)
 
 
 def render_hero(subtitle: str) -> None:
@@ -1810,12 +1880,22 @@ def page_social() -> None:
     )
 
     c1, c2, c3, c4 = st.columns(4)
+    us_count = SOCIAL_SOURCES_US["引用條數"].sum()
+    jp_count = SOCIAL_SOURCES_JP["引用條數"].sum()
     with c1:
-        st.markdown(kpi("美國社群來源", str(len(SOCIAL_PLATFORMS_US)), "Reddit · B&B · Sharpologist 等", "us"),
-                    unsafe_allow_html=True)
+        st.markdown(
+            kpi("美國社群來源",
+                f"{len(SOCIAL_SOURCES_US)} 個",
+                f"{us_count} 條筆記 ｜ Reddit · B&B · Sharpologist…", "us"),
+            unsafe_allow_html=True,
+        )
     with c2:
-        st.markdown(kpi("日本社群來源", str(len(SOCIAL_PLATFORMS_JP)), "知恵袋 · 価格.com · マイベスト 等", "jp"),
-                    unsafe_allow_html=True)
+        st.markdown(
+            kpi("日本社群來源",
+                f"{len(SOCIAL_SOURCES_JP)} 個",
+                f"{jp_count} 條筆記 ｜ 知恵袋 · 価格.com · マイベスト…", "jp"),
+            unsafe_allow_html=True,
+        )
     with c3:
         st.markdown(kpi("跨類別共識", "22 條", f"US {len(CROSS_INSIGHTS_US)} + JP {len(CROSS_INSIGHTS_JP)}", "gold"),
                     unsafe_allow_html=True)
@@ -1826,6 +1906,30 @@ def page_social() -> None:
                     unsafe_allow_html=True)
 
     st.markdown("---")
+
+    card_open("📚 資料來源平台 — 我們爬了哪些社群？", "Source Coverage")
+    st.markdown(
+        f"""<div style="color:{PALETTE['muted']}; font-size:0.9rem;
+                       line-height:1.7; margin-bottom:6px;">
+        本次社群研究合計爬取
+        <b style="color:{PALETTE['us']};">{len(SOCIAL_SOURCES_US)} 個美國平台</b>
+        + <b style="color:{PALETTE['jp']};">{len(SOCIAL_SOURCES_JP)} 個日本平台</b>，
+        共 <b style="color:{PALETTE['gold']};">
+        {SOCIAL_SOURCES_US['引用條數'].sum() + SOCIAL_SOURCES_JP['引用條數'].sum()} 條</b>
+        觀察筆記。
+        圖上每一條 bar 代表一個獨立平台，長度 = 該平台對我們的洞察所貢獻的觀察筆記數。
+        </div>""",
+        unsafe_allow_html=True,
+    )
+    st.plotly_chart(fig_sources_panel(), use_container_width=True)
+    insight(
+        "<b>美日資料來源結構不同</b>：美國以 <b>Reddit + 刮鬍／寵物專門評測站</b>為主"
+        "（peer-review 文化）；日本以 <b>Yahoo!知恵袋 + マイベスト + 価格.com</b>三大柱"
+        "為主（Q&A + 排行榜 + 比價文化）。<br/>"
+        "<b>實務意義</b>：美國行銷要去 Reddit、評測 Blog 鋪內容（讓 peer-review 替你說話）；"
+        "日本行銷要打進 マイベスト 編輯部排名 + 価格.com 排行榜（用權威背書）。",
+    )
+    card_close()
 
     card_open("🌐 美日社群跨類別共通趨勢 — 22 條一眼看完", "跨類別共識")
     cols = st.columns(2)
