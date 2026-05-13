@@ -1,0 +1,85 @@
+﻿asin,category,n_reviews,urbaner_mentions,top_competitor,top_competitor_mentions,all_brand_hits,verdict
+B001K85BN2,001_Beard_Mustache_Trimmers,398,0,panasonic,44,"panasonic=44, braun=14, philips=8",likely_contaminated
+B001K85BNC,001_Beard_Mustache_Trimmers,160,0,panasonic,19,"panasonic=19, philips=4, braun=3",likely_contaminated
+B008KEJ1LM,001_Beard_Mustache_Trimmers,500,0,panasonic,48,"panasonic=48, philips=19, remington=10",likely_contaminated
+B016JNKVHI,001_Beard_Mustache_Trimmers,215,0,panasonic,38,"panasonic=38, braun=10, philips=6",likely_contaminated
+B0742G961R,001_Beard_Mustache_Trimmers,40,0,panasonic,16,"panasonic=16, philips=3, braun=1",likely_contaminated
+B07CYQVK16,001_Beard_Mustache_Trimmers,16,0,,0,,neutral
+B07CYZH2XC,001_Beard_Mustache_Trimmers,231,5,panasonic,11,"panasonic=11, braun=2, philips=2",confirmed_urbaner
+B07CZ3KDN9,001_Beard_Mustache_Trimmers,32,0,,0,,neutral
+B07YFFLDQB,001_Beard_Mustache_Trimmers,101,0,panasonic,14,panasonic=14,likely_contaminated
+B0823PD6XD,001_Beard_Mustache_Trimmers,35,5,panasonic,3,"panasonic=3, philips=1",confirmed_urbaner
+B08LGGMP5W,001_Beard_Mustache_Trimmers,300,0,braun,16,"braun=16, panasonic=7, philips=6",likely_contaminated
+B08P4HHSZT,001_Beard_Mustache_Trimmers,500,0,ufree,12,"ufree=12, wahl=5, braun=1",likely_contaminated
+B09XVP6YPM,001_Beard_Mustache_Trimmers,341,0,philips,11,"philips=11, wahl=4, remington=3",likely_contaminated
+B0B7R5TJLD,001_Beard_Mustache_Trimmers,156,0,philips,22,"philips=22, braun=4, panasonic=2",likely_contaminated
+B0BL2YWH3N,001_Beard_Mustache_Trimmers,43,0,,0,,neutral
+B0BQ1GZY7H,001_Beard_Mustache_Trimmers,500,0,manscaped,32,"manscaped=32, philips=23, wahl=9",likely_contaminated
+B0BVQDYVTS,001_Beard_Mustache_Trimmers,214,0,panasonic,2,"panasonic=2, braun=2, philips=2",suspicious
+B0BVVKKXFZ,001_Beard_Mustache_Trimmers,32,3,,0,,confirmed_urbaner
+B0BY18J8D9,001_Beard_Mustache_Trimmers,118,0,braun,26,"braun=26, panasonic=1",likely_contaminated
+B0BY1KRJZ1,001_Beard_Mustache_Trimmers,115,0,braun,19,"braun=19, panasonic=1",likely_contaminated
+B0CGHWFF71,001_Beard_Mustache_Trimmers,500,0,philips,10,"philips=10, wahl=5, andis=2",likely_contaminated
+B0CQKZ3N5G,001_Beard_Mustache_Trimmers,500,0,ufree,15,"ufree=15, philips=5, wahl=5",likely_contaminated
+B0D97YBP2X,001_Beard_Mustache_Trimmers,161,0,wahl,3,"wahl=3, philips=1, manscaped=1",likely_contaminated
+B0DSB44YJZ,001_Beard_Mustache_Trimmers,231,5,panasonic,11,"panasonic=11, braun=2, philips=2",confirmed_urbaner
+B0F2M2NSBX,001_Beard_Mustache_Trimmers,155,0,braun,31,"braun=31, philips=9, panasonic=8",likely_contaminated
+B0F2RSTDSJ,001_Beard_Mustache_Trimmers,73,0,ufree,7,"ufree=7, philips=4, wahl=2",likely_contaminated
+B0FCYBJK6T,001_Beard_Mustache_Trimmers,273,0,ufree,9,"ufree=9, wahl=4, philips=1",likely_contaminated
+B0FHXTJ8JN,001_Beard_Mustache_Trimmers,18,0,remington,1,remington=1,suspicious
+B0FJS3QR1W,001_Beard_Mustache_Trimmers,141,0,braun,7,"braun=7, panasonic=1, philips=1",likely_contaminated
+B0FJS3TF3V,001_Beard_Mustache_Trimmers,141,0,braun,7,"braun=7, panasonic=1, philips=1",likely_contaminated
+B0FL267TCG,001_Beard_Mustache_Trimmers,29,0,ufree,7,ufree=7,likely_contaminated
+B0FQW4KWRD,001_Beard_Mustache_Trimmers,36,0,philips,9,"philips=9, braun=2",likely_contaminated
+B0FQWLR3BW,001_Beard_Mustache_Trimmers,36,0,philips,9,"philips=9, braun=2",likely_contaminated
+B0FS5TCR3B,001_Beard_Mustache_Trimmers,158,0,philips,4,"philips=4, wahl=3, remington=2",likely_contaminated
+B0G1Z1QKJ8,001_Beard_Mustache_Trimmers,50,0,remington,1,remington=1,suspicious
+B0G492LXS9,001_Beard_Mustache_Trimmers,231,5,panasonic,11,"panasonic=11, braun=2, philips=2",confirmed_urbaner
+B0GHS5T1Y3,001_Beard_Mustache_Trimmers,233,0,wahl,4,"wahl=4, philips=1",likely_contaminated
+B0GL2DKVQH,001_Beard_Mustache_Trimmers,18,3,,0,,confirmed_urbaner
+B0GL2GP74J,001_Beard_Mustache_Trimmers,16,4,philips,2,"philips=2, panasonic=1, remington=1",confirmed_urbaner
+B0GLJRLS5G,001_Beard_Mustache_Trimmers,99,0,philips,1,"philips=1, wahl=1",suspicious
+B01N5CAOZA,002_Nose_Ear Hair_Trimmers,80,0,panasonic,9,"panasonic=9, izumi=8, hitachi=2",likely_contaminated
+B07FFGYWJ6,002_Nose_Ear Hair_Trimmers,304,0,panasonic,65,"panasonic=65, philips=3, braun=2",likely_contaminated
+B07NW44F6Q,002_Nose_Ear Hair_Trimmers,8,0,conair,3,"conair=3, philips=2, wahl=1",likely_contaminated
+B07XLLBB5J,002_Nose_Ear Hair_Trimmers,406,0,panasonic,61,"panasonic=61, braun=1, hitachi=1",likely_contaminated
+B07XTLC91J,002_Nose_Ear Hair_Trimmers,500,0,panasonic,79,"panasonic=79, hitachi=6, philips=5",likely_contaminated
+B086RHFJJV,002_Nose_Ear Hair_Trimmers,8,0,panasonic,2,panasonic=2,suspicious
+B092H8XHDG,002_Nose_Ear Hair_Trimmers,8,0,,0,,neutral
+B098NSHBQK,002_Nose_Ear Hair_Trimmers,8,0,,0,,neutral
+B09MKF3RPW,002_Nose_Ear Hair_Trimmers,8,0,,0,,neutral
+B0BHL8TS7F,002_Nose_Ear Hair_Trimmers,8,0,conair,5,conair=5,likely_contaminated
+B0BPXVV4T7,002_Nose_Ear Hair_Trimmers,8,0,,0,,neutral
+B0BTJWSGXV,002_Nose_Ear Hair_Trimmers,8,0,manscaped,1,manscaped=1,suspicious
+B0C2Y71YXV,002_Nose_Ear Hair_Trimmers,496,0,panasonic,26,"panasonic=26, philips=1",likely_contaminated
+B0CLWL76HK,002_Nose_Ear Hair_Trimmers,8,0,philips,14,"philips=14, panasonic=1",likely_contaminated
+B0CTQ1WG87,002_Nose_Ear Hair_Trimmers,176,0,panasonic,10,"panasonic=10, philips=3, braun=1",likely_contaminated
+B0CY3PWWTQ,002_Nose_Ear Hair_Trimmers,452,0,panasonic,90,"panasonic=90, hitachi=2, braun=1",likely_contaminated
+B0CY4GJKJ7,002_Nose_Ear Hair_Trimmers,372,0,panasonic,70,"panasonic=70, braun=2, philips=2",likely_contaminated
+B0CY4LX65R,002_Nose_Ear Hair_Trimmers,372,0,panasonic,70,"panasonic=70, braun=2, philips=2",likely_contaminated
+B0D2DRS9KY,002_Nose_Ear Hair_Trimmers,8,0,wahl,1,wahl=1,suspicious
+B0DKJVC5B2,002_Nose_Ear Hair_Trimmers,393,0,panasonic,7,"panasonic=7, philips=1",likely_contaminated
+B0DXTPHL8F,002_Nose_Ear Hair_Trimmers,1,0,,0,,neutral
+B0F5VJD5DQ,002_Nose_Ear Hair_Trimmers,404,0,panasonic,4,"panasonic=4, philips=1, wahl=1",likely_contaminated
+B0F66FZHY3,002_Nose_Ear Hair_Trimmers,8,0,,0,,neutral
+B0F99F11BW,002_Nose_Ear Hair_Trimmers,152,0,panasonic,1,panasonic=1,suspicious
+B0FHKR48NR,002_Nose_Ear Hair_Trimmers,103,0,wahl,1,wahl=1,suspicious
+B0FK2LLB86,002_Nose_Ear Hair_Trimmers,157,0,panasonic,2,panasonic=2,suspicious
+B0FLB5X6SQ,002_Nose_Ear Hair_Trimmers,8,0,manscaped,1,manscaped=1,suspicious
+B0FXMGVCYW,002_Nose_Ear Hair_Trimmers,8,0,,0,,neutral
+B0G5JTRNH6,002_Nose_Ear Hair_Trimmers,8,0,panasonic,2,panasonic=2,suspicious
+B0GBWZBMS5,002_Nose_Ear Hair_Trimmers,61,0,panasonic,2,"panasonic=2, philips=2",suspicious
+B086W2L7LZ,003_Body_Groomers,8,0,,0,,neutral
+B086W36F2W,003_Body_Groomers,8,0,,0,,neutral
+B09HZTKLNP,003_Body_Groomers,8,0,wahl,2,wahl=2,suspicious
+B09YH1L75X,003_Body_Groomers,8,0,manscaped,7,manscaped=7,likely_contaminated
+B0CDNQ62ML,003_Body_Groomers,8,0,manscaped,7,"manscaped=7, philips=2",likely_contaminated
+B0CQB9Y9LR,003_Body_Groomers,8,0,manscaped,3,"manscaped=3, braun=1",likely_contaminated
+B0DMNLL13F,003_Body_Groomers,8,0,,0,,neutral
+B0F997FHHR,003_Body_Groomers,8,0,manscaped,1,manscaped=1,suspicious
+B0FHWWPLCP,003_Body_Groomers,8,0,philips,12,philips=12,likely_contaminated
+B0FHWXDSJ9,003_Body_Groomers,8,0,philips,5,"philips=5, manscaped=3, wahl=2",likely_contaminated
+B0FHWY9BV9,003_Body_Groomers,8,0,philips,1,philips=1,suspicious
+B0FR8CNDJV,003_Body_Groomers,8,0,philips,1,philips=1,suspicious
+B0FX4NX6HM,003_Body_Groomers,8,0,,0,,neutral
+B0G2YSNSPW,003_Body_Groomers,8,0,,0,,neutral

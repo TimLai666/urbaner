@@ -522,21 +522,41 @@ SEGMENTS_JP = pd.DataFrame(
     columns=["區隔", "人數", "占比%", "Avg★", "類別組成", "他們是誰"],
 )
 
+# URBANER 自家旗艦 SKU — 從 84 個 rawdata 中以「評論內容包含 URBANER 品牌關鍵字
+# ≥ 2 次」確認 7 個 URBANER 自有 ASIN 後，計算距理想點 RMS 取最小。
 HERO_SKU_US = {
-    "asin": "B0FL267TCG",
+    "asin": "B0GL2DKVQH",
     "category": "Beard / Mustache Trimmers",
-    "distance": 1.601,
-    "n_reviews": 29,
-    "avg_star": 4.52,
-    "preference_share": 39.35,
+    "distance": 2.49,
+    "n_reviews": 18,
+    "avg_star": 3.78,
+    "brand": "URBANER",
 }
 HERO_SKU_JP = {
+    "asin": "B07CYZH2XC",
+    "category": "Beard / Mustache Trimmers",
+    "distance": 3.43,
+    "n_reviews": 231,
+    "avg_star": 3.51,
+    "brand": "URBANER",
+}
+
+# 全市場最接近理想點（含競品）— 用作 URBANER 還需努力多少的參照基準
+MARKET_LEADER_US = {
+    "asin": "B0FL267TCG",
+    "brand_label": "Ufree（競品）",
+    "category": "Beard / Mustache Trimmers",
+    "distance": 1.60,
+    "n_reviews": 29,
+    "avg_star": 4.52,
+}
+MARKET_LEADER_JP = {
     "asin": "B0GBWZBMS5",
+    "brand_label": "競品（疑似 Panasonic 系）",
     "category": "Nose / Ear Trimmers",
     "distance": 1.97,
     "n_reviews": 61,
     "avg_star": 4.61,
-    "preference_share": 11.26,
 }
 
 BEST_CARD_US = {
@@ -1480,11 +1500,23 @@ def page_overview() -> None:
     with c1:
         st.markdown(kpi("總評論數", "11,523", "US 4,360 ｜ JP 7,163", "gold"), unsafe_allow_html=True)
     with c2:
-        st.markdown(kpi("自家 SKU 數", "88", "US 52 ｜ JP 36", "gold"), unsafe_allow_html=True)
+        st.markdown(
+            kpi("追蹤 SKU 數", "88",
+                "URBANER 自家 + 競品（rawdata 內 84 個 ASIN，其中 7 個確認自家）", "gold"),
+            unsafe_allow_html=True,
+        )
     with c3:
-        st.markdown(kpi("US 自家旗艦 SKU", "B0FL267TCG", "Beard / Mustache · ★4.52", "us"), unsafe_allow_html=True)
+        st.markdown(
+            kpi("US 自家旗艦 SKU", "B0GL2DKVQH",
+                "Beard / Mustache · ★3.78 · 距理想 2.49", "us"),
+            unsafe_allow_html=True,
+        )
     with c4:
-        st.markdown(kpi("JP 自家旗艦 SKU", "B0GBWZBMS5", "Nose / Ear · ★4.61", "jp"), unsafe_allow_html=True)
+        st.markdown(
+            kpi("JP 自家旗艦 SKU", "B07CYZH2XC",
+                "Beard / Mustache · ★3.51 · 距理想 3.43", "jp"),
+            unsafe_allow_html=True,
+        )
 
     c1, c2, c3, c4 = st.columns(4)
     with c1:
@@ -1619,48 +1651,103 @@ def page_dual_market() -> None:
     )
     card_close()
 
-    card_open("🏆 兩市場自家旗艦 SKU — URBANER 自有 88 支裡哪兩款最接近顧客理想？")
-    h1, h2 = st.columns(2)
-    with h1:
+    card_open("🏆 URBANER 自家旗艦 vs 市場頂尖 — 還差多遠？")
+    st.markdown(
+        f"""<div style="color:{PALETTE['muted']}; font-size:0.88rem;
+                       line-height:1.7; margin-bottom:8px;">
+        左邊是 URBANER 自家做得最好的那一支（從評論內容確認過品牌歸屬），
+        右邊是同市場上「全市場最接近顧客理想規格」的 SKU（含競品）。
+        <b>差距 = URBANER 還要追多遠才能變成市場頂尖。</b>
+        </div>""",
+        unsafe_allow_html=True,
+    )
+
+    # US row
+    st.markdown(
+        f"<div style='font-weight:700; color:{PALETTE['us']}; margin-top:6px;'>🇺🇸 美國市場</div>",
+        unsafe_allow_html=True,
+    )
+    us1, us2 = st.columns(2)
+    with us1:
         st.markdown(
             f"""
             <div class="spec">
-                <h4>🇺🇸 美國自家旗艦 SKU</h4>
+                <h4>URBANER 自家旗艦</h4>
                 <div class="name">{HERO_SKU_US['asin']}</div>
                 <div class="meta">{HERO_SKU_US['category']} ｜ n={HERO_SKU_US['n_reviews']}</div>
                 <table>
-                    <tr><td>離顧客理想多遠</td><td>{HERO_SKU_US['distance']} ｜ 越小越接近</td></tr>
+                    <tr><td>離顧客理想多遠</td><td>{HERO_SKU_US['distance']}</td></tr>
                     <tr><td>平均星等</td><td>★ {HERO_SKU_US['avg_star']}</td></tr>
-                    <tr><td>同類預估市佔</td><td>{HERO_SKU_US['preference_share']}%</td></tr>
-                    <tr><td>建議策略</td><td>Father's Day 主推</td></tr>
+                    <tr><td>類別內</td><td>Beard / Mustache</td></tr>
                 </table>
             </div>
             """,
             unsafe_allow_html=True,
         )
-    with h2:
+    with us2:
+        st.markdown(
+            f"""
+            <div class="spec" style="background:linear-gradient(160deg,#3d3119 0%,#5a4a2c 100%);">
+                <h4 style="color:#E5C896;">🏆 美國全市場頂尖</h4>
+                <div class="name">{MARKET_LEADER_US['asin']}</div>
+                <div class="meta">{MARKET_LEADER_US['brand_label']} ｜ {MARKET_LEADER_US['category']} ｜ n={MARKET_LEADER_US['n_reviews']}</div>
+                <table>
+                    <tr><td>離顧客理想多遠</td><td>{MARKET_LEADER_US['distance']}</td></tr>
+                    <tr><td>平均星等</td><td>★ {MARKET_LEADER_US['avg_star']}</td></tr>
+                    <tr><td>URBANER 差距</td><td>距離 +{HERO_SKU_US['distance'] - MARKET_LEADER_US['distance']:.2f} ｜ 星等 -{MARKET_LEADER_US['avg_star'] - HERO_SKU_US['avg_star']:.2f}</td></tr>
+                </table>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # JP row
+    st.markdown(
+        f"<div style='font-weight:700; color:{PALETTE['jp']}; margin-top:18px;'>🇯🇵 日本市場</div>",
+        unsafe_allow_html=True,
+    )
+    jp1, jp2 = st.columns(2)
+    with jp1:
         st.markdown(
             f"""
             <div class="spec jp">
-                <h4>🇯🇵 日本自家旗艦 SKU</h4>
+                <h4>URBANER 自家旗艦</h4>
                 <div class="name">{HERO_SKU_JP['asin']}</div>
                 <div class="meta">{HERO_SKU_JP['category']} ｜ n={HERO_SKU_JP['n_reviews']}</div>
                 <table>
-                    <tr><td>距理想點 RMS</td><td>{HERO_SKU_JP['distance']}</td></tr>
+                    <tr><td>離顧客理想多遠</td><td>{HERO_SKU_JP['distance']}</td></tr>
                     <tr><td>平均星等</td><td>★ {HERO_SKU_JP['avg_star']}</td></tr>
-                    <tr><td>全場預估市佔</td><td>{HERO_SKU_JP['preference_share']}%</td></tr>
-                    <tr><td>建議策略</td><td>父の日 × 楽天直営主打</td></tr>
+                    <tr><td>類別內</td><td>Beard / Mustache</td></tr>
                 </table>
             </div>
             """,
             unsafe_allow_html=True,
         )
+    with jp2:
+        st.markdown(
+            f"""
+            <div class="spec" style="background:linear-gradient(160deg,#3d3119 0%,#5a4a2c 100%);">
+                <h4 style="color:#E5C896;">🏆 日本全市場頂尖</h4>
+                <div class="name">{MARKET_LEADER_JP['asin']}</div>
+                <div class="meta">{MARKET_LEADER_JP['brand_label']} ｜ {MARKET_LEADER_JP['category']} ｜ n={MARKET_LEADER_JP['n_reviews']}</div>
+                <table>
+                    <tr><td>離顧客理想多遠</td><td>{MARKET_LEADER_JP['distance']}</td></tr>
+                    <tr><td>平均星等</td><td>★ {MARKET_LEADER_JP['avg_star']}</td></tr>
+                    <tr><td>URBANER 差距</td><td>距離 +{HERO_SKU_JP['distance'] - MARKET_LEADER_JP['distance']:.2f} ｜ 星等 -{MARKET_LEADER_JP['avg_star'] - HERO_SKU_JP['avg_star']:.2f}</td></tr>
+                </table>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
     insight(
-        "<b>兩市場 URBANER 自家最強商品是完全不同類別</b> — 美國的 Beard / Mustache 修鬍器（B0FL267TCG, ★4.52）；"
-        "日本的 Nose / Ear 鼻耳毛機（B0GBWZBMS5, ★4.61）。"
-        "「離顧客理想多遠」美國 1.6 < 日本 2.0，代表 URBANER 在美國比競品更貼近顧客理想規格。<br/>"
-        "<b>不要互用主推品</b>：把美國 Beard 款拿去日本推、或把日本 Nose/Ear 款拿去美國推，"
-        "都會打到錯誤的決策軸；行銷預算應在各市場集中投到對應的自家旗艦 SKU。",
+        f"<b>URBANER 在兩市場都還沒打進頂尖</b>：<br/>"
+        f"· 美國：自家旗艦 ★3.78（距理想 2.49） vs 市場頂尖 Ufree ★4.52（距理想 1.60） — "
+        f"差 0.89 距離 + 0.74 星等。<br/>"
+        f"· 日本：自家旗艦 ★3.51（距理想 3.43） vs 市場頂尖 ★4.61（距理想 1.97） — "
+        f"差 1.46 距離 + 1.10 星等（JP 落後較大）。<br/>"
+        f"<b>類別差異</b>：URBANER 自家最強都在 Beard；但 JP 全市場頂尖在 Nose/Ear。"
+        f"想升級 JP 市佔的話，<b>Nose/Ear 是還沒站穩的戰場</b>。",
     )
     card_close()
 
