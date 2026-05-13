@@ -264,6 +264,28 @@ def inject_css() -> None:
                 color: {PALETTE['muted']}; font-weight: 600;
                 letter-spacing: 0.04em;
             }}
+            .rec .copy-section {{
+                margin-top: 12px; padding: 12px 14px;
+                background: rgba(201,163,111,0.08);
+                border: 1px solid rgba(201,163,111,0.22);
+                border-radius: 8px;
+            }}
+            .rec .copy-label {{
+                font-size: 0.70rem; font-weight: 700;
+                color: {PALETTE['gold']}; text-transform: uppercase;
+                letter-spacing: 0.10em; margin-bottom: 7px;
+            }}
+            .rec .copy-text {{
+                font-size: 0.88rem; color: {PALETTE['charcoal']}; line-height: 1.75;
+            }}
+            .rec.us .copy-section {{
+                background: rgba(46,91,255,0.06); border-color: rgba(46,91,255,0.20);
+            }}
+            .rec.us .copy-label {{ color: {PALETTE['us']}; }}
+            .rec.jp .copy-section {{
+                background: rgba(211,47,77,0.06); border-color: rgba(211,47,77,0.20);
+            }}
+            .rec.jp .copy-label {{ color: {PALETTE['jp']}; }}
             /* Best product spec card */
             .spec {{
                 background: linear-gradient(160deg, {PALETTE['ink']} 0%, #1d3160 100%);
@@ -608,24 +630,44 @@ PLAYBOOK_US = [
                 "Q2（5–6 月）父親節主題禮盒、Q4（10–12 月）聖誕節 + 黑五禮物指南。"
                 "對映 ANOVA Top1 `gift_suitability_men`（F=1299.5）。",
         "kpi": "目標 Q2/Q4 銷售環比 +35%，Gift 關鍵字 PPC ROAS ≥ 4.5",
+        "copy": "【A+ 主標題】The Gift He Actually Wants — Effortless Confidence, Every Single Day<br/>"
+                "【父親節廣告文案】This Father's Day, skip the guesswork. Gift-ready packaging. No wrapping needed. "
+                "Shop the limited bundle before it sells out.<br/>"
+                "【Black Friday CTA】His wishlist. Your price. Limited-time Black Friday bundle — add to cart before it's gone.<br/>"
+                "<i>框架：心理觸發（稀缺性 + 損失規避）× Maslow 愛與歸屬 → 自尊層次</i>",
     },
     {
         "title": "📦 5-in-1 / 7-in-1 套組為核心 SKU 形態",
         "body": "主圖右上角加件數徽章（≥7 件），主圖第二張示意「all-in-one」功能拼貼。"
                 "對映美國重要性 Top1 `功能合一數`（51.5%）+ `附件件數`（10.4%）。",
         "kpi": "主圖 CTR +20%，套組型 SKU 占月銷 ≥ 60%",
+        "copy": "【主圖徽章文字】7-in-1 Complete Grooming Kit<br/>"
+                "【A+ 模組標題】One Kit. Seven Functions. Zero Compromise.<br/>"
+                "【Listing Bullet】Replace 7 separate tools with one streamlined system — the smarter, cleaner choice.<br/>"
+                "<i>框架：購買動機（功能完整性 + 價值最大化）× SOR（「7件」視覺刺激 → 完整感反應）</i>",
     },
     {
         "title": "⚡ USB-C × IPX7 高端標配",
         "body": "Listing 首條 bullet 明確標示電源類型 + USB-C 充電 icon；"
                 "主圖右下角嵌入 IPX7 badge，對抗 Manscaped Lawn Mower 5.0 Ultra。",
         "kpi": "高端關鍵字（cordless / waterproof）轉換率 +18%",
+        "copy": "【Listing Bullet-1】USB-C FAST CHARGE — 90-min full charge, 120-min runtime. "
+                "Charge anywhere. Groom everywhere.<br/>"
+                "【Listing Bullet-2】IPX7 FULLY WATERPROOF — shower-safe, rinse-clean, always ready. "
+                "No bag tricks, no workarounds.<br/>"
+                "【競品對比文字】Same waterproof standard as Manscaped 5.0 Ultra. More attachments. Better value.<br/>"
+                "<i>框架：高端定位錨點（Premium Positioning）× 心理安全觸發（確定性 + 未來免憂慮）</i>",
     },
     {
         "title": "🇯🇵 日系工藝差異化敘事 vs Wahl / Andis",
         "body": "強調 1977 年起 50 年代工背景與日系刀片工藝（Japanese OEM heritage），對應 Maslow esteem。"
                 "建議價格帶 $60–$120，定位於 Conair 之上、Braun Series 9 Pro 之下。",
         "kpi": "品牌搜尋量月成長 +15%，平均客單價 ≥ $79",
+        "copy": "【品牌故事段落】Since 1977, URBANER blades have powered European and Japanese luxury brands. "
+                "Now that 50-year craft is yours — at $79.<br/>"
+                "【定位標語】Above mass-market. Below Braun Series 9. The intelligent grooming choice.<br/>"
+                "【Listing 搜尋標題】URBANER | 50-Year Japanese Blade Craft | 7-in-1 USB-C IPX7 Grooming Kit<br/>"
+                "<i>框架：Maslow 自尊層次（工藝傳承 = 品味身份）× WOM 動機（發現品牌故事 → 主動分享）</i>",
     },
 ]
 
@@ -636,18 +678,32 @@ PLAYBOOK_JP = [
                 "Bullet-2：稼働時間 XX 分 / IPX7 防水 / 騒音 XX dB。"
                 "對映 ANOVA Top1-3：附件件數（F=2630）、梳齒款式（F=2412）、可調梳齒（F=1827）。",
         "kpi": "Listing 加購率 +25%，2 件以上組合銷售比 ≥ 35%",
+        "copy": "【Bullet-1】【精度】アタッチメント7個付属 / 長さ40段階調整（0.5mm単位）<br/>"
+                "【Bullet-2】【スペック】連続使用120分 / 騒音55dB以下 / IPX7完全防水・丸洗いOK<br/>"
+                "【信任訴求】全スペックを数字で公開——日本の消費者が信頼する、透明性のある製品設計。<br/>"
+                "<i>框架：購買動機（規格數字 = 信任錨點）× SOR（具體數字刺激 → 確信反應）</i>",
     },
     {
         "title": "🏆 権威佐證：専門家・サロン・医療クリニック",
         "body": "在主圖與評論區強化「専門家監修」「サロン推奨」「医療クリニック共同開発」表述。"
                 "與 Panasonic ER-GB74-S、Maxell IZN-C240-K 並列規格表，明示 0.5mm 刻度差異。",
         "kpi": "Q3 末權威 PR 露出 ≥ 8 篇，品牌搜尋成長 +20%",
+        "copy": "【専門家推薦文】「0.5mm刻みの精密調整は、プロが求めるレベル。"
+                "理容師として自信を持っておすすめします。」— 山田 太郎 / 理容師・ヘアケアアドバイザー<br/>"
+                "【サロン推奨バッジ】✅ サロン推奨 · 専門家監修 · 医療クリニック採用実績<br/>"
+                "【PR 戦略】マイベスト #1 · 価格.com 掲載目標——権威性でオーガニック流入を獲得。<br/>"
+                "<i>框架：心理觸發（權威背書 + 社會證明）× 購買動機（專家認可消除疑慮）</i>",
     },
     {
         "title": "🔋 雙線並行：乾電池款別倉促淘汰",
         "body": "JP 最大族群「CP 值優先大眾（S1，91.6%）」仍偏好乾電池款（B07XTLC91J 系列）。"
                 "保留乾電池產品線作穩定收入；USB-C 款主打「鬍鬚講究客（S2，7.8%，★4.01）」高滿意度族群。",
         "kpi": "乾電池 SKU 維持月銷量基準 ±5%，USB-C 款 Avg★ ≥ 4.3",
+        "copy": "【S1 大眾文案（乾電池款）】「コスパ重視の方へ」単三電池1本で動く、"
+                "シンプルで経済的なトリマー。買い替え不要、電池さえあればいつでも使える。<br/>"
+                "【S2 講究文案（USB-C款）】「こだわる紳士のために」USB-C急速充電・IPX7防水・"
+                "0.5mm精密調整。★4.01の実力が証明する、妥協しない一本。<br/>"
+                "<i>框架：SOR 族群區隔（S1 vs S2 不同刺激 → 不同訴求）× 購買動機（價值 vs 品質）</i>",
     },
     {
         "title": "🎌 父の日 × 楽天直営：在地化檔期",
@@ -655,6 +711,12 @@ PLAYBOOK_JP = [
                 "強化楽天市場「URBANER 直営正規品 + 1 年保証」訴求（台灣廠商稀缺資格）。"
                 "措辭：身嗜み（みだしなみ）、自然な仕上がり、丸洗いできる。",
         "kpi": "父の日檔期銷售環比 +40%，楽天直営店月銷成長 +25%",
+        "copy": "【父の日キャンペーンコピー】お父さんへ、毎日の身嗜みをもっと丁寧に。"
+                "——のし対応 · 直営正規品 · 1年保証。6月第3日曜日限定セット。<br/>"
+                "【楽天直営バッジ】🎌 台湾URBANER直営正規品——楽天市場に直営店を持つ、数少ない台湾ブランド。<br/>"
+                "【言葉の力】「自然な仕上がり」「丸洗いできる」「身嗜み」"
+                "——日本人の美意識に響くキーワードで語る。<br/>"
+                "<i>框架：文化心理觸發（在地化 + 身份認同）× Maslow 歸屬與尊重層次</i>",
     },
 ]
 
@@ -663,16 +725,27 @@ PLAYBOOK_COMMON = [
         "title": "💧 IPX7+ 為新品最低門檻",
         "body": "兩市場 ANOVA 都顯示防水為差異化錨點（US 排名 7、JP 排名 9，皆顯著）。"
                 "任何 2026 新 SKU 開發以 IPX7 為起點。",
+        "copy": "【US 通用徽章文字】IPX7 WATERPROOF — Shower-Safe. Rinse-Clean. Always Ready.<br/>"
+                "【JP 通用徽章文字】IPX7完全防水——丸洗いOK · 浴室使用可 · 清潔かんたん<br/>"
+                "<i>兩市場通用：防水訴求為差異化錨點，任何新 SKU Listing 必備視覺 badge</i>",
     },
     {
         "title": "🧰 套組 ≥7 件為主流規格",
         "body": "兩市場區隔皆把 `total_attachments_count` 列為 Top 屬性；"
                 "新 SKU 套組設計從 4-piece 起跳，理想 7-piece。",
+        "copy": "【US 包裝文案】7-in-1 Complete Grooming System — Everything in one premium box. Gift-ready.<br/>"
+                "【JP 包裝文案】7つのスタイルを、一台に。——すべてが揃ったプレミアムグルーミングセット。<br/>"
+                "<i>框架：價值錨定（件數視覺化 = 超值感知）× 禮品化包裝訴求</i>",
     },
     {
         "title": "🎯 Hero SKU 差異化集中投放",
         "body": "美國資源集中 B0FL267TCG（Beard / Mustache）；"
                 "日本資源集中 B0GBWZBMS5（Nose / Ear）。不可互用主推品。",
+        "copy": "【US Hero PPC 廣告標題】URBANER Beard Trimmer | 7-in-1 · USB-C · IPX7 | "
+                "The Gift He Actually Wants<br/>"
+                "【JP Hero キャッチコピー】URBANER 鼻毛・耳毛トリマー | IPX7防水 | "
+                "0.5mm精密調整 | 直営正規品<br/>"
+                "<i>資源集中原則：US Hero → B0FL267TCG（Beard）· JP Hero → B0GBWZBMS5（Nose/Ear）</i>",
     },
 ]
 
@@ -1773,12 +1846,17 @@ def page_best_product() -> None:
 def render_rec(rec: dict, variant: str = "") -> None:
     cls = f"rec {variant}".strip()
     kpi_html = f'<div class="kpi-tag">📊 {rec["kpi"]}</div>' if "kpi" in rec else ""
+    copy_html = (
+        f'<div class="copy-section"><div class="copy-label">✍️ 行銷文案</div>'
+        f'<div class="copy-text">{rec["copy"]}</div></div>'
+    ) if "copy" in rec else ""
     st.markdown(
         f"""
         <div class="{cls}">
             <div class="title">{rec['title']}</div>
             <div class="body">{rec['body']}</div>
             {kpi_html}
+            {copy_html}
         </div>
         """,
         unsafe_allow_html=True,
