@@ -1369,8 +1369,8 @@ def page_overview() -> None:
                             <span>送禮場景 × 多功能套組是市場決策主軸</span>
                         </div>
                         <div class="insight-body">
-                            ANOVA Top 1 <code>gift_suitability_men</code> F=1299、Top 3
-                            <code>num_grooming_functions</code> F=1193；顯示父親節 / 聖誕節送禮情境驅動絕大多數美國電剪購買決策。
+                            最能拉開不同顧客的兩個屬性 — 「適不適合送禮給男性」與「多功能套組」 — 強度遠超其他項目。
+                            父親節 / 聖誕節送禮情境是絕大多數美國電剪購買決策的觸發點。
                         </div>
                     </div>
                 </div>
@@ -1382,7 +1382,9 @@ def page_overview() -> None:
                             <span>附件齊全度 × 0.5mm 精度 × 電源類型是日本決策三軸</span>
                         </div>
                         <div class="insight-body">
-                            ANOVA Top 1-3 累計 F 值 6,870；日本顧客重視 38 段刻度、附件套組完整、CP 值高、可丸洗。
+                            最能拉開不同顧客的前 3 個屬性都是「規格深度」：附件件數、梳齒款式、可調梳齒，
+                            強度比第 4 名加起來還高。日本顧客重視 38 段刻度、附件套組完整、CP 值高、
+                            <b>丸洗い（整支可水洗）</b>。
                         </div>
                     </div>
                 </div>
@@ -1394,7 +1396,7 @@ def page_overview() -> None:
                             <span>IPX7+ × ≥7 件套組 = 2026 新品最低門檻</span>
                         </div>
                         <div class="insight-body">
-                            兩市場 ANOVA、社群洞察一致；新 SKU 必須踩上這道規格線。
+                            兩市場的顧客分群分析與社群觀察結論一致；新 SKU 開發必須踩上這道規格線。
                         </div>
                     </div>
                 </div>
