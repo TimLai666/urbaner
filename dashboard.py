@@ -1482,9 +1482,9 @@ def page_overview() -> None:
     with c2:
         st.markdown(kpi("自家 SKU 數", "88", "US 52 ｜ JP 36", "gold"), unsafe_allow_html=True)
     with c3:
-        st.markdown(kpi("US 代表 SKU", "B0FL267TCG", "Beard / Mustache · ★4.52", "us"), unsafe_allow_html=True)
+        st.markdown(kpi("US 自家旗艦 SKU", "B0FL267TCG", "Beard / Mustache · ★4.52", "us"), unsafe_allow_html=True)
     with c4:
-        st.markdown(kpi("JP 代表 SKU", "B0GBWZBMS5", "Nose / Ear · ★4.61", "jp"), unsafe_allow_html=True)
+        st.markdown(kpi("JP 自家旗艦 SKU", "B0GBWZBMS5", "Nose / Ear · ★4.61", "jp"), unsafe_allow_html=True)
 
     c1, c2, c3, c4 = st.columns(4)
     with c1:
@@ -1576,7 +1576,7 @@ def page_overview() -> None:
 def page_dual_market() -> None:
     render_hero(
         "把美國與日本擺在一起看：哪些屬性最區分顧客、各顧客群佔多少人、平均給幾顆星、"
-        "兩市場代表 SKU 各是誰。"
+        "兩市場自家旗艦 SKU 各是誰。"
     )
 
     card_open("🌎 哪些屬性最能拉開不同顧客群的差距？")
@@ -1619,13 +1619,13 @@ def page_dual_market() -> None:
     )
     card_close()
 
-    card_open("🏆 兩市場代表 SKU — 哪兩款最接近顧客理想？")
+    card_open("🏆 兩市場自家旗艦 SKU — URBANER 自有 88 支裡哪兩款最接近顧客理想？")
     h1, h2 = st.columns(2)
     with h1:
         st.markdown(
             f"""
             <div class="spec">
-                <h4>🇺🇸 美國代表 SKU</h4>
+                <h4>🇺🇸 美國自家旗艦 SKU</h4>
                 <div class="name">{HERO_SKU_US['asin']}</div>
                 <div class="meta">{HERO_SKU_US['category']} ｜ n={HERO_SKU_US['n_reviews']}</div>
                 <table>
@@ -1642,7 +1642,7 @@ def page_dual_market() -> None:
         st.markdown(
             f"""
             <div class="spec jp">
-                <h4>🇯🇵 日本代表 SKU</h4>
+                <h4>🇯🇵 日本自家旗艦 SKU</h4>
                 <div class="name">{HERO_SKU_JP['asin']}</div>
                 <div class="meta">{HERO_SKU_JP['category']} ｜ n={HERO_SKU_JP['n_reviews']}</div>
                 <table>
@@ -1656,11 +1656,11 @@ def page_dual_market() -> None:
             unsafe_allow_html=True,
         )
     insight(
-        "<b>兩市場代表 SKU 完全是不同類別</b> — 美國主推 Beard / Mustache 修鬍器（B0FL267TCG, ★4.52）；"
-        "日本主推 Nose / Ear 鼻耳毛機（B0GBWZBMS5, ★4.61）。"
-        "「離顧客理想多遠」美國 1.6 < 日本 2.0，代表 URBANER 在美國比較貼近顧客理想規格。<br/>"
+        "<b>兩市場 URBANER 自家最強商品是完全不同類別</b> — 美國的 Beard / Mustache 修鬍器（B0FL267TCG, ★4.52）；"
+        "日本的 Nose / Ear 鼻耳毛機（B0GBWZBMS5, ★4.61）。"
+        "「離顧客理想多遠」美國 1.6 < 日本 2.0，代表 URBANER 在美國比競品更貼近顧客理想規格。<br/>"
         "<b>不要互用主推品</b>：把美國 Beard 款拿去日本推、或把日本 Nose/Ear 款拿去美國推，"
-        "都會打到錯誤的決策軸；行銷預算應在各市場集中投到對應的代表 SKU。",
+        "都會打到錯誤的決策軸；行銷預算應在各市場集中投到對應的自家旗艦 SKU。",
     )
     card_close()
 
