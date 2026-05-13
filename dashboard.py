@@ -42,7 +42,7 @@ st.set_page_config(
     page_title="URBANER 雙市場戰略儀表板",
     page_icon="🪒",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="auto",
 )
 
 
@@ -59,6 +59,10 @@ def inject_css() -> None:
                 color: {PALETTE['charcoal']};
             }}
             [data-testid="stHeader"] {{ background: transparent; }}
+            [data-testid="stAppDeployButton"],
+            [data-testid="stMainMenu"] {{
+                display: none;
+            }}
             section[data-testid="stSidebar"] {{
                 background: {PALETTE['ink']};
             }}
@@ -69,7 +73,7 @@ def inject_css() -> None:
                 border-color: rgba(255,255,255,0.15);
             }}
             .block-container {{ padding-top: 1.4rem; padding-bottom: 3rem; max-width: 1380px; }}
-            h1, h2, h3, h4 {{ color: {PALETTE['ink']}; letter-spacing: -0.01em; }}
+            h1, h2, h3, h4 {{ color: {PALETTE['ink']}; letter-spacing: 0; }}
             /* Hero */
             .hero {{
                 background: linear-gradient(135deg, {PALETTE['ink']} 0%, #182d5e 60%, #243b73 100%);
@@ -89,7 +93,7 @@ def inject_css() -> None:
                 border-radius: 50%;
             }}
             .hero h1 {{
-                color: #fff; margin: 0; font-size: 2.0rem; font-weight: 700; letter-spacing: -0.02em;
+                color: #fff; margin: 0; font-size: 2.0rem; font-weight: 700; letter-spacing: 0;
             }}
             .hero .sub {{
                 color: {PALETTE['gold_soft']}; margin-top: 6px; font-size: 0.95rem;
@@ -232,6 +236,95 @@ def inject_css() -> None:
             .footer {{
                 color: {PALETTE['muted']}; font-size: 0.78rem; text-align: center;
                 padding: 18px 0 4px 0; border-top: 1px solid {PALETTE['line']}; margin-top: 30px;
+            }}
+            @media (max-width: 768px) {{
+                .block-container {{
+                    padding: 2.65rem 1rem 2.25rem 1rem;
+                }}
+                .hero {{
+                    border-radius: 18px;
+                    padding: 24px 28px;
+                    margin-top: 0.25rem;
+                    margin-bottom: 16px;
+                }}
+                .hero::before {{
+                    right: -180px;
+                    top: -180px;
+                }}
+                .hero h1 {{
+                    font-size: 1.75rem;
+                    line-height: 1.22;
+                }}
+                .hero .sub {{
+                    font-size: 0.82rem;
+                    line-height: 1.35;
+                }}
+                .hero .tagline {{
+                    max-width: none;
+                    font-size: 0.95rem;
+                    line-height: 1.72;
+                }}
+                .kpi {{
+                    border-radius: 14px;
+                    padding: 17px 20px;
+                    margin-bottom: 0.1rem;
+                }}
+                .kpi .label,
+                .kpi .delta {{
+                    line-height: 1.45;
+                }}
+                .kpi .value {{
+                    font-size: 1.62rem;
+                    overflow-wrap: anywhere;
+                }}
+                [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"]
+                    .card-head) {{
+                    border-radius: 16px !important;
+                    padding: 18px 18px 16px 18px !important;
+                    margin-bottom: 16px;
+                }}
+                .card-head h3 {{
+                    font-size: 1rem;
+                    line-height: 1.38;
+                }}
+                .pill {{
+                    margin-bottom: 4px;
+                    line-height: 1.4;
+                    white-space: normal;
+                }}
+                .rec {{
+                    padding: 16px 18px;
+                    border-radius: 12px;
+                }}
+                .spec {{
+                    border-radius: 16px;
+                    padding: 18px 18px;
+                    overflow-x: auto;
+                }}
+                .spec .name {{
+                    font-size: 1.32rem;
+                    overflow-wrap: anywhere;
+                }}
+                .spec td {{
+                    font-size: 0.86rem;
+                    line-height: 1.45;
+                }}
+                .spec td:last-child {{
+                    padding-left: 12px;
+                    text-align: left;
+                }}
+            }}
+            @media (max-width: 420px) {{
+                .block-container {{
+                    padding-left: 0.85rem;
+                    padding-right: 0.85rem;
+                }}
+                .hero {{
+                    padding: 22px 22px;
+                }}
+                .hero h1 {{
+                    font-size: 1.62rem;
+                }}
             }}
         </style>
         """,
