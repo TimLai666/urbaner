@@ -758,14 +758,16 @@ PLAYBOOK_COMMON = [
                 "<i>框架：價值錨定（件數視覺化 = 超值感知）× 禮品化包裝訴求</i>",
     },
     {
-        "title": "🎯 Hero SKU 差異化集中投放",
-        "body": "美國資源集中 B0FL267TCG（Beard / Mustache）；"
-                "日本資源集中 B0GBWZBMS5（Nose / Ear）。不可互用主推品。",
+        "title": "🎯 自家旗艦集中投放，並設定追趕市場頂尖的目標",
+        "body": "美國自家旗艦 B0GL2DKVQH（Beard, ★3.78）— 目標：追上 Ufree B0FL267TCG（★4.52）。"
+                "日本自家旗艦 B07CYZH2XC（Beard, ★3.51）— 但日本市場頂尖在 Nose/Ear，"
+                "URBANER 需新開該類別旗艦才能站穩 JP。",
         "copy": "【US Hero PPC 廣告標題】URBANER Beard Trimmer | 7-in-1 · USB-C · IPX7 | "
                 "The Gift He Actually Wants<br/>"
-                "【JP Hero キャッチコピー】URBANER 鼻毛・耳毛トリマー | IPX7防水 | "
+                "【JP Hero キャッチコピー】URBANER 鼻毛・耳毛トリマー（新規開発予定）| IPX7防水 | "
                 "0.5mm精密調整 | 直営正規品<br/>"
-                "<i>資源集中原則：US Hero → B0FL267TCG（Beard）· JP Hero → B0GBWZBMS5（Nose/Ear）</i>",
+                "<i>資源集中原則：US 自家旗艦 → B0GL2DKVQH（升級至 ★4.5+ 為目標）｜"
+                "JP 自家旗艦 → B07CYZH2XC（同時新開 Nose/Ear 類別旗艦）</i>",
     },
 ]
 
@@ -2025,17 +2027,15 @@ def render_rec(rec: dict, variant: str = "") -> None:
         f'<div class="copy-section"><div class="copy-label">✍️ 行銷文案</div>'
         f'<div class="copy-text">{rec["copy"]}</div></div>'
     ) if "copy" in rec else ""
-    st.markdown(
-        f"""
-        <div class="{cls}">
-            <div class="title">{rec['title']}</div>
-            <div class="body">{rec['body']}</div>
-            {kpi_html}
-            {copy_html}
-        </div>
-        """,
-        unsafe_allow_html=True,
+    # 整段壓在一行避免 Streamlit markdown 把縮排當成 code block
+    html = (
+        f'<div class="{cls}">'
+        f'<div class="title">{rec["title"]}</div>'
+        f'<div class="body">{rec["body"]}</div>'
+        f'{kpi_html}{copy_html}'
+        f'</div>'
     )
+    st.markdown(html, unsafe_allow_html=True)
 
 
 def page_social() -> None:
