@@ -63,6 +63,9 @@ def inject_css() -> None:
             [data-testid="stMainMenu"] {{
                 display: none;
             }}
+            .modebar-container {{
+                display: none !important;
+            }}
             section[data-testid="stSidebar"] {{
                 background: {PALETTE['ink']};
             }}
@@ -1091,60 +1094,86 @@ def fig_segment_compare_bar() -> go.Figure:
 
 
 def fig_choice_set_donut() -> go.Figure:
-    """MNL 選擇集 — 兩個甜甜圈中央顯示 URBANER 份額，
-    色塊用 annotation 取代 legend，避免在窄欄位空間內 legend 換行。"""
-    fig = make_subplots(
-        rows=1, cols=2, specs=[[{"type": "domain"}, {"type": "domain"}]],
-        subplot_titles=("🇺🇸 美國", "🇯🇵 日本"),
-        horizontal_spacing=0.06,
+    """MNL 選擇集份額。
+
+    原本用雙 donut，窄欄位會讓中心標籤、圖例和 modebar 互相打架。
+    改用 100% stacked share bar，讓現況份額與最佳設計組合一眼可讀。
+    """
+    markets = ["US 美國", "JP 日本"]
+    competitor = [94.67, 85.60]
+    urbaner = [5.21, 11.26]
+    best_design = [0.12, 3.14]
+
+    fig = go.Figure()
+    fig.add_bar(
+        y=markets,
+        x=competitor,
+        name="競品",
+        orientation="h",
+        marker_color=["#D4D7E3", "#E4D2D6"],
+        hovertemplate="%{y}<br>競品份額 %{x:.2f}%<extra></extra>",
     )
-    fig.add_trace(go.Pie(
-        labels=["競品", "URBANER", "最佳設計組合"],
-        values=[94.67, 5.21, 0.12], hole=0.6, sort=False,
-        marker=dict(colors=["#D4D7E3", PALETTE["us"], PALETTE["gold"]],
-                    line=dict(color="#fff", width=2)),
-        textinfo="none",
-        hovertemplate="%{label}<br>%{percent}<extra></extra>",
-        pull=[0, 0.02, 0.15],
+    fig.add_bar(
+        y=markets,
+        x=urbaner,
+        name="URBANER 現況",
+        orientation="h",
+        marker_color=[PALETTE["us"], PALETTE["jp"]],
+        hovertemplate="%{y}<br>URBANER 現況 %{x:.2f}%<extra></extra>",
+    )
+    fig.add_bar(
+        y=markets,
+        x=best_design,
+        name="最佳設計組合",
+        orientation="h",
+        marker_color=PALETTE["gold"],
+        hovertemplate="%{y}<br>最佳設計組合 %{x:.2f}%<extra></extra>",
+    )
+
+    callouts = [
+        ("US 美國", "5.21%", "最佳設計 0.12%", PALETTE["us"]),
+        ("JP 日本", "11.26%", "最佳設計 3.14%", PALETTE["jp"]),
+    ]
+    for market, share, best, color in callouts:
+        fig.add_annotation(
+            x=99.2,
+            y=market,
+            text=(
+                f"<b style='color:{color}; font-size:18px'>{share}</b><br>"
+                f"<span style='font-size:11px'>URBANER 現況</span><br>"
+                f"<span style='font-size:10px; color:{PALETTE['muted']}'>{best}</span>"
+            ),
+            xref="x",
+            yref="y",
+            showarrow=False,
+            xanchor="right",
+            yanchor="middle",
+            align="right",
+            bgcolor="rgba(255,255,255,0.86)",
+            bordercolor=PALETTE["line"],
+            borderpad=6,
+            font=dict(color=PALETTE["ink"], family="Inter, Noto Sans TC, sans-serif"),
+        )
+
+    fig = style_fig(fig, height=340)
+    fig.update_layout(
+        barmode="stack",
+        bargap=0.42,
         showlegend=False,
-    ), row=1, col=1)
-    fig.add_trace(go.Pie(
-        labels=["競品", "URBANER", "最佳設計組合"],
-        values=[85.60, 11.26, 3.14], hole=0.6, sort=False,
-        marker=dict(colors=["#E4D2D6", PALETTE["jp"], PALETTE["gold"]],
-                    line=dict(color="#fff", width=2)),
-        textinfo="none",
-        hovertemplate="%{label}<br>%{percent}<extra></extra>",
-        pull=[0, 0.02, 0.1],
-        showlegend=False,
-    ), row=1, col=2)
-    # 中心 URBANER 份額
-    fig.add_annotation(
-        text="<b>URBANER</b><br><span style='font-size:22px;color:#2E5BFF'>5.21%</span>",
-        x=0.205, y=0.55, showarrow=False, xref="paper", yref="paper",
-        font=dict(size=11, color=PALETTE["ink"], family="Inter"),
+        margin=dict(l=12, r=12, t=20, b=52),
     )
-    fig.add_annotation(
-        text="<b>URBANER</b><br><span style='font-size:22px;color:#D32F4D'>11.26%</span>",
-        x=0.795, y=0.55, showarrow=False, xref="paper", yref="paper",
-        font=dict(size=11, color=PALETTE["ink"], family="Inter"),
+    fig.update_xaxes(
+        range=[0, 100],
+        ticksuffix="%",
+        tickvals=[0, 25, 50, 75, 100],
+        title_text="MNL 選擇集份額",
     )
-    # 自製 legend（用 annotation 排成一行）— 跨欄位下方
-    fig.add_annotation(
-        text=(
-            "<span style='color:#9CA3AF'>■</span> 競品  &nbsp;&nbsp;"
-            "<span style='color:#2E5BFF'>■</span> URBANER (US)  &nbsp;&nbsp;"
-            "<span style='color:#D32F4D'>■</span> URBANER (JP)  &nbsp;&nbsp;"
-            "<span style='color:#C9A36F'>■</span> 最佳設計組合"
-        ),
-        x=0.5, y=-0.05, showarrow=False, xref="paper", yref="paper",
-        font=dict(size=11, color=PALETTE["charcoal"], family="Inter"),
-        xanchor="center", yanchor="top",
+    fig.update_yaxes(
+        categoryorder="array",
+        categoryarray=["JP 日本", "US 美國"],
+        tickfont=dict(size=13, color=PALETTE["ink"]),
     )
-    fig.update_layout(margin=dict(l=10, r=10, t=50, b=60))
-    fig.update_annotations(font_size=12, selector=dict(text="🇺🇸 美國"))
-    fig.update_annotations(font_size=12, selector=dict(text="🇯🇵 日本"))
-    return style_fig(fig, height=460)
+    return fig
 
 
 # ─────────────────────────────────────────────────────────────
