@@ -268,32 +268,32 @@ ANOVA_JP_TOP = pd.DataFrame(
 
 SEGMENTS_US = pd.DataFrame(
     [
-        ("Segment 1（送禮 × 多附件）", 850, 19.5, 3.68,
+        ("S1：父親節送禮客", 850, 19.5, 3.68,
          "Beard 87.5% / Nose-Ear 6.8% / Body 5.6%",
-         "gift_suitability_men · primary_user_gender · ear_hair · attachment_fitment · total_attachments"),
-        ("Segment 2（耳鬚實用 × 大眾）", 3337, 76.5, 3.18,
+         "為男士挑禮：在意送禮場景、性別感、附件齊全度"),
+        ("S2：日常自用大眾", 3337, 76.5, 3.18,
          "Beard 94.8% / Nose-Ear 4.2% / Body 1.0%",
-         "ear_hair · product_longevity · beard_trimming · gift_suitability_men · rechargeable"),
-        ("Segment 3（高滿意 × 充電高端）", 173, 4.0, 4.48,
+         "買來自己每天用：在意鬍鬚與耳鼻、耐用、可充電"),
+        ("S3：USB-C 高端鐵粉", 173, 4.0, 4.48,
          "Beard 75.7% / Body 17.9% / Nose-Ear 6.4%",
-         "power_source_type · gift_suitability_men · rechargeable · beard · ear_hair"),
+         "願付溢價：USB-C 充電、Beard+Body 多場景、滿意度最高"),
     ],
-    columns=["區隔", "人數", "占比%", "Avg★", "類別組成", "核心屬性"],
+    columns=["區隔", "人數", "占比%", "Avg★", "類別組成", "他們是誰"],
 )
 
 SEGMENTS_JP = pd.DataFrame(
     [
-        ("Segment 1（鼻毛 × 乾電池節儉）", 6559, 91.6, 3.46,
+        ("S1：CP 值優先大眾", 6559, 91.6, 3.46,
          "Nose-Ear 59.4% / Beard 40.6%",
-         "power_source_type · nose_hair · price_value · ease_of_use · product_longevity"),
-        ("Segment 2（鬍鬚高滿意 × 高精度）", 561, 7.8, 4.01,
+         "節儉派：愛乾電池款、鼻毛 + 鬍鬚兩用、看重耐用易用"),
+        ("S2：鬍鬚講究客", 561, 7.8, 4.01,
          "Beard 75.2% / Nose-Ear 24.8%",
-         "adjustable_comb · power_source · dimensions · total_attachments · fitment"),
-        ("Segment 3（低噪低振 × 利基）", 43, 0.6, 3.05,
+         "深度玩家：38 段精度、多附件、機身大小錙銖必較"),
+        ("S3：靜音低振敏感族", 43, 0.6, 3.05,
          "Nose-Ear 62.8% / Beard 37.2%",
-         "vibration_feel · low_vibration · motor_power · power_source · low_noise"),
+         "小眾利基：怕噪音、怕震動、對馬達品質敏感"),
     ],
-    columns=["區隔", "人數", "占比%", "Avg★", "類別組成", "核心屬性"],
+    columns=["區隔", "人數", "占比%", "Avg★", "類別組成", "他們是誰"],
 )
 
 HERO_SKU_US = {
@@ -441,8 +441,8 @@ PLAYBOOK_JP = [
     },
     {
         "title": "🔋 雙線並行：乾電池款別倉促淘汰",
-        "body": "JP Segment 1（91.6%）仍偏好乾電池款（B07XTLC91J 系列）。"
-                "保留乾電池產品線作穩定收入；USB-C 款主打 Segment 2 高滿意度族群（Avg★ 4.01）。",
+        "body": "JP 最大族群「CP 值優先大眾（S1，91.6%）」仍偏好乾電池款（B07XTLC91J 系列）。"
+                "保留乾電池產品線作穩定收入；USB-C 款主打「鬍鬚講究客（S2，7.8%，★4.01）」高滿意度族群。",
         "kpi": "乾電池 SKU 維持月銷量基準 ±5%，USB-C 款 Avg★ ≥ 4.3",
     },
     {
@@ -887,14 +887,15 @@ def fig_segment_compare_bar() -> go.Figure:
         horizontal_spacing=0.16,
     )
 
-    def short_label(name: str) -> str:
-        return name.split("（")[0]
-
     for col, df, base_color in [(1, SEGMENTS_US, PALETTE["us"]), (2, SEGMENTS_JP, PALETTE["jp"])]:
-        x_labels = [
-            f"<b>S{i+1}</b><br><span style='font-size:10px'>{short_label(n)}</span>"
-            for i, n in enumerate(df["區隔"])
-        ]
+        # 名稱已含 "S1：父親節送禮客" 結構 → 拆出 S 編號 + 中文名稱
+        x_labels = []
+        for n in df["區隔"]:
+            if "：" in n:
+                code, persona = n.split("：", 1)
+                x_labels.append(f"<b>{code}</b><br><span style='font-size:10px'>{persona}</span>")
+            else:
+                x_labels.append(n)
         bar_text = [
             f"<b>{p:.1f}%</b><br>"
             f"<span style='color:{PALETTE['gold']};font-weight:700'>★{s:.2f}</span>"
@@ -1040,9 +1041,9 @@ def page_overview() -> None:
 
     c1, c2, c3, c4 = st.columns(4)
     with c1:
-        st.markdown(kpi("US 大眾區隔", "76.5%", "ear_hair 主軸 ｜ Avg★ 3.18", "us"), unsafe_allow_html=True)
+        st.markdown(kpi("US 大眾族群", "76.5%", "日常自用大眾 ｜ Avg★ 3.18", "us"), unsafe_allow_html=True)
     with c2:
-        st.markdown(kpi("JP 大眾區隔", "91.6%", "power_source 主軸 ｜ Avg★ 3.46", "jp"), unsafe_allow_html=True)
+        st.markdown(kpi("JP 大眾族群", "91.6%", "CP 值優先大眾 ｜ Avg★ 3.46", "jp"), unsafe_allow_html=True)
     with c3:
         st.markdown(kpi("US 最佳組合 P(購買)", "83.3%", "USB-C × 38 段 × ≥10 件套組", "gold"), unsafe_allow_html=True)
     with c4:
@@ -1111,10 +1112,10 @@ def page_dual_market() -> None:
     st.plotly_chart(fig_segment_compare_bar(), use_container_width=True)
     st.markdown(
         """<div style="font-size:0.92rem; line-height:1.7;">
-        <b>策略意涵</b>：US Segment 2（76.5%）與 JP Segment 1（91.6%）是「大眾痛點群」，
-        Avg★ 偏低（3.18 / 3.46）— 應優先處理痛點而非強推擴張；
-        US Segment 3（4.0%, ★4.48）與 JP Segment 2（7.8%, ★4.01）是「高滿意可規模化」族群，
-        值得集中行銷資源（Priority Segment）。
+        <b>策略意涵</b>：「日常自用大眾（US S2，76.5%）」與「CP 值優先大眾（JP S1，91.6%）」
+        是「大眾痛點群」，Avg★ 偏低（3.18 / 3.46）— 應優先處理痛點而非強推擴張；
+        「USB-C 高端鐵粉（US S3，4.0%，★4.48）」與「鬍鬚講究客（JP S2，7.8%，★4.01）」
+        是「高滿意可規模化」族群，值得集中行銷資源（Priority）。
         </div>""",
         unsafe_allow_html=True,
     )
@@ -1186,9 +1187,9 @@ def page_stp() -> None:
     st.markdown(
         """<div style="font-size:0.92rem; line-height:1.75;">
         <ul style="margin-left:-20px;">
-          <li><b>US Priority Segment：</b> Segment 3（4%, ★4.48） — 充電 × 高端 × 送禮場景</li>
-          <li><b>JP Priority Segment：</b> Segment 2（7.8%, ★4.01） — 高精度 × 多附件 × 鬍鬚款</li>
-          <li><b>共同 Deprioritized：</b> 占比最大的大眾區隔，Avg★ 偏低 — 不是擴張對象，
+          <li><b>US 優先族群：</b>「USB-C 高端鐵粉」（S3，4%，★4.48）— 充電 × 高端 × 送禮場景</li>
+          <li><b>JP 優先族群：</b>「鬍鬚講究客」（S2，7.8%，★4.01）— 高精度 × 多附件 × 鬍鬚款</li>
+          <li><b>共同 Deprioritized：</b>「日常自用大眾」與「CP 值優先大眾」雖佔比最大但 Avg★ 偏低 — 不是擴張對象，
               應該優先以「痛點修補」應對（如 Listing 更清楚、退換貨、附件齊全度）</li>
         </ul>
         </div>""",
