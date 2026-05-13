@@ -4,6 +4,7 @@
 """
 from __future__ import annotations
 
+from contextlib import contextmanager
 from pathlib import Path
 
 import pandas as pd
@@ -120,16 +121,51 @@ def inject_css() -> None:
             .kpi.us {{ border-top: 4px solid {PALETTE['us']}; }}
             .kpi.jp {{ border-top: 4px solid {PALETTE['jp']}; }}
             .kpi.gold {{ border-top: 4px solid {PALETTE['gold']}; }}
-            /* Section card */
-            .card {{
+            /* Section card — 用 :has(.card-head) 鎖定 st.container(border=True) 容器 */
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"]
+                .card-head) {{
                 background: {PALETTE['bg_card']};
-                border: 1px solid {PALETTE['line']};
-                border-radius: 18px;
-                padding: 24px 26px;
+                border: 1px solid {PALETTE['line']} !important;
+                border-radius: 18px !important;
+                padding: 22px 26px 18px 26px !important;
                 box-shadow: 0 6px 16px -10px rgba(0,0,0,0.10);
                 margin-bottom: 18px;
             }}
-            .card h3 {{ margin-top: 0; font-size: 1.15rem; }}
+            .card-head h3 {{
+                margin: 0 0 14px 0;
+                font-size: 1.12rem;
+                color: {PALETTE['ink']};
+                font-weight: 700;
+            }}
+            /* 同列卡片高度等高 */
+            [data-testid="stHorizontalBlock"] {{
+                align-items: stretch;
+                gap: 1rem;
+            }}
+            [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {{
+                display: flex;
+                flex-direction: column;
+            }}
+            [data-testid="stHorizontalBlock"] > [data-testid="stColumn"]
+                > [data-testid="stVerticalBlock"] {{
+                flex: 1;
+            }}
+            [data-testid="stHorizontalBlock"] [data-testid="stColumn"]
+                [data-testid="stLayoutWrapper"] {{
+                height: 100%;
+            }}
+            [data-testid="stHorizontalBlock"] [data-testid="stColumn"]
+                [data-testid="stLayoutWrapper"] > [data-testid="stVerticalBlock"] {{
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            }}
+            /* spec/rec — 同樣讓同列等高 */
+            [data-testid="stHorizontalBlock"] [data-testid="stColumn"] .spec,
+            [data-testid="stHorizontalBlock"] [data-testid="stColumn"] .rec {{
+                height: 100%;
+                box-sizing: border-box;
+            }}
             .pill {{
                 display: inline-block;
                 padding: 2px 10px;
@@ -680,13 +716,33 @@ def kpi(label: str, value: str, delta: str = "", variant: str = "gold") -> str:
     """
 
 
-def card_open(title: str, badge: str = "") -> None:
+@contextmanager
+def card(title: str, badge: str = ""):
+    """Streamlit 原生 bordered container — DOM 上是一個真正的 wrapper，
+    內含 heading + 後續所有 widget。會被 CSS 拉成同列等高。"""
     badge_html = f'<span class="pill gold">{badge}</span>' if badge else ""
-    st.markdown(f'<div class="card"><h3>{badge_html} {title}</h3>', unsafe_allow_html=True)
+    with st.container(border=True):
+        st.markdown(
+            f'<div class="card-head"><h3>{badge_html} {title}</h3></div>',
+            unsafe_allow_html=True,
+        )
+        yield
+
+
+# 舊 API 相容（暫時保留，現有頁碼還在用）
+_card_stack: list = []
+
+
+def card_open(title: str, badge: str = "") -> None:
+    ctx = card(title, badge)
+    ctx.__enter__()
+    _card_stack.append(ctx)
 
 
 def card_close() -> None:
-    st.markdown("</div>", unsafe_allow_html=True)
+    if _card_stack:
+        ctx = _card_stack.pop()
+        ctx.__exit__(None, None, None)
 
 
 def style_fig(fig: go.Figure, height: int = 380) -> go.Figure:
@@ -811,35 +867,42 @@ def fig_upgrade_panel() -> go.Figure:
     us = UPGRADE_US.sort_values("升至 High 份額%")
     jp = UPGRADE_JP.sort_values("升至 High 份額%")
 
-    for col, df, base_color, gain_color in [
-        (1, us, "#D4D7E3", PALETTE["us"]),
-        (2, jp, "#E4D2D6", PALETTE["jp"]),
+    # 統一兩側 base color 與 gain color，名稱跨 column 共用一份 legend
+    base_color_us, base_color_jp = "#D4D7E3", "#E4D2D6"
+    gain_color_us, gain_color_jp = PALETTE["us"], PALETTE["jp"]
+
+    for col, df, base_color, gain_color, legend in [
+        (1, us, base_color_us, gain_color_us, "🇺🇸 US"),
+        (2, jp, base_color_jp, gain_color_jp, "🇯🇵 JP"),
     ]:
         gain = df["升至 High 份額%"] - df["現況份額%"]
         fig.add_bar(
             y=df["升級屬性"], x=df["現況份額%"], orientation="h",
-            marker_color=base_color, name="現況" if col == 1 else None,
+            marker_color=base_color, name=f"{legend} 現況",
             text=df["現況份額%"].apply(fmt_base),
             textposition="inside", insidetextanchor="middle",
             textfont=dict(color="#3B3D44", size=11),
-            showlegend=(col == 1),
+            showlegend=False,
+            cliponaxis=False,
             row=1, col=col,
         )
         fig.add_bar(
             y=df["升級屬性"], x=gain, orientation="h",
-            marker_color=gain_color, name="升級增量" if col == 1 else None,
+            marker_color=gain_color, name=f"{legend} 升級增量",
             base=df["現況份額%"],
             text=gain.apply(fmt_gain),
             textposition="outside",
             textfont=dict(color=gain_color, size=11, family="Inter"),
-            showlegend=(col == 1),
+            showlegend=False,
+            cliponaxis=False,
             row=1, col=col,
         )
 
     fig.update_layout(barmode="stack")
+    # 兩側都預留 25% 右側空間給 outside 文字
     fig.update_xaxes(title_text="偏好份額 (%)", row=1, col=1, range=[0, 1.5])
-    fig.update_xaxes(title_text="偏好份額 (%)", row=1, col=2, range=[0, 105])
-    return style_fig(fig, height=440)
+    fig.update_xaxes(title_text="偏好份額 (%)", row=1, col=2, range=[0, 115])
+    return style_fig(fig, height=460)
 
 
 def fig_wtp_panel() -> go.Figure:
@@ -918,53 +981,60 @@ def fig_segment_compare_bar() -> go.Figure:
 
 
 def fig_choice_set_donut() -> go.Figure:
-    """MNL 選擇集 — 三方比較（中心顯示 URBANER 份額）"""
+    """MNL 選擇集 — 兩個甜甜圈中央顯示 URBANER 份額，
+    色塊用 annotation 取代 legend，避免在窄欄位空間內 legend 換行。"""
     fig = make_subplots(
         rows=1, cols=2, specs=[[{"type": "domain"}, {"type": "domain"}]],
-        subplot_titles=("🇺🇸 美國 MNL 偏好份額", "🇯🇵 日本 MNL 偏好份額"),
-        horizontal_spacing=0.04,
+        subplot_titles=("🇺🇸 美國", "🇯🇵 日本"),
+        horizontal_spacing=0.06,
     )
     fig.add_trace(go.Pie(
         labels=["競品", "URBANER", "最佳設計組合"],
-        values=[94.67, 5.21, 0.12], hole=0.62, sort=False,
+        values=[94.67, 5.21, 0.12], hole=0.6, sort=False,
         marker=dict(colors=["#D4D7E3", PALETTE["us"], PALETTE["gold"]],
                     line=dict(color="#fff", width=2)),
         textinfo="none",
         hovertemplate="%{label}<br>%{percent}<extra></extra>",
-        pull=[0, 0.02, 0.12],
-        showlegend=True,
+        pull=[0, 0.02, 0.15],
+        showlegend=False,
     ), row=1, col=1)
     fig.add_trace(go.Pie(
         labels=["競品", "URBANER", "最佳設計組合"],
-        values=[85.60, 11.26, 3.14], hole=0.62, sort=False,
+        values=[85.60, 11.26, 3.14], hole=0.6, sort=False,
         marker=dict(colors=["#E4D2D6", PALETTE["jp"], PALETTE["gold"]],
                     line=dict(color="#fff", width=2)),
         textinfo="none",
         hovertemplate="%{label}<br>%{percent}<extra></extra>",
-        pull=[0, 0.02, 0.08],
+        pull=[0, 0.02, 0.1],
         showlegend=False,
     ), row=1, col=2)
+    # 中心 URBANER 份額
     fig.add_annotation(
-        text="<b>URBANER</b><br><span style='font-size:20px;color:#2E5BFF'>5.21%</span>",
-        x=0.205, y=0.5, showarrow=False, xref="paper", yref="paper",
+        text="<b>URBANER</b><br><span style='font-size:22px;color:#2E5BFF'>5.21%</span>",
+        x=0.205, y=0.55, showarrow=False, xref="paper", yref="paper",
         font=dict(size=11, color=PALETTE["ink"], family="Inter"),
     )
     fig.add_annotation(
-        text="<b>URBANER</b><br><span style='font-size:20px;color:#D32F4D'>11.26%</span>",
-        x=0.795, y=0.5, showarrow=False, xref="paper", yref="paper",
+        text="<b>URBANER</b><br><span style='font-size:22px;color:#D32F4D'>11.26%</span>",
+        x=0.795, y=0.55, showarrow=False, xref="paper", yref="paper",
         font=dict(size=11, color=PALETTE["ink"], family="Inter"),
     )
-    fig.update_layout(
-        legend=dict(
-            orientation="h", yanchor="top", y=-0.05,
-            xanchor="center", x=0.5, font=dict(size=11),
-            bgcolor="rgba(0,0,0,0)",
+    # 自製 legend（用 annotation 排成一行）— 跨欄位下方
+    fig.add_annotation(
+        text=(
+            "<span style='color:#9CA3AF'>■</span> 競品  &nbsp;&nbsp;"
+            "<span style='color:#2E5BFF'>■</span> URBANER (US)  &nbsp;&nbsp;"
+            "<span style='color:#D32F4D'>■</span> URBANER (JP)  &nbsp;&nbsp;"
+            "<span style='color:#C9A36F'>■</span> 最佳設計組合"
         ),
-        margin=dict(l=10, r=10, t=50, b=60),
+        x=0.5, y=-0.05, showarrow=False, xref="paper", yref="paper",
+        font=dict(size=11, color=PALETTE["charcoal"], family="Inter"),
+        xanchor="center", yanchor="top",
     )
-    fig.update_annotations(font_size=12, selector=dict(text="🇺🇸 美國 MNL 偏好份額"))
-    fig.update_annotations(font_size=12, selector=dict(text="🇯🇵 日本 MNL 偏好份額"))
-    return style_fig(fig, height=440)
+    fig.update_layout(margin=dict(l=10, r=10, t=50, b=60))
+    fig.update_annotations(font_size=12, selector=dict(text="🇺🇸 美國"))
+    fig.update_annotations(font_size=12, selector=dict(text="🇯🇵 日本"))
+    return style_fig(fig, height=460)
 
 
 # ─────────────────────────────────────────────────────────────
