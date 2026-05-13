@@ -66,6 +66,16 @@ def inject_css() -> None:
             .modebar-container {{
                 display: none !important;
             }}
+            .js-plotly-plot .xtick text,
+            .js-plotly-plot .ytick text,
+            .js-plotly-plot .gtitle,
+            .js-plotly-plot .legend text,
+            .js-plotly-plot .annotation-text,
+            .js-plotly-plot .xtitle,
+            .js-plotly-plot .ytitle {{
+                fill: {PALETTE['ink']} !important;
+                color: {PALETTE['ink']} !important;
+            }}
             section[data-testid="stSidebar"] {{
                 background: {PALETTE['ink']};
             }}
@@ -187,6 +197,53 @@ def inject_css() -> None:
             .pill.gold {{ background: #F4E4C5; color: #8B6914; }}
             .pill.good {{ background: #D4F4DD; color: {PALETTE['good']}; }}
             .pill.warn {{ background: #FCE7C2; color: {PALETTE['warn']}; }}
+            .insight-list {{
+                display: grid;
+                gap: 18px;
+                padding: 4px 0 2px 0;
+            }}
+            .insight-row {{
+                display: grid;
+                grid-template-columns: 14px minmax(0, 1fr);
+                column-gap: 14px;
+                align-items: start;
+            }}
+            .insight-dot {{
+                width: 6px;
+                height: 6px;
+                border-radius: 999px;
+                background: {PALETTE['charcoal']};
+                margin-top: 12px;
+            }}
+            .insight-title {{
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex-wrap: wrap;
+                color: {PALETTE['ink']};
+                font-size: 1.02rem;
+                font-weight: 800;
+                line-height: 1.4;
+                margin-bottom: 5px;
+            }}
+            .insight-title .pill {{
+                margin-right: 0;
+                margin-bottom: 0;
+                flex: 0 0 auto;
+            }}
+            .insight-body {{
+                color: {PALETTE['charcoal']};
+                font-size: 0.95rem;
+                line-height: 1.78;
+            }}
+            .insight-body code {{
+                background: #E9F8EF;
+                color: #047857;
+                border-radius: 5px;
+                padding: 1px 5px;
+                font-size: 0.88rem;
+                font-weight: 700;
+            }}
             /* Recommendation card */
             .rec {{
                 background: linear-gradient(180deg, #ffffff 0%, #fbf8f1 100%);
@@ -294,6 +351,21 @@ def inject_css() -> None:
                     margin-bottom: 4px;
                     line-height: 1.4;
                     white-space: normal;
+                }}
+                .insight-list {{
+                    gap: 16px;
+                }}
+                .insight-row {{
+                    grid-template-columns: 10px minmax(0, 1fr);
+                    column-gap: 10px;
+                }}
+                .insight-title {{
+                    font-size: 0.98rem;
+                    line-height: 1.45;
+                }}
+                .insight-body {{
+                    font-size: 0.92rem;
+                    line-height: 1.75;
                 }}
                 .rec {{
                     padding: 16px 18px;
@@ -869,11 +941,17 @@ def style_fig(fig: go.Figure, height: int = 380) -> go.Figure:
         margin=dict(l=20, r=20, t=50 if current_title else 30, b=30),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter, Noto Sans TC, sans-serif", color=PALETTE["charcoal"], size=12),
+        font=dict(family="Inter, Noto Sans TC, sans-serif", color=PALETTE["ink"], size=12),
         title=dict(text=current_title, font=dict(color=PALETTE["ink"], size=15)),
         legend=dict(
             orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1,
             bgcolor="rgba(255,255,255,0)",
+            font=dict(color=PALETTE["ink"], size=12),
+        ),
+        hoverlabel=dict(
+            bgcolor="#FFFFFF",
+            bordercolor=PALETTE["line"],
+            font=dict(color=PALETTE["ink"], family="Inter, Noto Sans TC, sans-serif"),
         ),
     )
     # subplot 標題字體與顏色
@@ -881,8 +959,22 @@ def style_fig(fig: go.Figure, height: int = 380) -> go.Figure:
         font=dict(size=12, color=PALETTE["ink"], family="Inter, Noto Sans TC, sans-serif"),
         selector=lambda a: getattr(a, "yref", None) == "paper" and getattr(a, "y", 0) >= 0.95,
     )
-    fig.update_xaxes(gridcolor=PALETTE["line"], zeroline=False)
-    fig.update_yaxes(gridcolor=PALETTE["line"], zeroline=False)
+    fig.update_xaxes(
+        gridcolor=PALETTE["line"],
+        zeroline=False,
+        tickfont=dict(color=PALETTE["ink"], size=12),
+        title_font=dict(color=PALETTE["ink"], size=12),
+        linecolor="#CFC7B8",
+        tickcolor="#CFC7B8",
+    )
+    fig.update_yaxes(
+        gridcolor=PALETTE["line"],
+        zeroline=False,
+        tickfont=dict(color=PALETTE["ink"], size=12),
+        title_font=dict(color=PALETTE["ink"], size=12),
+        linecolor="#CFC7B8",
+        tickcolor="#CFC7B8",
+    )
     return fig
 
 
@@ -994,7 +1086,7 @@ def fig_upgrade_panel() -> go.Figure:
             marker_color=base_color, name=f"{legend} 現況",
             text=df["現況份額%"].apply(fmt_base),
             textposition="inside", insidetextanchor="middle",
-            textfont=dict(color="#3B3D44", size=11),
+            textfont=dict(color=PALETTE["ink"], size=11, family="Inter"),
             showlegend=False,
             cliponaxis=False,
             row=1, col=col,
@@ -1035,7 +1127,7 @@ def fig_wtp_panel() -> go.Figure:
         y=us["屬性"], x=us["WTP (USD/品質分)"], orientation="h",
         marker_color=[PALETTE["us"] if s else "#B8C7FF" for s in us["顯著"]],
         text=us["WTP (USD/品質分)"].apply(lambda v: f"${v:,.0f}"),
-        textposition="outside", textfont=dict(size=11),
+        textposition="outside", textfont=dict(size=11, color=PALETTE["ink"], family="Inter"),
         cliponaxis=False,
         hovertemplate="%{y}<br>WTP=$%{x:.2f}<extra></extra>",
         row=1, col=1,
@@ -1044,7 +1136,7 @@ def fig_wtp_panel() -> go.Figure:
         y=jp["屬性"], x=jp["WTP (JPY/品質分)"], orientation="h",
         marker_color=[PALETTE["jp"] if s else "#F2B5C2" for s in jp["顯著"]],
         text=jp["WTP (JPY/品質分)"].apply(lambda v: f"¥{v:,.0f}"),
-        textposition="outside", textfont=dict(size=11),
+        textposition="outside", textfont=dict(size=11, color=PALETTE["ink"], family="Inter"),
         cliponaxis=False,
         hovertemplate="%{y}<br>WTP=¥%{x:,.0f}<extra></extra>",
         row=1, col=2,
@@ -1080,7 +1172,7 @@ def fig_segment_compare_bar() -> go.Figure:
         fig.add_bar(
             x=x_labels, y=df["占比%"], marker_color=base_color,
             text=bar_text, textposition="outside",
-            textfont=dict(size=12, family="Inter"),
+            textfont=dict(size=12, color=PALETTE["ink"], family="Inter"),
             cliponaxis=False,
             customdata=df["區隔"],
             hovertemplate="%{customdata}<br>占比 %{y:.1f}%<extra></extra>",
@@ -1089,7 +1181,7 @@ def fig_segment_compare_bar() -> go.Figure:
 
     fig.update_yaxes(title_text="占比 (%)", range=[0, 125], row=1, col=1)
     fig.update_yaxes(title_text="占比 (%)", range=[0, 125], row=1, col=2)
-    fig.update_xaxes(tickfont=dict(size=11))
+    fig.update_xaxes(tickfont=dict(size=11, color=PALETTE["ink"], family="Inter"))
     return style_fig(fig, height=480)
 
 
@@ -1187,7 +1279,7 @@ def fig_competitor_mentions() -> go.Figure:
         y=df["品牌"], x=df["出現類別數"], orientation="h",
         marker_color=colors,
         text=df["出現類別數"].apply(lambda v: f"{v} 類"),
-        textposition="outside", textfont=dict(size=11),
+        textposition="outside", textfont=dict(size=11, color=PALETTE["ink"], family="Inter"),
         cliponaxis=False,
         hovertemplate="%{y}<br>出現於 %{x} 個產品類別<extra></extra>",
     )
@@ -1265,15 +1357,46 @@ def page_overview() -> None:
         card_open("⚡ 三大核心洞察", "Executive")
         st.markdown(
             f"""
-- <span class="pill us">US</span> **送禮場景 × 多功能套組是市場決策主軸**
-  ANOVA Top 1 `gift_suitability_men` F=1299、Top 3 `num_grooming_functions` F=1193；
-  顯示父親節 / 聖誕節送禮情境驅動絕大多數美國電剪購買決策。
-- <span class="pill jp">JP</span> **附件齊全度 × 0.5mm 精度 × 電源類型是日本決策三軸**
-  ANOVA Top 1-3 累計 F 值 6,870；
-  日本顧客重視 38 段刻度、附件套組完整、CP 值高、可丸洗。
-- <span class="pill gold">兩市場共識</span> **IPX7+ × ≥7 件套組 = 2026 新品最低門檻**
-  兩市場 ANOVA、社群洞察一致；新 SKU 必須踩上這道規格線。
-""",
+            <div class="insight-list">
+                <div class="insight-row">
+                    <div class="insight-dot"></div>
+                    <div>
+                        <div class="insight-title">
+                            <span class="pill us">US</span>
+                            <span>送禮場景 × 多功能套組是市場決策主軸</span>
+                        </div>
+                        <div class="insight-body">
+                            ANOVA Top 1 <code>gift_suitability_men</code> F=1299、Top 3
+                            <code>num_grooming_functions</code> F=1193；顯示父親節 / 聖誕節送禮情境驅動絕大多數美國電剪購買決策。
+                        </div>
+                    </div>
+                </div>
+                <div class="insight-row">
+                    <div class="insight-dot"></div>
+                    <div>
+                        <div class="insight-title">
+                            <span class="pill jp">JP</span>
+                            <span>附件齊全度 × 0.5mm 精度 × 電源類型是日本決策三軸</span>
+                        </div>
+                        <div class="insight-body">
+                            ANOVA Top 1-3 累計 F 值 6,870；日本顧客重視 38 段刻度、附件套組完整、CP 值高、可丸洗。
+                        </div>
+                    </div>
+                </div>
+                <div class="insight-row">
+                    <div class="insight-dot"></div>
+                    <div>
+                        <div class="insight-title">
+                            <span class="pill gold">兩市場共識</span>
+                            <span>IPX7+ × ≥7 件套組 = 2026 新品最低門檻</span>
+                        </div>
+                        <div class="insight-body">
+                            兩市場 ANOVA、社群洞察一致；新 SKU 必須踩上這道規格線。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            """,
             unsafe_allow_html=True,
         )
         card_close()
