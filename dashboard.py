@@ -1059,7 +1059,10 @@ def fig_segment_sunburst(seg_df: pd.DataFrame, title: str, color: str) -> go.Fig
 def fig_upgrade_panel() -> go.Figure:
     fig = make_subplots(
         rows=1, cols=2,
-        subplot_titles=("🇺🇸 美國 — 屬性升級偏好份額", "🇯🇵 日本 — 屬性升級偏好份額"),
+        subplot_titles=(
+            "🇺🇸 美國 — 規格做到頂級後的市佔潛力",
+            "🇯🇵 日本 — 規格做到頂級後的市佔潛力",
+        ),
         horizontal_spacing=0.22,
     )
 
@@ -1105,8 +1108,8 @@ def fig_upgrade_panel() -> go.Figure:
 
     fig.update_layout(barmode="stack")
     # 兩側都預留 25% 右側空間給 outside 文字
-    fig.update_xaxes(title_text="偏好份額 (%)", row=1, col=1, range=[0, 1.5])
-    fig.update_xaxes(title_text="偏好份額 (%)", row=1, col=2, range=[0, 115])
+    fig.update_xaxes(title_text="市佔潛力 (%) — 規格升頂後的份額", row=1, col=1, range=[0, 1.5])
+    fig.update_xaxes(title_text="市佔潛力 (%) — 規格升頂後的份額", row=1, col=2, range=[0, 115])
     return style_fig(fig, height=460)
 
 
@@ -1325,9 +1328,9 @@ def render_hero(subtitle: str) -> None:
 
 def page_overview() -> None:
     render_hero(
-        "結合 11,523 則評論的 STP 統計與 Conjoint 偏好實證，"
-        "盤點 URBANER 在美國（4,360）與日本（7,163）兩市場的競爭位置，"
-        "並產出可直接套用到 Listing / 套組 / 行銷檔期的策略建議。"
+        "用 11,523 則 Amazon 評論做完顧客分群與偏好分析後，"
+        "盤點 URBANER 在美國（4,360 則）與日本（7,163 則）的競爭位置，"
+        "並產出可直接套用到 Listing / 套組設計 / 行銷檔期的策略建議。"
     )
 
     c1, c2, c3, c4 = st.columns(4)
@@ -1336,9 +1339,9 @@ def page_overview() -> None:
     with c2:
         st.markdown(kpi("自家 SKU 數", "88", "US 52 ｜ JP 36", "gold"), unsafe_allow_html=True)
     with c3:
-        st.markdown(kpi("US Hero SKU", "B0FL267TCG", "Beard / Mustache · ★4.52", "us"), unsafe_allow_html=True)
+        st.markdown(kpi("US 代表 SKU", "B0FL267TCG", "Beard / Mustache · ★4.52", "us"), unsafe_allow_html=True)
     with c4:
-        st.markdown(kpi("JP Hero SKU", "B0GBWZBMS5", "Nose / Ear · ★4.61", "jp"), unsafe_allow_html=True)
+        st.markdown(kpi("JP 代表 SKU", "B0GBWZBMS5", "Nose / Ear · ★4.61", "jp"), unsafe_allow_html=True)
 
     c1, c2, c3, c4 = st.columns(4)
     with c1:
@@ -1346,15 +1349,15 @@ def page_overview() -> None:
     with c2:
         st.markdown(kpi("JP 大眾族群", "91.6%", "CP 值優先大眾 ｜ Avg★ 3.46", "jp"), unsafe_allow_html=True)
     with c3:
-        st.markdown(kpi("US 最佳組合 P(購買)", "83.3%", "USB-C × 38 段 × ≥10 件套組", "gold"), unsafe_allow_html=True)
+        st.markdown(kpi("US 最佳組合 預估購買率", "83.3%", "USB-C × 38 段 × ≥10 件套組", "gold"), unsafe_allow_html=True)
     with c4:
-        st.markdown(kpi("JP 最佳組合 P(購買)", "89.1%", "IPX7 × 90 分高續航全配款", "gold"), unsafe_allow_html=True)
+        st.markdown(kpi("JP 最佳組合 預估購買率", "89.1%", "IPX7 × 90 分高續航全配款", "gold"), unsafe_allow_html=True)
 
     st.markdown("---")
 
     col_l, col_r = st.columns([5, 4])
     with col_l:
-        card_open("⚡ 三大核心洞察", "Executive")
+        card_open("⚡ 三大核心洞察", "策略總覽")
         st.markdown(
             f"""
             <div class="insight-list">
@@ -1402,7 +1405,7 @@ def page_overview() -> None:
         card_close()
 
     with col_r:
-        card_open("🪒 兩市場目前份額位置", "MNL Choice Set")
+        card_open("🪒 在競品環伺下，URBANER 目前佔多少？", "市佔位置")
         st.plotly_chart(fig_choice_set_donut(), use_container_width=True)
         st.markdown(
             f"""<div style="color:{PALETTE['muted']}; font-size:0.85rem; line-height:1.6;">
@@ -1413,7 +1416,7 @@ def page_overview() -> None:
         )
         card_close()
 
-    card_open("📊 屬性重要性對比（兩市場一張圖看完）", "Conjoint")
+    card_open("📊 美日消費者在意什麼？— 屬性重要性一張圖看完", "偏好分析")
     st.plotly_chart(fig_importance_compare(), use_container_width=True)
     st.markdown(
         f"""<div style="color:{PALETTE['muted']}; font-size:0.88rem; line-height:1.7;">
@@ -1426,9 +1429,12 @@ def page_overview() -> None:
 
 
 def page_dual_market() -> None:
-    render_hero("並列檢視美國與日本的競爭結構、屬性重要性、區隔組成與 Hero SKU。")
+    render_hero(
+        "把美國與日本擺在一起看：哪些屬性最區分顧客、各顧客群佔多少人、平均給幾顆星、"
+        "兩市場代表 SKU 各是誰。"
+    )
 
-    card_open("🌎 屬性區隔力 — ANOVA F 值（越大代表區隔越分明）")
+    card_open("🌎 哪些屬性最能拉開不同顧客群的差距？")
     st.plotly_chart(fig_anova_panel(), use_container_width=True)
     st.markdown(
         f"""<div style="color:{PALETTE['muted']}; font-size:0.88rem;">
@@ -1440,7 +1446,7 @@ def page_dual_market() -> None:
     )
     card_close()
 
-    card_open("👥 區隔組成 — 占比 × 平均星等")
+    card_open("👥 各顧客群佔多少人、平均給幾顆星？")
     st.plotly_chart(fig_segment_compare_bar(), use_container_width=True)
     st.markdown(
         """<div style="font-size:0.92rem; line-height:1.7;">
@@ -1453,7 +1459,7 @@ def page_dual_market() -> None:
     )
     card_close()
 
-    card_open("🌳 區隔組成樹狀圖 — 按人數比例")
+    card_open("🌳 顧客群人數分布（樹狀圖，一眼看比例）")
     col_l, col_r = st.columns(2)
     with col_l:
         st.plotly_chart(fig_segment_sunburst(SEGMENTS_US, "🇺🇸 美國區隔組成（按人數）", "us"), use_container_width=True)
@@ -1468,19 +1474,19 @@ def page_dual_market() -> None:
     )
     card_close()
 
-    card_open("🏆 Hero SKU 對照 — 兩市場最接近理想點的商品")
+    card_open("🏆 兩市場代表 SKU — 哪兩款最接近顧客理想？")
     h1, h2 = st.columns(2)
     with h1:
         st.markdown(
             f"""
             <div class="spec">
-                <h4>🇺🇸 US Hero SKU</h4>
+                <h4>🇺🇸 美國代表 SKU</h4>
                 <div class="name">{HERO_SKU_US['asin']}</div>
                 <div class="meta">{HERO_SKU_US['category']} ｜ n={HERO_SKU_US['n_reviews']}</div>
                 <table>
-                    <tr><td>距理想點 RMS</td><td>{HERO_SKU_US['distance']}</td></tr>
+                    <tr><td>離顧客理想多遠</td><td>{HERO_SKU_US['distance']} ｜ 越小越接近</td></tr>
                     <tr><td>平均星等</td><td>★ {HERO_SKU_US['avg_star']}</td></tr>
-                    <tr><td>MNL 同類偏好份額</td><td>{HERO_SKU_US['preference_share']}%</td></tr>
+                    <tr><td>同類預估市佔</td><td>{HERO_SKU_US['preference_share']}%</td></tr>
                     <tr><td>建議策略</td><td>Father's Day 主推</td></tr>
                 </table>
             </div>
@@ -1491,13 +1497,13 @@ def page_dual_market() -> None:
         st.markdown(
             f"""
             <div class="spec jp">
-                <h4>🇯🇵 JP Hero SKU</h4>
+                <h4>🇯🇵 日本代表 SKU</h4>
                 <div class="name">{HERO_SKU_JP['asin']}</div>
                 <div class="meta">{HERO_SKU_JP['category']} ｜ n={HERO_SKU_JP['n_reviews']}</div>
                 <table>
                     <tr><td>距理想點 RMS</td><td>{HERO_SKU_JP['distance']}</td></tr>
                     <tr><td>平均星等</td><td>★ {HERO_SKU_JP['avg_star']}</td></tr>
-                    <tr><td>MNL 全場偏好份額</td><td>{HERO_SKU_JP['preference_share']}%</td></tr>
+                    <tr><td>全場預估市佔</td><td>{HERO_SKU_JP['preference_share']}%</td></tr>
                     <tr><td>建議策略</td><td>父の日 × 楽天直営主打</td></tr>
                 </table>
             </div>
@@ -1505,19 +1511,19 @@ def page_dual_market() -> None:
             unsafe_allow_html=True,
         )
     insight(
-        "<b>兩市場 Hero SKU 完全不同類別</b> — US 主推 Beard / Mustache（B0FL267TCG, ★4.52），"
-        "JP 主推 Nose / Ear（B0GBWZBMS5, ★4.61）。"
-        "RMS 距理想點 US 1.601 < JP 1.97，代表 URBANER 在美國比較貼近顧客的「理想規格」。<br/>"
+        "<b>兩市場代表 SKU 完全是不同類別</b> — 美國主推 Beard / Mustache 修鬍器（B0FL267TCG, ★4.52）；"
+        "日本主推 Nose / Ear 鼻耳毛機（B0GBWZBMS5, ★4.61）。"
+        "「離顧客理想多遠」美國 1.6 < 日本 2.0，代表 URBANER 在美國比較貼近顧客理想規格。<br/>"
         "<b>不要互用主推品</b>：把美國 Beard 款拿去日本推、或把日本 Nose/Ear 款拿去美國推，"
-        "都會打到錯誤的決策軸；行銷預算應在各市場集中於對應 Hero SKU。",
+        "都會打到錯誤的決策軸；行銷預算應在各市場集中投到對應的代表 SKU。",
     )
     card_close()
 
 
 def page_stp() -> None:
     render_hero(
-        "STP 是「先看誰在買、再選要服務誰、最後決定我是誰」。"
-        "兩市場的決策軸完全不同 — US 由送禮場景驅動、JP 由規格深度驅動。"
+        "STP 三步驟 — 先看「誰在買」（分群）、再決定「要服務誰」（鎖定優先族群）、最後想清楚「我要是誰」（在競爭群裡的位置）。"
+        "美日決策軸完全不同 — 美國由「送禮場景」驅動、日本由「規格深度」驅動。"
     )
 
     def render_segment_card(seg_df: pd.DataFrame, accent: str) -> None:
@@ -1561,7 +1567,7 @@ def page_stp() -> None:
                 unsafe_allow_html=True,
             )
 
-    with card("🎯 Segmentation 區隔表 — 兩市場並列"):
+    with card("🎯 顧客分群 — 美日各有 3 種顧客"):
         s1, s2 = st.columns(2)
         with s1:
             st.markdown(
@@ -1584,7 +1590,7 @@ def page_stp() -> None:
             "但滿意度遠高於大眾，且願意為精度與充電付溢價。",
         )
 
-    card_open("📈 Targeting — 區隔之間最有差異的屬性（ANOVA F）")
+    card_open("📈 鎖定優先族群 — 哪些屬性最能拉開不同顧客的差距？")
     st.plotly_chart(fig_anova_panel(), use_container_width=True)
     st.markdown(
         """<div style="font-size:0.92rem; line-height:1.75;">
@@ -1599,7 +1605,7 @@ def page_stp() -> None:
     )
     card_close()
 
-    card_open("🗺️ Positioning — 兩市場 Perceptual Map")
+    card_open("🗺️ 市場定位地圖 — URBANER 在競爭群裡離顧客理想多近？")
     p1, p2 = st.columns(2)
     perceptual_us = OUT_STP_US / "perceptual_map.png"
     perceptual_jp = OUT_STP_JP / "perceptual_map.png"
@@ -1624,7 +1630,7 @@ def page_stp() -> None:
     )
     card_close()
 
-    card_open("🔥 屬性熱圖 — Top 20 屬性 × Top 12 SKU 品質分")
+    card_open("🔥 哪個 SKU 在哪個屬性表現最好？— 屬性 × SKU 口碑熱圖")
     h1, h2 = st.columns(2)
     with h1:
         heat_us = OUT_STP_US / "quality_heatmap.png"
@@ -1645,11 +1651,11 @@ def page_stp() -> None:
 
 def page_conjoint() -> None:
     render_hero(
-        "Conjoint 揭示「消費者真正在比什麼」。"
-        "Split-model Logit + 真實售價的 WTP，告訴你每升 1 分品質可以多賣多少錢。"
+        "從 11,523 則 Amazon 評論還原顧客「真正在比什麼」，再用真實售價回推「願意為品質多付多少錢」。"
+        "三張圖一起看：消費者在意什麼 → 願意多付多少 → 把規格做上去市佔能跳多少。"
     )
 
-    card_open("⚖️ 屬性重要性 — Split-Logit Part-Worth")
+    card_open("⚖️ 消費者最在意哪些屬性？")
     st.plotly_chart(fig_importance_compare(), use_container_width=True)
     insight(
         "<b>美日決策軸完全不同</b>：US 一根「功能合一數」就吃掉 51.5% 重要性 — "
@@ -1660,36 +1666,45 @@ def page_conjoint() -> None:
     )
     card_close()
 
-    card_open("💰 WTP 願付溢價（路線 A，真實售價重估）")
+    card_open("💰 為品質升級，消費者願意多付多少錢？")
     st.plotly_chart(fig_wtp_panel(), use_container_width=True)
     st.markdown(
         f"""<div style="color:{PALETTE['muted']}; font-size:0.86rem; line-height:1.7;">
-        <b>解讀</b>：每提升 1 個品質分，美國消費者願意為「機身尺寸」多付 $89.81（p&lt;0.05 顯著）；
-        日本消費者願意為「長度調整段數」多付 ¥7,961（p&lt;0.05）。
-        <br>顏色深者為統計顯著（p&lt;0.05），淺色為方向性參考。
-        JP β_price 為正（高價品質訊號），WTP 數值僅供方向，不宜直接定價。
+        <b>解讀</b>：把同一項屬性的品質從 0 分做到 10 分，美國消費者「機身尺寸」最多願意多付 $89.81、
+        日本消費者「長度調整段數」最多願意多付 ¥7,961（都有統計顯著）。
+        <br>深色柱 = 統計顯著（高信心），淺色柱 = 方向性參考。
+        <br>⚠️ 日本售價與品質正相關（高價＝高品質訊號），日本 WTP 數字只當「方向參考」，不要直接拿去定價。
         </div>""",
         unsafe_allow_html=True,
     )
     card_close()
 
-    card_open("🚀 升級模擬 — 把 URBANER 屬性升到 High，份額會跳多少？")
+    card_open("🚀 規格做到頂級，市佔會跳多少？")
+    st.markdown(
+        f"""<div style="color:{PALETTE['muted']}; font-size:0.88rem; line-height:1.7;
+                       margin-bottom:8px;">
+        模擬：如果把 URBANER 在某個屬性的規格升到「競品頂級水準」
+        （例如 段數做到 ≥38 段、附件做到 ≥10 件、防水做到 IPX7+、續航做到 90 分以上），
+        重跑市佔模型後，URBANER 的偏好份額能從現在跳到多少。
+        <b>這是 R&D 投資 ROI 決策工具：告訴你「砸錢升哪個屬性，市佔回報最大」。</b>
+        </div>""",
+        unsafe_allow_html=True,
+    )
     st.plotly_chart(fig_upgrade_panel(), use_container_width=True)
     st.markdown(
         """<div style="font-size:0.92rem; line-height:1.7;">
         <b>策略意涵</b>：
         <ul style="margin-left:-20px;">
-          <li><b>JP 應優先升「長度調整段數」</b> — 從 1.6% 跳到 94.8%（+93.2pp），是所有升級項目中爆發力最大的單一決策。</li>
-          <li>JP 「調整精度」升至 0.5mm 也帶來 +84.6pp，與「段數」是兩條互補升級路徑。</li>
-          <li>US 屬性升級個別增幅都不大（&lt;1pp），代表 US 端的問題不是單屬性而是「整體套組形態」，建議用組合拳：附件 + 功能合一 + USB-C 一起升。</li>
+          <li><b>JP 第一優先：把段數做到 38 段以上</b> — 市佔從 1.6% 跳到 94.8%（多 93 個百分點），是所有升級裡爆發力最大的單一決策。</li>
+          <li><b>JP 第二優先：刻度做到 0.5mm</b> — 市佔可跳到 86.2%（多 85 個百分點），與「段數」是兩條互補的升級路徑。</li>
+          <li><b>US 不能靠單一升級</b>：個別屬性升級增幅都不到 1 個百分點，問題是「整套套組形態」，建議組合拳：附件 + 多功能 + USB-C 一起升。</li>
         </ul>
         </div>""",
         unsafe_allow_html=True,
     )
     card_close()
 
-    # WTP 表格輔助
-    card_open("📋 WTP 完整對照表")
+    card_open("📋 每升 1 分品質，消費者願意多付多少錢（完整對照表）")
     c1, c2 = st.columns(2)
     with c1:
         st.markdown('<span class="pill us">USD / 品質分</span>', unsafe_allow_html=True)
@@ -1710,11 +1725,12 @@ def page_conjoint() -> None:
 
 def page_best_product() -> None:
     render_hero(
-        "兩市場最佳組合的「骨幹」相同（USB-C × 38 段 × ≥10 件套組），"
-        "但 US 把資源放在「USB-C 快充 × 1合1 精修」，JP 把資源放在「IPX7 × 90 分續航 × 1mm 精度」。"
+        "用 Conjoint 偏好分析從 24 種設計組合裡，挑出兩市場「消費者最會買」的產品規格。"
+        "兩市場骨幹相同（USB-C × 38 段 × ≥10 件套組），但 US 走「USB-C 快充 × 單一精修」、"
+        "JP 走「IPX7 × 90 分續航 × 1mm 精度」。"
     )
 
-    card_open("🏆 兩市場最佳產品組合（自 24 種設計組合中以 Logit 效用挑選）")
+    card_open("🏆 兩市場最佳產品組合 — 24 種設計裡挑出消費者最會買的")
     b1, b2 = st.columns(2)
     with b1:
         rows = "".join([f"<tr><td>{k}</td><td>{v}</td></tr>" for k, v in BEST_CARD_US['specs']])
@@ -1809,7 +1825,7 @@ def page_social() -> None:
 
     st.markdown("---")
 
-    card_open("🌐 兩市場社群跨類別共通洞察", "Cross-Category Trends")
+    card_open("🌐 美日社群跨類別共通趨勢 — 22 條一眼看完", "跨類別共識")
     cols = st.columns(2)
     with cols[0]:
         st.markdown(
@@ -1865,7 +1881,7 @@ def page_social() -> None:
     )
     card_close()
 
-    card_open("🔍 9 類別深度社群洞察 — 痛點 × 好評 × 競品偏好", "Category Deep Dive")
+    card_open("🔍 各類別深度洞察 — 痛點 × 好評 × 對標競品", "9 個產品類別")
     cat = st.selectbox("選擇產品類別", list(SOCIAL_CATEGORIES.keys()), index=0)
     data = SOCIAL_CATEGORIES[cat]
 
@@ -1942,7 +1958,7 @@ def page_social() -> None:
         )
     card_close()
 
-    card_open("🎯 社群洞察轉化為產品 + 行銷規格", "Action Mapping")
+    card_open("🎯 社群觀察 → 明天就能改的 5 個產品/行銷動作", "行動對應")
     st.markdown(
         f"""
         <div style="background:linear-gradient(135deg,#fdfaf2,#fff); border-radius:14px;
@@ -1967,20 +1983,20 @@ def page_social() -> None:
 
 def page_playbook() -> None:
     render_hero(
-        "從統計到行動：把 ANOVA、Conjoint、WTP、社群洞察轉化為「明天就能做」的 11 項行銷動作。"
+        "把前面所有統計分析（顧客分群、偏好分析、願付溢價、社群觀察）轉化為「明天就能做」的 11 項具體行銷動作 + 12 個月行銷檔期。"
     )
 
-    card_open("🇺🇸 美國市場劇本 — Gift-Ready × Multi-Function Pro")
+    card_open("🇺🇸 美國市場劇本 — 主打「禮品 × 多功能套組」")
     for rec in PLAYBOOK_US:
         render_rec(rec, "us")
     card_close()
 
-    card_open("🇯🇵 日本市場劇本 — 精度・耐久・分貝数値化")
+    card_open("🇯🇵 日本市場劇本 — 主打「精度・耐久・分貝數值化」")
     for rec in PLAYBOOK_JP:
         render_rec(rec, "jp")
     card_close()
 
-    card_open("🌐 兩市場通用 R&D 共識")
+    card_open("🌐 兩市場共同的產品開發共識")
     for rec in PLAYBOOK_COMMON:
         render_rec(rec)
     card_close()
@@ -2057,9 +2073,9 @@ def main() -> None:
               · 兩市場 SKU 真實售價 + 月銷量<br/>
               · 9 類別競品評論 + 社群媒體洞察<br/><br/>
               <b>分析方法</b><br/>
-              · Review-Mining STP（Axis A/B）<br/>
-              · Revealed-Pref Logistic Conjoint<br/>
-              · Hedonic Pricing + MNL Share-of-Pref<br/><br/>
+              · 評論顯著度 × 品質雙軸 STP 分群<br/>
+              · 觀察型 Conjoint 偏好分析（Logit）<br/>
+              · 願付溢價（WTP）+ 市佔模擬（MNL）<br/><br/>
               資料截止 2026-05-05
             </div>
             """,
