@@ -729,6 +729,23 @@ def card(title: str, badge: str = ""):
         yield
 
 
+def insight(text: str, label: str = "解讀") -> None:
+    """金色 accent 的解讀區塊 — 給每張卡片下方統一樣式的洞察文字。"""
+    st.markdown(
+        f"""
+        <div style="margin-top:14px; padding:12px 18px;
+                    background:linear-gradient(135deg, #fbf8f1 0%, #ffffff 100%);
+                    border-left:3px solid {PALETTE['gold']};
+                    border-radius:10px;
+                    color:{PALETTE['charcoal']}; font-size:0.9rem; line-height:1.75;">
+            <b style="color:{PALETTE['ink']}; letter-spacing:0.04em;">💡 {label}</b><br/>
+            {text}
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 # 舊 API 相容（暫時保留，現有頁碼還在用）
 _card_stack: list = []
 
@@ -1191,11 +1208,20 @@ def page_dual_market() -> None:
     )
     card_close()
 
+    card_open("🌳 區隔組成樹狀圖 — 按人數比例")
     col_l, col_r = st.columns(2)
     with col_l:
         st.plotly_chart(fig_segment_sunburst(SEGMENTS_US, "🇺🇸 美國區隔組成（按人數）", "us"), use_container_width=True)
     with col_r:
         st.plotly_chart(fig_segment_sunburst(SEGMENTS_JP, "🇯🇵 日本區隔組成（按人數）", "jp"), use_container_width=True)
+    insight(
+        "<b>US 比 JP 更均勻</b> — US 的 S1（送禮）+S3（高端）合計 23.5% 還算有規模；"
+        "JP 則高度集中：S1「CP 值優先大眾」一個族群就 91.6%，"
+        "S2、S3 加起來只佔 8.4%。<br/>"
+        "<b>策略含義</b>：JP 不要追小眾，而是「在大眾族群內找升級訊號」；"
+        "US 可以同時跑大眾與高端兩條 product line。",
+    )
+    card_close()
 
     card_open("🏆 Hero SKU 對照 — 兩市場最接近理想點的商品")
     h1, h2 = st.columns(2)
@@ -1233,6 +1259,13 @@ def page_dual_market() -> None:
             """,
             unsafe_allow_html=True,
         )
+    insight(
+        "<b>兩市場 Hero SKU 完全不同類別</b> — US 主推 Beard / Mustache（B0FL267TCG, ★4.52），"
+        "JP 主推 Nose / Ear（B0GBWZBMS5, ★4.61）。"
+        "RMS 距理想點 US 1.601 < JP 1.97，代表 URBANER 在美國比較貼近顧客的「理想規格」。<br/>"
+        "<b>不要互用主推品</b>：把美國 Beard 款拿去日本推、或把日本 Nose/Ear 款拿去美國推，"
+        "都會打到錯誤的決策軸；行銷預算應在各市場集中於對應 Hero SKU。",
+    )
     card_close()
 
 
@@ -1297,6 +1330,14 @@ def page_stp() -> None:
                 unsafe_allow_html=True,
             )
             render_segment_card(SEGMENTS_JP, PALETTE["jp"])
+        insight(
+            "<b>美日大眾族群動機差很多</b>：US 大眾「日常自用」買來自己每天用 — "
+            "鬍鬚 + 耳鼻一機通用；JP 大眾「CP 值優先」愛乾電池款，"
+            "看重耐用與易用。<br/>"
+            "<b>高滿意小族群才是利潤池</b>：US S3 USB-C 高端鐵粉（★4.48）"
+            "與 JP S2 鬍鬚講究客（★4.01）— 雖只佔 4% / 7.8%，"
+            "但滿意度遠高於大眾，且願意為精度與充電付溢價。",
+        )
 
     card_open("📈 Targeting — 區隔之間最有差異的屬性（ANOVA F）")
     st.plotly_chart(fig_anova_panel(), use_container_width=True)
@@ -1329,6 +1370,13 @@ def page_stp() -> None:
                      use_container_width=True)
         else:
             st.info("perceptual_map.png 不存在")
+    insight(
+        "<b>圖上的點越靠近右上角越接近「理想品質」</b>。"
+        "URBANER 在兩市場的位置分布不同：US 主力 SKU 偏 Beard 高密度區，"
+        "JP 主力 SKU 偏 Nose/Ear 與小型機身區。<br/>"
+        "<b>產品開發優先序</b>：盯靠近右上角的 SKU 學它怎麼做、"
+        "把落單在左下的 SKU 重新評估是否退場。",
+    )
     card_close()
 
     card_open("🔥 屬性熱圖 — Top 20 屬性 × Top 12 SKU 品質分")
@@ -1341,6 +1389,12 @@ def page_stp() -> None:
         heat_jp = OUT_STP_JP / "quality_heatmap.png"
         if heat_jp.exists():
             st.image(str(heat_jp), caption="🇯🇵 JP 品質熱圖", use_container_width=True)
+    insight(
+        "<b>橫向看 SKU、縱向看屬性</b> — 一格越綠代表這個 SKU 在該屬性上口碑越好。"
+        "找出每一列（屬性）有哪幾個 SKU 是「綠到頂」的，那就是該屬性的標竿學習對象。<br/>"
+        "<b>實務用法</b>：選 3 個你最想升級的屬性，"
+        "去看熱圖最綠的那兩三顆 SKU，拆解它們的規格／文案／視覺呈現再複製。",
+    )
     card_close()
 
 
@@ -1352,6 +1406,13 @@ def page_conjoint() -> None:
 
     card_open("⚖️ 屬性重要性 — Split-Logit Part-Worth")
     st.plotly_chart(fig_importance_compare(), use_container_width=True)
+    insight(
+        "<b>美日決策軸完全不同</b>：US 一根「功能合一數」就吃掉 51.5% 重要性 — "
+        "套組組合是壓倒性決策因子；JP 前 6 個屬性都在 10% 以上、分布均勻，"
+        "代表日本顧客同時看附件數、長度段數、精度、續航。<br/>"
+        "<b>產品溝通方向</b>：US Listing 第一張主圖必須講清楚「幾合一」；"
+        "JP Listing 第一條 bullet 要把 X 個附件 / X 段 / X mm 全部列出。",
+    )
     card_close()
 
     card_open("💰 WTP 願付溢價（路線 A，真實售價重估）")
@@ -1391,6 +1452,14 @@ def page_conjoint() -> None:
     with c2:
         st.markdown('<span class="pill jp">JPY / 品質分</span>', unsafe_allow_html=True)
         st.dataframe(WTP_JP, hide_index=True, use_container_width=True)
+    insight(
+        "<b>怎麼用這張表</b>：把 WTP 直接除以「目前 SKU 在該屬性的品質分缺口」，"
+        "就能估算「升級 1 個品質分」可以多賣多少錢。<br/>"
+        "<b>US 顯著屬性</b>（p&lt;0.05）：機身尺寸 $89.81、附件件數 $79.86、"
+        "長度段數 $78.18、功能合一 $59.07、USB-C 充電 $32.39。"
+        "<br/><b>JP 顯著屬性</b>：長度段數 ¥7,961、調整精度 ¥6,774、附件件數 ¥5,207、電池續航 ¥4,306。"
+        "<br/>JP β_price 為正（高價＝高品質訊號），WTP 數字僅供方向參考，不宜直接定價決策。",
+    )
     card_close()
 
 
@@ -1541,6 +1610,14 @@ def page_social() -> None:
                 """,
                 unsafe_allow_html=True,
             )
+    insight(
+        "<b>美日社群文化差很大</b> — 美國 Reddit／B&B 像消費者互相 peer review，"
+        "重視「實際使用感」與「替代品比較」（如『Manscaped 替代品』）；"
+        "日本知恵袋／価格.com 像家電專家論壇，"
+        "重視「規格數值」（dB、分鐘、IPX）與「専門家監修」的權威認證。<br/>"
+        "<b>Listing / 廣告差異化</b>："
+        "美國主打「實際痛點解法 + 用戶生活情境」、日本主打「具體規格數字 + 専門家背書」。",
+    )
     card_close()
 
     card_open("🔍 9 類別深度社群洞察 — 痛點 × 好評 × 競品偏好", "Category Deep Dive")
@@ -1586,6 +1663,14 @@ def page_social() -> None:
 
     render_cat_column("US", data["us"], PALETTE["us"])
     render_cat_column("JP", data["jp"], PALETTE["jp"])
+    insight(
+        f"<b>怎麼用這個區塊</b>：以「{cat}」這個類別為例，"
+        "切到上方下拉選單可以瀏覽 9 個類別。每一格代表一個情緒方向。<br/>"
+        "<b>痛點欄</b>：列出 Listing 與商品開發時必須避開的地雷（如「拉毛」「漏電」「不防水」）。"
+        "<b>好評欄</b>：列出可以拿來當主圖／首條 bullet 的賣點（如「IPX7 可丸洗」「LCD 顯示電量」）。"
+        "<b>競品偏好</b>：直接是你的 listing 比較對象（直接寫出對標品 + 規格）。",
+        label="閱讀方式",
+    )
     card_close()
 
     card_open("🏷️ 社群被提及的主要競品 — 跨類別覆蓋")
@@ -1669,6 +1754,13 @@ def page_playbook() -> None:
         columns=["季", "月", "檔期", "重點行動"],
     )
     st.dataframe(cal, hide_index=True, use_container_width=True)
+    insight(
+        "<b>全年三個非打不可的檔期</b>：6 月父の日（US + JP 雙打）、"
+        "11 月 Black Friday × Cyber Monday（US 全年最大）、12 月 お歳暮（JP 禮品旺季）。<br/>"
+        "<b>排程節奏</b>：每個檔期前 6 週開始預熱（A+ 素材 + PPC 預算配置），前 2 週進主圖／封面替換，"
+        "檔期結束後 2 週清庫存並把高轉換素材回填日常 Listing。<br/>"
+        "<b>非檔期月份</b>（4 月、7 月、8 月）做品牌經營：UGC 收集、開箱影片、与 KOL 合作（特別是 JP マイベスト編輯部）。",
+    )
     card_close()
 
 
