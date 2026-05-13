@@ -1493,8 +1493,9 @@ def render_hero(subtitle: str) -> None:
 
 def page_overview() -> None:
     render_hero(
-        "用 11,523 則 Amazon 評論做完顧客分群與偏好分析後，"
-        "盤點 URBANER 在美國（4,360 則）與日本（7,163 則）的競爭位置，"
+        "用 11,523 則 Amazon 真實評論（美國市場 4,360 + 日本市場 7,163，"
+        "URBANER 自家 + 競品合計）做完顧客分群與偏好分析後，"
+        "盤點 URBANER 在兩市場的競爭位置，"
         "並產出可直接套用到 Listing / 套組設計 / 行銷檔期的策略建議。"
     )
 
@@ -1503,8 +1504,8 @@ def page_overview() -> None:
         st.markdown(kpi("總評論數", "11,523", "US 4,360 ｜ JP 7,163", "gold"), unsafe_allow_html=True)
     with c2:
         st.markdown(
-            kpi("追蹤 SKU 數", "88",
-                "URBANER 自家 + 競品（rawdata 內 84 個 ASIN，其中 7 個確認自家）", "gold"),
+            kpi("追蹤 SKU 數", "84",
+                "7 個確認 URBANER 自家 + 77 個競品", "gold"),
             unsafe_allow_html=True,
         )
     with c3:
@@ -1845,22 +1846,30 @@ def page_stp() -> None:
     perceptual_jp = OUT_STP_JP / "perceptual_map.png"
     with p1:
         if perceptual_us.exists():
-            st.image(str(perceptual_us), caption="🇺🇸 US — PCA 二維品質投影（Hero = B0FL267TCG）",
-                     use_container_width=True)
+            st.image(
+                str(perceptual_us),
+                caption="🇺🇸 US — 各 SKU 的二維品質投影"
+                        "（市場頂尖 = B0FL267TCG/Ufree，URBANER 自家旗艦 = B0GL2DKVQH）",
+                use_container_width=True,
+            )
         else:
             st.info("perceptual_map.png 不存在")
     with p2:
         if perceptual_jp.exists():
-            st.image(str(perceptual_jp), caption="🇯🇵 JP — PCA 二維品質投影（Hero = B0GBWZBMS5）",
-                     use_container_width=True)
+            st.image(
+                str(perceptual_jp),
+                caption="🇯🇵 JP — 各 SKU 的二維品質投影"
+                        "（市場頂尖 = B0GBWZBMS5，URBANER 自家旗艦 = B07CYZH2XC）",
+                use_container_width=True,
+            )
         else:
             st.info("perceptual_map.png 不存在")
     insight(
         "<b>圖上的點越靠近右上角越接近「理想品質」</b>。"
-        "URBANER 在兩市場的位置分布不同：US 主力 SKU 偏 Beard 高密度區，"
-        "JP 主力 SKU 偏 Nose/Ear 與小型機身區。<br/>"
-        "<b>產品開發優先序</b>：盯靠近右上角的 SKU 學它怎麼做、"
-        "把落單在左下的 SKU 重新評估是否退場。",
+        "市場頂尖 SKU 都集中在圖的高密度區，URBANER 自家旗艦則"
+        "離右上角還有一段距離 — 對應到 ★3.5–3.8 的滿意度水準。<br/>"
+        "<b>產品開發優先序</b>：盯靠近右上角的競品學它怎麼做、"
+        "把 URBANER 自家落單在左下的 SKU 重新評估是否退場。",
     )
     card_close()
 
@@ -2340,7 +2349,8 @@ def main() -> None:
             <div style="font-size:0.78rem; color:rgba(255,255,255,0.7); line-height:1.7;">
               <b>資料來源</b><br/>
               · 11,523 則 Amazon US/JP 真實評論<br/>
-              · 88 個 URBANER SKU × 114 屬性評分<br/>
+              · 84 個追蹤 SKU × 114 屬性評分<br/>
+              &nbsp;&nbsp;（7 個確認 URBANER 自家、其餘為競品）<br/>
               · 兩市場 SKU 真實售價 + 月銷量<br/>
               · 9 類別競品評論 + 社群媒體洞察<br/><br/>
               <b>分析方法</b><br/>
