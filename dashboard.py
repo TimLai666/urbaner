@@ -244,48 +244,64 @@ def inject_css() -> None:
                 font-size: 0.88rem;
                 font-weight: 700;
             }}
-            /* Recommendation card */
-            .rec {{
+            /* Recommendation card — 套用到 st.container 包住的 stVerticalBlock（裡頭含一個 .rec-marker） */
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker) {{
                 background: linear-gradient(180deg, #ffffff 0%, #fbf8f1 100%);
                 border-left: 4px solid {PALETTE['gold']};
                 border-radius: 14px;
-                padding: 18px 22px;
+                padding: 18px 22px !important;
                 margin-bottom: 14px;
                 box-shadow: 0 4px 14px -10px rgba(0,0,0,0.18);
             }}
-            .rec.us {{ border-left-color: {PALETTE['us']}; }}
-            .rec.jp {{ border-left-color: {PALETTE['jp']}; }}
-            .rec .title {{
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker.us) {{
+                border-left-color: {PALETTE['us']};
+            }}
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker.jp) {{
+                border-left-color: {PALETTE['jp']};
+            }}
+            .rec-marker {{ display:none; }}  /* hook only, never visible */
+            .rec-title {{
                 font-weight: 700; color: {PALETTE['ink']}; font-size: 1.05rem; margin-bottom: 6px;
             }}
-            .rec .body {{ color: {PALETTE['charcoal']}; line-height: 1.65; font-size: 0.93rem; }}
-            .rec .kpi-tag {{
+            .rec-body {{ color: {PALETTE['charcoal']}; line-height: 1.65; font-size: 0.93rem; }}
+            .kpi-tag {{
                 margin-top: 10px; font-size: 0.78rem;
                 color: {PALETTE['muted']}; font-weight: 600;
                 letter-spacing: 0.04em;
             }}
-            .rec .copy-section {{
+            .copy-section {{
                 margin-top: 12px; padding: 12px 14px;
                 background: rgba(201,163,111,0.08);
                 border: 1px solid rgba(201,163,111,0.22);
                 border-radius: 8px;
             }}
-            .rec .copy-label {{
+            .copy-label {{
                 font-size: 0.70rem; font-weight: 700;
                 color: {PALETTE['gold']}; text-transform: uppercase;
                 letter-spacing: 0.10em; margin-bottom: 7px;
             }}
-            .rec .copy-text {{
+            .copy-text {{
                 font-size: 0.88rem; color: {PALETTE['charcoal']}; line-height: 1.75;
             }}
-            .rec.us .copy-section {{
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker.us) .copy-section {{
                 background: rgba(46,91,255,0.06); border-color: rgba(46,91,255,0.20);
             }}
-            .rec.us .copy-label {{ color: {PALETTE['us']}; }}
-            .rec.jp .copy-section {{
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker.us) .copy-label {{
+                color: {PALETTE['us']};
+            }}
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker.jp) .copy-section {{
                 background: rgba(211,47,77,0.06); border-color: rgba(211,47,77,0.20);
             }}
-            .rec.jp .copy-label {{ color: {PALETTE['jp']}; }}
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker.jp) .copy-label {{
+                color: {PALETTE['jp']};
+            }}
+            /* 廣告圖樣式 */
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker)
+                [data-testid="stImage"] img {{
+                border-radius: 10px;
+                margin-top: 10px;
+                box-shadow: 0 4px 14px -8px rgba(0,0,0,0.20);
+            }}
             /* Best product spec card */
             .spec {{
                 background: linear-gradient(160deg, {PALETTE['ink']} 0%, #1d3160 100%);
@@ -646,6 +662,7 @@ WTP_JP = pd.DataFrame(
 PLAYBOOK_US = [
     {
         "title": "🎁 父親節 × 黑五雙旺季：Gift-Ready 主訴求",
+        "image": "行銷劇本廣告圖/us/父親節 × 黑五雙旺季.png",
         "body": "Listing A+ 第一屏放「Perfect Gift for Him」訴求，包裝設計可直接送禮（不需重新包裝）。"
                 "Q2（5–6 月）父親節主題禮盒、Q4（10–12 月）聖誕節 + 黑五禮物指南。"
                 "對映 ANOVA Top1 `gift_suitability_men`（F=1299.5）。",
@@ -658,6 +675,7 @@ PLAYBOOK_US = [
     },
     {
         "title": "📦 5-in-1 / 7-in-1 套組為核心 SKU 形態",
+        "image": "行銷劇本廣告圖/us/5-in-1 7-in-1 套組為核心 SKU 形態.png",
         "body": "主圖右上角加件數徽章（≥7 件），主圖第二張示意「all-in-one」功能拼貼。"
                 "對映美國重要性 Top1 `功能合一數`（51.5%）+ `附件件數`（10.4%）。",
         "kpi": "主圖 CTR +20%，套組型 SKU 占月銷 ≥ 60%",
@@ -668,6 +686,7 @@ PLAYBOOK_US = [
     },
     {
         "title": "⚡ USB-C × IPX7 高端標配",
+        "image": "行銷劇本廣告圖/us/USB-C × IPX7 高端標配.png",
         "body": "Listing 首條 bullet 明確標示電源類型 + USB-C 充電 icon；"
                 "主圖右下角嵌入 IPX7 badge，對抗 Manscaped Lawn Mower 5.0 Ultra。",
         "kpi": "高端關鍵字（cordless / waterproof）轉換率 +18%",
@@ -680,6 +699,7 @@ PLAYBOOK_US = [
     },
     {
         "title": "🇯🇵 日系工藝差異化敘事 vs Wahl / Andis",
+        "image": "行銷劇本廣告圖/us/日系工藝差異化敘事.png",
         "body": "強調 1977 年起 50 年代工背景與日系刀片工藝（Japanese OEM heritage），對應 Maslow esteem。"
                 "建議價格帶 $60–$120，定位於 Conair 之上、Braun Series 9 Pro 之下。",
         "kpi": "品牌搜尋量月成長 +15%，平均客單價 ≥ $79",
@@ -694,6 +714,7 @@ PLAYBOOK_US = [
 PLAYBOOK_JP = [
     {
         "title": "🔢 具體數字主導 Listing：規格即賣點",
+        "image": "行銷劇本廣告圖/jp/具體數字主導 Listing.png",
         "body": "Bullet-1：アタッチメント X 個 / 長さ調整 X 段階（0.5mm 単位）。"
                 "Bullet-2：稼働時間 XX 分 / IPX7 防水 / 騒音 XX dB。"
                 "對映 ANOVA Top1-3：附件件數（F=2630）、梳齒款式（F=2412）、可調梳齒（F=1827）。",
@@ -705,6 +726,7 @@ PLAYBOOK_JP = [
     },
     {
         "title": "🏆 権威佐證：専門家・サロン・医療クリニック",
+        "image": "行銷劇本廣告圖/jp/権威佐證.png",
         "body": "在主圖與評論區強化「専門家監修」「サロン推奨」「医療クリニック共同開発」表述。"
                 "與 Panasonic ER-GB74-S、Maxell IZN-C240-K 並列規格表，明示 0.5mm 刻度差異。",
         "kpi": "Q3 末權威 PR 露出 ≥ 8 篇，品牌搜尋成長 +20%",
@@ -716,6 +738,7 @@ PLAYBOOK_JP = [
     },
     {
         "title": "🔋 雙線並行：乾電池款別倉促淘汰",
+        "image": "行銷劇本廣告圖/jp/雙線並行.png",
         "body": "JP 最大族群「CP 值優先大眾（S1，91.6%）」仍偏好乾電池款（B07XTLC91J 系列）。"
                 "保留乾電池產品線作穩定收入；USB-C 款主打「鬍鬚講究客（S2，7.8%，★4.01）」高滿意度族群。",
         "kpi": "乾電池 SKU 維持月銷量基準 ±5%，USB-C 款 Avg★ ≥ 4.3",
@@ -727,6 +750,7 @@ PLAYBOOK_JP = [
     },
     {
         "title": "🎌 父の日 × 楽天直営：在地化檔期",
+        "image": "行銷劇本廣告圖/jp/父の日 × 楽天直営.png",
         "body": "6 月第三個週日（父の日）：禮盒包裝 + のし対応。"
                 "強化楽天市場「URBANER 直営正規品 + 1 年保証」訴求（台灣廠商稀缺資格）。"
                 "措辭：身嗜み（みだしなみ）、自然な仕上がり、丸洗いできる。",
@@ -2032,21 +2056,30 @@ def page_best_product() -> None:
 
 
 def render_rec(rec: dict, variant: str = "") -> None:
-    cls = f"rec {variant}".strip()
-    kpi_html = f'<div class="kpi-tag">📊 {rec["kpi"]}</div>' if "kpi" in rec else ""
-    copy_html = (
-        f'<div class="copy-section"><div class="copy-label">✍️ 行銷文案</div>'
-        f'<div class="copy-text">{rec["copy"]}</div></div>'
-    ) if "copy" in rec else ""
-    # 整段壓在一行避免 Streamlit markdown 把縮排當成 code block
-    html = (
-        f'<div class="{cls}">'
-        f'<div class="title">{rec["title"]}</div>'
-        f'<div class="body">{rec["body"]}</div>'
-        f'{kpi_html}{copy_html}'
-        f'</div>'
-    )
-    st.markdown(html, unsafe_allow_html=True)
+    """渲染單張行銷劇本卡片。若有 image，會在 body 與 KPI 之間夾入廣告圖。
+    使用 st.container 配合 .rec-marker CSS hook 套用左邊色彩 + 漸層底。"""
+    marker_cls = f"rec-marker {variant}".strip()
+    with st.container():
+        st.markdown(
+            f'<div class="{marker_cls}"></div>'
+            f'<div class="rec-title">{rec["title"]}</div>'
+            f'<div class="rec-body">{rec["body"]}</div>',
+            unsafe_allow_html=True,
+        )
+        if (img_rel := rec.get("image")):
+            img_path = ROOT / img_rel
+            if img_path.exists():
+                st.image(str(img_path), use_container_width=True)
+        extras = ""
+        if "kpi" in rec:
+            extras += f'<div class="kpi-tag">📊 {rec["kpi"]}</div>'
+        if "copy" in rec:
+            extras += (
+                f'<div class="copy-section"><div class="copy-label">✍️ 行銷文案</div>'
+                f'<div class="copy-text">{rec["copy"]}</div></div>'
+            )
+        if extras:
+            st.markdown(extras, unsafe_allow_html=True)
 
 
 def page_social() -> None:
