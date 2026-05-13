@@ -1242,15 +1242,61 @@ def page_stp() -> None:
         "兩市場的決策軸完全不同 — US 由送禮場景驅動、JP 由規格深度驅動。"
     )
 
-    card_open("🎯 Segmentation 區隔表 — 兩市場並列")
-    s1, s2 = st.columns(2)
-    with s1:
-        st.markdown('<span class="pill us">US</span>', unsafe_allow_html=True)
-        st.dataframe(SEGMENTS_US, hide_index=True, use_container_width=True)
-    with s2:
-        st.markdown('<span class="pill jp">JP</span>', unsafe_allow_html=True)
-        st.dataframe(SEGMENTS_JP, hide_index=True, use_container_width=True)
-    card_close()
+    def render_segment_card(seg_df: pd.DataFrame, accent: str) -> None:
+        for _, row in seg_df.iterrows():
+            code, persona = row["區隔"].split("：", 1) if "：" in row["區隔"] else ("", row["區隔"])
+            star_color = (
+                "#2E8B57" if row["Avg★"] >= 4.0
+                else "#D97706" if row["Avg★"] >= 3.5
+                else "#B91C1C"
+            )
+            st.markdown(
+                f"""
+                <div style="background:#fff; border:1px solid {PALETTE['line']};
+                            border-left:5px solid {accent}; border-radius:12px;
+                            padding:14px 18px; margin-bottom:12px;
+                            box-shadow:0 3px 10px -8px rgba(0,0,0,0.15);">
+                  <div style="display:flex; justify-content:space-between;
+                              align-items:center; margin-bottom:8px;">
+                    <div>
+                      <span style="font-weight:700; color:{accent}; font-size:0.9rem;
+                                   letter-spacing:0.06em;">{code}</span>
+                      <span style="font-weight:700; color:{PALETTE['ink']}; font-size:1.05rem;
+                                   margin-left:6px;">{persona}</span>
+                    </div>
+                    <div style="font-size:0.82rem; color:{PALETTE['muted']};">
+                      n={row['人數']:,}
+                      &nbsp;·&nbsp; <b style="color:{PALETTE['ink']}">{row['占比%']:.1f}%</b>
+                      &nbsp;·&nbsp; <b style="color:{star_color}">★{row['Avg★']:.2f}</b>
+                    </div>
+                  </div>
+                  <div style="font-size:0.83rem; color:{PALETTE['muted']};
+                              margin-bottom:6px; letter-spacing:0.02em;">
+                    <b style="color:{PALETTE['charcoal']};">類別組成 ·</b> {row['類別組成']}
+                  </div>
+                  <div style="font-size:0.88rem; color:{PALETTE['charcoal']};
+                              line-height:1.6;">
+                    <b style="color:{accent};">他們是誰 ·</b> {row['他們是誰']}
+                  </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+    with card("🎯 Segmentation 區隔表 — 兩市場並列"):
+        s1, s2 = st.columns(2)
+        with s1:
+            st.markdown(
+                '<div style="margin-bottom:10px;"><span class="pill us">🇺🇸 US</span></div>',
+                unsafe_allow_html=True,
+            )
+            render_segment_card(SEGMENTS_US, PALETTE["us"])
+        with s2:
+            st.markdown(
+                '<div style="margin-bottom:10px;"><span class="pill jp">🇯🇵 JP</span></div>',
+                unsafe_allow_html=True,
+            )
+            render_segment_card(SEGMENTS_JP, PALETTE["jp"])
 
     card_open("📈 Targeting — 區隔之間最有差異的屬性（ANOVA F）")
     st.plotly_chart(fig_anova_panel(), use_container_width=True)
