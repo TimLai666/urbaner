@@ -567,11 +567,19 @@ MARKET_LEADER_US = {
     "avg_star": 4.52,
 }
 MARKET_LEADER_JP = {
+    "asin": "B0742G961R",
+    "brand_label": "競品（JP Beard 類別頂尖）",
+    "category": "Beard / Mustache Trimmers",
+    "distance": 2.23,
+    "n_reviews": 40,
+    "avg_star": 4.55,
+}
+# JP 跨類別最強參照（與自家旗艦不同類別）— 僅作 reference 不入主對照
+JP_OVERALL_LEADER = {
     "asin": "B0GBWZBMS5",
-    "brand_label": "競品（疑似 Panasonic 系）",
+    "brand_label": "競品（疑似 Panasonic 系，Nose/Ear）",
     "category": "Nose / Ear Trimmers",
     "distance": 1.97,
-    "n_reviews": 61,
     "avg_star": 4.61,
 }
 
@@ -1813,21 +1821,18 @@ def page_dual_market() -> None:
             unsafe_allow_html=True,
         )
 
-    # JP 同類別公平對標補充
+    # JP 跨類別最強參照（主對照已改為同類別 Beard 公平比較）
     st.markdown(
         f"""<div style="background:#F0F9FF; border:1px solid #BAE6FD; border-radius:8px;
                      padding:11px 15px; margin-top:14px; font-size:0.86rem;
                      line-height:1.7; color:{PALETTE['charcoal']};">
-        <b style="color:#0369A1;">⚖️ 比較基礎注意 — JP 跨類別 vs 同類別對標</b><br/>
-        上方 JP 對照中，URBANER 自家旗艦（Beard/Mustache）與全市場頂尖（Nose/Ear）<b>屬不同類別</b>，
-        直接比較會混淆「自家不夠強」與「賽道不同」兩個議題。<br/>
-        <b>同類別公平對標（Beard / Mustache）</b>：
-        <ul style="margin:6px 0 0 -20px; padding:0 0 0 22px;">
-          <li>URBANER B07CYZH2XC：距理想 <b>3.43</b>、★3.51（n=231）</li>
-          <li>JP Beard 類別頂尖 B0742G961R：距理想 <b>2.23</b>、★4.55（n=40）</li>
-          <li><b>同類差距</b>：距離 +1.20 ｜ 星等 -1.04 — 仍有顯著落後但比跨類別比較公平</li>
-        </ul>
-        <b>策略含意</b>：「Beard 類別內提升 ★1 星」與「進入 Nose/Ear 新賽道」是兩個並行決策。
+        <b style="color:#0369A1;">📎 跨類別參照 — JP 全市場最強 SKU（非同類別）</b><br/>
+        上方 JP 主對照已採「同 Beard 類別」公平比較。
+        但若把 JP 全市場 36 支 SKU 都納入，距理想最近的其實是
+        <b>B0GBWZBMS5（Nose / Ear Trimmers）</b> — 距理想 1.97、★4.61。<br/>
+        <b>策略含意</b>：URBANER 在 JP 的兩條增長路徑 —
+        <b>(A) Beard 類別內追趕（同類差距 1.20 距離、1.04 星等）｜
+        (B) 進入 Nose/Ear 新賽道</b>（JP 全市場頂尖所在類別）。
         </div>""",
         unsafe_allow_html=True,
     )
@@ -1835,18 +1840,19 @@ def page_dual_market() -> None:
         method="理想點 RMS（Root Mean Square）距離。把每支 SKU 的 114 個屬性品質分數視為向量，"
                "計算與「全屬性 = 10」理想向量的均方根距離："
                "d = √(mean((quality_i − 10)²))。",
-        meaning="距離越小 = 越接近顧客的理想規格。URBANER 自家旗艦來自「7 個確認 URBANER ASIN + "
-                "15 個無品牌訊號 ASIN」中距離最小者；市場頂尖來自全 52 (US)／36 (JP) 支 SKU。"
-                "⚠️ 跨類別比較僅作為「市場最高水準」標竿；同類別對標見上方藍色提示。",
+        meaning="距離越小 = 越接近顧客的理想規格。<b>主對照採同類別公平比較</b>："
+                "US 雙方皆為 Beard / Mustache；JP 雙方亦為 Beard / Mustache。"
+                "URBANER 自家旗艦取自「7 個確認 URBANER ASIN + 15 個無品牌訊號 ASIN」"
+                "中距離最小者；同類別頂尖取自該類別內全部 SKU。",
     )
     insight(
-        f"<b>URBANER 在兩市場都還沒打進頂尖</b>：<br/>"
-        f"· 美國：自家旗艦 ★3.78（距理想 2.49） vs 市場頂尖 Ufree ★4.52（距理想 1.60） — "
-        f"差 0.89 距離 + 0.74 星等（同 Beard 類別，可直接比較）。<br/>"
-        f"· 日本：自家旗艦 ★3.51（距理想 3.43） vs 全市場頂尖 ★4.61（Nose/Ear） — "
-        f"<b>跨類別差距 1.46，僅作市場標竿；同 Beard 類別對標差距 1.20 星等 -1.04（見上方藍色框）</b>。<br/>"
-        f"<b>類別決策</b>：URBANER 自家最強都在 Beard。JP 的兩條增長路徑 — "
-        f"<b>(A) 把 Beard 做到 ★4.5+（同類別追趕）｜(B) 進入 Nose/Ear 新賽道（市場頂尖所在）</b>。",
+        f"<b>URBANER 在 Beard / Mustache 同類別內，兩市場都落後頂尖競品</b>（公平比較）：<br/>"
+        f"· 美國：自家旗艦 ★3.78（距理想 2.49） vs 同類別頂尖 Ufree ★4.52（距理想 1.60） — "
+        f"差 <b>0.89 距離 + 0.74 星等</b>。<br/>"
+        f"· 日本：自家旗艦 ★3.51（距理想 3.43） vs 同類別頂尖 B0742G961R ★4.55（距理想 2.23） — "
+        f"差 <b>1.20 距離 + 1.04 星等</b>（JP 同類差距比 US 更大）。<br/>"
+        f"<b>跨類別觀察（見上方提示）</b>：JP 全市場最強其實在 Nose/Ear 類別（B0GBWZBMS5, ★4.61, 距理想 1.97）。"
+        f"<b>JP 增長兩條路徑並行</b>：(A) 把 Beard 做到 ★4.5+；(B) 進入 Nose/Ear 新賽道。",
     )
     card_close()
 
