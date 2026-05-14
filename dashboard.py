@@ -1237,6 +1237,27 @@ def fig_segment_sunburst(seg_df: pd.DataFrame, title: str, color: str) -> go.Fig
     return style_fig(fig, height=360)
 
 
+# 各屬性「升級到 High」的具體物理方向 — 用於圖表 y 軸標籤避免誤解
+ATTRIBUTE_DIRECTION = {
+    "機身尺寸": "→ 迷你/精巧",
+    "附件件數": "→ ≥10 件",
+    "長度調整段數": "→ ≥38 段",
+    "充電方式(USB-C)": "→ USB-C 快充",
+    "功能合一數": "→ 5合1+",
+    "防水等級": "→ IPX7+",
+    "電池續航時間": "→ 90 分+",
+    "電源類型": "→ USB-C 充電",
+    "調整精度": "→ 0.5mm 刻度",
+    "價格帶": "→ 高 CP 值",
+}
+
+
+def _label_with_direction(attr: str) -> str:
+    """把屬性名稱加上『升級方向』提示，例如 機身尺寸 → 迷你/精巧"""
+    direction = ATTRIBUTE_DIRECTION.get(attr, "")
+    return f"{attr}  {direction}" if direction else attr
+
+
 def fig_upgrade_panel() -> go.Figure:
     fig = make_subplots(
         rows=1, cols=2,
@@ -1253,8 +1274,10 @@ def fig_upgrade_panel() -> go.Figure:
     def fmt_gain(v: float) -> str:
         return f"+{v:.1f}%" if v >= 0.5 else ""
 
-    us = UPGRADE_US.sort_values("升至 High 份額%")
-    jp = UPGRADE_JP.sort_values("升至 High 份額%")
+    us = UPGRADE_US.sort_values("升至 High 份額%").copy()
+    jp = UPGRADE_JP.sort_values("升至 High 份額%").copy()
+    us["升級屬性"] = us["升級屬性"].apply(_label_with_direction)
+    jp["升級屬性"] = jp["升級屬性"].apply(_label_with_direction)
 
     # 統一兩側 base color 與 gain color，名稱跨 column 共用一份 legend
     base_color_us, base_color_jp = "#D4D7E3", "#E4D2D6"
@@ -1303,8 +1326,10 @@ def fig_wtp_panel() -> go.Figure:
         ),
         horizontal_spacing=0.22,
     )
-    us = WTP_US.sort_values("WTP (USD/品質分)")
-    jp = WTP_JP.sort_values("WTP (JPY/品質分)")
+    us = WTP_US.sort_values("WTP (USD/品質分)").copy()
+    jp = WTP_JP.sort_values("WTP (JPY/品質分)").copy()
+    us["屬性"] = us["屬性"].apply(_label_with_direction)
+    jp["屬性"] = jp["屬性"].apply(_label_with_direction)
     us_max = us["WTP (USD/品質分)"].max()
     jp_max = jp["WTP (JPY/品質分)"].max()
     fig.add_bar(
