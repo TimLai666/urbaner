@@ -2181,6 +2181,27 @@ def page_conjoint() -> None:
 
     card_open("💰 為品質升級，消費者願意多付多少錢？")
     st.plotly_chart(fig_wtp_panel(), use_container_width=True)
+    # 屬性水準對應澄清（防止「機身尺寸 High = 放大」這類誤解）
+    st.markdown(
+        f"""<div style="background:#FFF8E5; border:1px solid #F3D98A; border-radius:8px;
+                     padding:10px 14px; margin-top:10px; font-size:0.85rem;
+                     line-height:1.7; color:{PALETTE['charcoal']};">
+        <b style="color:{PALETTE['ink']};">⚠️ 屬性水準對應提醒（避免誤解）</b><br/>
+        本表「升級到 High」= <b>該屬性的 Axis B 品質分數提升至 7 以上</b>，
+        而不是「物理上的數值放大」。各屬性 Low/Mid/High 的物理意義：
+        <ul style="margin:6px 0 0 -20px; padding-left:22px;">
+          <li><b>機身尺寸</b>：大型(≤4) / 標準(4–7) / <b>迷你(&gt;7)</b> — 「High」= 評論
+              覺得機身越「精巧好握、輕量化」，<b>不是放大</b>。</li>
+          <li><b>長度調整段數</b>：≤5 段 / 12 段 / <b>≥38 段</b> — High 表示段數越多。</li>
+          <li><b>附件件數</b>：≤3 件 / 7 件 / <b>≥10 件</b> — High 表示件數越多。</li>
+          <li><b>防水等級</b>：無防水 / IPX4 / <b>IPX7+</b> — High 表示防水越強。</li>
+          <li><b>電池續航</b>：30 分 / 60 分 / <b>90 分+</b> — High 表示越久。</li>
+        </ul>
+        <b>機身尺寸 $89.81 WTP 的真正含意</b>：消費者願意多付 $89.81，
+        是為了「機身做得更精巧、好握、輕量」，<b>而非把產品做大</b>。
+        </div>""",
+        unsafe_allow_html=True,
+    )
     method_note(
         method="Willingness-to-Pay（WTP）= 屬性偏好權重 ÷ 價格敏感度。"
                "從加入「真實 Amazon 售價」的 Split-model Logistic Regression 中估 β_price，"
@@ -2269,6 +2290,22 @@ def page_best_product() -> None:
     )
 
     card_open("🏆 兩市場最佳產品組合 — 24 種設計裡挑出消費者最會買的")
+    # 重要澄清：這是虛擬設計卡，不是現有 SKU
+    st.markdown(
+        f"""<div style="background:#FEF3C7; border:2px dashed #D97706;
+                     border-radius:10px; padding:12px 16px; margin-bottom:14px;
+                     font-size:0.9rem; line-height:1.75; color:{PALETTE['charcoal']};">
+        <b style="color:#92400E;">⚠️ 重要：此為虛擬設計卡，非現有 URBANER SKU</b><br/>
+        本頁呈現的「最佳產品組合」來自 Conjoint 全因子設計 — 由 7 個屬性 × 3 個水準
+        排列產生 <b>24 張虛擬產品卡片</b>，再用估出的 part-worth 計算每張的預估購買率，
+        挑出最高分者。<br/>
+        <b>用途</b>：作為 <b>未來新品開發的目標規格</b>。
+        URBANER 可以照這個規格清單開模、設計、找 OEM 製造、定價、上架。<br/>
+        <b>非用途</b>：這不是「URBANER 現有哪一支 SKU 表現最好」 — URBANER 目前自家最強
+        SKU 請見「雙市場對比 → URBANER 自家旗艦 vs 市場頂尖」（B0GL2DKVQH / B07CYZH2XC）。
+        </div>""",
+        unsafe_allow_html=True,
+    )
     b1, b2 = st.columns(2)
     with b1:
         rows = "".join([f"<tr><td>{k}</td><td>{v}</td></tr>" for k, v in BEST_CARD_US['specs']])
@@ -2366,8 +2403,10 @@ def render_rec(rec: dict, variant: str = "") -> None:
 
 def page_social() -> None:
     render_hero(
-        "從 Reddit、Badger&Blade、Sharpologist、知恵袋、価格.com、マイベスト、note、5ch 等 "
-        "20+ 平台彙整出 22 條跨類別共識，以及 9 個產品類別的痛點 × 好評 × 競品偏好。"
+        "<b>外部環境分析（External Environment Scan）</b> — 先了解市場在說什麼、競品在做什麼，"
+        "再進到後面的 STP 分群與 Conjoint 偏好分析。"
+        "本頁從 Reddit、Badger&Blade、Sharpologist、知恵袋、価格.com、マイベスト、note、5ch 等 "
+        "20+ 平台彙整 22 條跨類別共識，以及 9 個產品類別的痛點 × 好評 × 競品偏好。"
     )
 
     c1, c2, c3, c4 = st.columns(4)
@@ -2935,11 +2974,11 @@ def main() -> None:
             "導覽",
             [
                 "📊 執行儀表板",
+                "📣 社群洞察（外部環境）",
                 "🌎 雙市場對比",
                 "🎯 STP 策略分析",
                 "⚖️ 顧客偏好的產品特色分析",
                 "🏆 最優產品組合",
-                "📣 社群洞察",
                 "💡 行銷劇本",
                 "📐 統計方法論",
             ],
@@ -2976,7 +3015,7 @@ def main() -> None:
         page_conjoint()
     elif page == "🏆 最優產品組合":
         page_best_product()
-    elif page == "📣 社群洞察":
+    elif page == "📣 社群洞察（外部環境）":
         page_social()
     elif page == "💡 行銷劇本":
         page_playbook()
