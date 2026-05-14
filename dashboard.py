@@ -1681,25 +1681,6 @@ def page_dual_market() -> None:
         "兩市場自家旗艦 SKU 各是誰。"
     )
 
-    card_open("🌎 哪些屬性最能拉開不同顧客群的差距？")
-    st.plotly_chart(fig_anova_panel(), use_container_width=True)
-    method_note(
-        method="One-way ANOVA（單因子變異數分析）— 以「顧客分群（K-Means）」為因子、"
-               "「屬性的評論顯著度分數」為依變數，逐一檢定 114 個屬性。",
-        meaning="F 值 = 組間變異 / 組內變異。F 越大 + p 越小，代表該屬性在不同顧客群之間"
-                "的分數差距越大，越能拉開分群（即「區隔力」越強）。"
-                "本表預設僅顯示 p < 0.001 的高度顯著屬性。",
-    )
-    st.markdown(
-        f"""<div style="color:{PALETTE['muted']}; font-size:0.88rem;">
-        US 區隔力 Top 1 為「送禮場景」、JP 區隔力 Top 1 為「附件件數」。
-        兩市場共同高 F 值屬性包含 <code>attachment_fitment</code>、<code>guide_comb_variety</code>、
-        <code>power_source_type</code>、<code>waterproof_rating_ipx8</code> — 這四項是兩市場通用的開發焦點。
-        </div>""",
-        unsafe_allow_html=True,
-    )
-    card_close()
-
     card_open("👥 各顧客群佔多少人、平均給幾顆星？")
     st.plotly_chart(fig_segment_compare_bar(), use_container_width=True)
     method_note(
@@ -1832,21 +1813,40 @@ def page_dual_market() -> None:
             unsafe_allow_html=True,
         )
 
+    # JP 同類別公平對標補充
+    st.markdown(
+        f"""<div style="background:#F0F9FF; border:1px solid #BAE6FD; border-radius:8px;
+                     padding:11px 15px; margin-top:14px; font-size:0.86rem;
+                     line-height:1.7; color:{PALETTE['charcoal']};">
+        <b style="color:#0369A1;">⚖️ 比較基礎注意 — JP 跨類別 vs 同類別對標</b><br/>
+        上方 JP 對照中，URBANER 自家旗艦（Beard/Mustache）與全市場頂尖（Nose/Ear）<b>屬不同類別</b>，
+        直接比較會混淆「自家不夠強」與「賽道不同」兩個議題。<br/>
+        <b>同類別公平對標（Beard / Mustache）</b>：
+        <ul style="margin:6px 0 0 -20px; padding:0 0 0 22px;">
+          <li>URBANER B07CYZH2XC：距理想 <b>3.43</b>、★3.51（n=231）</li>
+          <li>JP Beard 類別頂尖 B0742G961R：距理想 <b>2.23</b>、★4.55（n=40）</li>
+          <li><b>同類差距</b>：距離 +1.20 ｜ 星等 -1.04 — 仍有顯著落後但比跨類別比較公平</li>
+        </ul>
+        <b>策略含意</b>：「Beard 類別內提升 ★1 星」與「進入 Nose/Ear 新賽道」是兩個並行決策。
+        </div>""",
+        unsafe_allow_html=True,
+    )
     method_note(
         method="理想點 RMS（Root Mean Square）距離。把每支 SKU 的 114 個屬性品質分數視為向量，"
                "計算與「全屬性 = 10」理想向量的均方根距離："
                "d = √(mean((quality_i − 10)²))。",
         meaning="距離越小 = 越接近顧客的理想規格。URBANER 自家旗艦來自「7 個確認 URBANER ASIN + "
-                "15 個無品牌訊號 ASIN」中距離最小者；市場頂尖來自全 52 (US)／36 (JP) 支 SKU。",
+                "15 個無品牌訊號 ASIN」中距離最小者；市場頂尖來自全 52 (US)／36 (JP) 支 SKU。"
+                "⚠️ 跨類別比較僅作為「市場最高水準」標竿；同類別對標見上方藍色提示。",
     )
     insight(
         f"<b>URBANER 在兩市場都還沒打進頂尖</b>：<br/>"
         f"· 美國：自家旗艦 ★3.78（距理想 2.49） vs 市場頂尖 Ufree ★4.52（距理想 1.60） — "
-        f"差 0.89 距離 + 0.74 星等。<br/>"
-        f"· 日本：自家旗艦 ★3.51（距理想 3.43） vs 市場頂尖 ★4.61（距理想 1.97） — "
-        f"差 1.46 距離 + 1.10 星等（JP 落後較大）。<br/>"
-        f"<b>類別差異</b>：URBANER 自家最強都在 Beard；但 JP 全市場頂尖在 Nose/Ear。"
-        f"想升級 JP 市佔的話，<b>Nose/Ear 是還沒站穩的戰場</b>。",
+        f"差 0.89 距離 + 0.74 星等（同 Beard 類別，可直接比較）。<br/>"
+        f"· 日本：自家旗艦 ★3.51（距理想 3.43） vs 全市場頂尖 ★4.61（Nose/Ear） — "
+        f"<b>跨類別差距 1.46，僅作市場標竿；同 Beard 類別對標差距 1.20 星等 -1.04（見上方藍色框）</b>。<br/>"
+        f"<b>類別決策</b>：URBANER 自家最強都在 Beard。JP 的兩條增長路徑 — "
+        f"<b>(A) 把 Beard 做到 ★4.5+（同類別追趕）｜(B) 進入 Nose/Ear 新賽道（市場頂尖所在）</b>。",
     )
     card_close()
 
@@ -1899,6 +1899,19 @@ def page_stp() -> None:
             )
 
     with card("🎯 顧客分群 — 美日各有 3 種顧客"):
+        # 準則變數 (criterion variable) 與分群依據說明
+        st.markdown(
+            f"""<div style="background:#FFF8E5; border:1px solid #F3D98A; border-radius:8px;
+                         padding:10px 14px; margin-bottom:14px; font-size:0.86rem;
+                         line-height:1.7; color:{PALETTE['charcoal']};">
+            <b style="color:{PALETTE['ink']};">📌 分群所用準則變數（criterion variables）</b><br/>
+            114 個屬性的「評論顯著度分數」(Axis A, 0–7) 構成每則評論的特徵向量。
+            <b>採顯著度而非品質</b>是因為要回答「顧客在意什麼」（需求側）而不是「商品做得如何」（供給側）。
+            K-Means 屬於非監督學習、無依變數；K=3 的選擇來自 Silhouette Score 最大化
+            +「最小群體 ≥ 5%」雙條件（避免出現雜訊小群）。
+            </div>""",
+            unsafe_allow_html=True,
+        )
         s1, s2 = st.columns(2)
         with s1:
             st.markdown(
@@ -1912,6 +1925,20 @@ def page_stp() -> None:
                 unsafe_allow_html=True,
             )
             render_segment_card(SEGMENTS_JP, PALETTE["jp"])
+        # JP S3 樣本警語
+        st.markdown(
+            f"""<div style="background:#FEF2F2; border-left:4px solid #DC2626;
+                         border-radius:6px; padding:10px 14px; margin-top:14px;
+                         font-size:0.85rem; line-height:1.65; color:{PALETTE['charcoal']};">
+            <b style="color:#B91C1C;">⚠️ JP S3 樣本數警告</b><br/>
+            JP S3「靜音低振敏感族」僅 n=43（佔 0.6%），雖然 K-Means 演算法在 K=3 時將其視為獨立 cluster
+            （Silhouette 評分支持保留），但樣本數偏低。
+            <b>解讀建議</b>：JP S3 僅供「觀察方向」 — 反映確實有一小群顧客對低噪、低振、馬達品質特別敏感，
+            可作為產品 R&D 的痛點清單參考；但不建議直接做為獨立 TA 投放資源（n=43 不足以支持統計推論型決策）。
+            主流策略應以 JP S1（91.6%）+ JP S2（7.8%）為核心。
+            </div>""",
+            unsafe_allow_html=True,
+        )
         method_note(
             method="非監督式分群：每則評論的 114 維「屬性顯著度向量」→ StandardScaler 標準化 → "
                    "PCA 降至保留 85% 變異 → K-Means（K=3-6 掃描，以 Silhouette + 最小群體 ≥ 5% "
@@ -1948,6 +1975,122 @@ def page_stp() -> None:
         </ul>
         </div>""",
         unsafe_allow_html=True,
+    )
+    card_close()
+
+    # ── 明確 TA 結論卡 ─────────────────────────────────────
+    card_open("🎯 URBANER 的 TA 是誰？潛在 TA 是誰？怎麼推廣？", "TA 結論")
+    st.markdown(
+        f"""<div style="font-size:0.9rem; color:{PALETTE['muted']}; line-height:1.7;
+                       margin-bottom:14px;">
+        STP 分群完成、ANOVA 找出區分屬性後，這張卡把「我們要先服務誰、再延伸服務誰、怎麼推」
+        三個問題一次回答清楚。
+        </div>""",
+        unsafe_allow_html=True,
+    )
+
+    ta_us_html = f"""
+    <div style="background:linear-gradient(180deg,#ffffff,#f6f9ff);
+                border:1px solid #c6d3f5; border-left:5px solid {PALETTE['us']};
+                border-radius:12px; padding:16px 18px; margin-bottom:14px;">
+        <div style="color:{PALETTE['us']}; font-weight:700; letter-spacing:0.05em;
+                    font-size:0.78rem; margin-bottom:6px;">🇺🇸 美國市場</div>
+
+        <div style="margin-bottom:14px;">
+          <span style="background:{PALETTE['us']}; color:#fff; padding:3px 10px;
+                       border-radius:5px; font-size:0.72rem; font-weight:700;">
+            ⭐ 核心 TA</span>
+          <b style="color:{PALETTE['ink']}; font-size:1rem; margin-left:8px;">
+            S3：USB-C 高端鐵粉</b>
+          <div style="color:{PALETTE['muted']}; font-size:0.83rem; margin-top:4px;">
+            n=173 · 4.0% · <b style="color:{PALETTE['good']};">★4.48</b>（兩市場最高滿意）
+          </div>
+          <div style="font-size:0.9rem; color:{PALETTE['charcoal']}; margin-top:8px;
+                       line-height:1.65;">
+            <b>為什麼選他</b>：滿意度最高、願付溢價、規模雖小但成長空間最確定。<br/>
+            <b>怎麼推</b>：USB-C 快充 + IPX7 主打 ｜ 價格帶 $60–$120 ｜
+            Father's Day 禮盒 ｜ Beard + Body 多場景套組。
+          </div>
+        </div>
+
+        <div>
+          <span style="background:#94A3B8; color:#fff; padding:3px 10px;
+                       border-radius:5px; font-size:0.72rem; font-weight:700;">
+            🌱 潛在 TA</span>
+          <b style="color:{PALETTE['ink']}; font-size:1rem; margin-left:8px;">
+            S2：日常自用大眾</b>
+          <div style="color:{PALETTE['muted']}; font-size:0.83rem; margin-top:4px;">
+            n=3,337 · 76.5% · ★3.18（規模最大、痛點最多）
+          </div>
+          <div style="font-size:0.9rem; color:{PALETTE['charcoal']}; margin-top:8px;
+                       line-height:1.65;">
+            <b>為什麼是潛在</b>：規模大、購買頻次高，但滿意度低，
+            適合先「修痛點」再慢慢養成回購／升級到 S3 的客群。<br/>
+            <b>怎麼推</b>：Listing 寫清楚（電池壽命、防水等級、附件件數）｜
+            退換貨流程順暢 ｜ 套組 ≥7 件起跳 ｜ 用 UGC 證明耐用性。
+          </div>
+        </div>
+    </div>
+    """
+
+    ta_jp_html = f"""
+    <div style="background:linear-gradient(180deg,#ffffff,#fff5f6);
+                border:1px solid #f0c4cc; border-left:5px solid {PALETTE['jp']};
+                border-radius:12px; padding:16px 18px;">
+        <div style="color:{PALETTE['jp']}; font-weight:700; letter-spacing:0.05em;
+                    font-size:0.78rem; margin-bottom:6px;">🇯🇵 日本市場</div>
+
+        <div style="margin-bottom:14px;">
+          <span style="background:{PALETTE['jp']}; color:#fff; padding:3px 10px;
+                       border-radius:5px; font-size:0.72rem; font-weight:700;">
+            ⭐ 核心 TA</span>
+          <b style="color:{PALETTE['ink']}; font-size:1rem; margin-left:8px;">
+            S2：鬍鬚講究客</b>
+          <div style="color:{PALETTE['muted']}; font-size:0.83rem; margin-top:4px;">
+            n=561 · 7.8% · <b style="color:{PALETTE['good']};">★4.01</b>
+          </div>
+          <div style="font-size:0.9rem; color:{PALETTE['charcoal']}; margin-top:8px;
+                       line-height:1.65;">
+            <b>為什麼選他</b>：滿意度高、規格極度講究（38段、多附件、機身尺寸錙銖必較），
+            願意為精度付溢價。<br/>
+            <b>怎麼推</b>：Listing Bullet-1 列「アタッチメント 7 個 / 長さ 40 段階（0.5mm 単位）」｜
+            「理容師監修」「サロン推奨」權威背書 ｜ 楽天直営正規品 + 1 年保証。
+          </div>
+        </div>
+
+        <div>
+          <span style="background:#94A3B8; color:#fff; padding:3px 10px;
+                       border-radius:5px; font-size:0.72rem; font-weight:700;">
+            🌱 潛在 TA</span>
+          <b style="color:{PALETTE['ink']}; font-size:1rem; margin-left:8px;">
+            S1：CP 值優先大眾</b>
+          <div style="color:{PALETTE['muted']}; font-size:0.83rem; margin-top:4px;">
+            n=6,559 · 91.6% · ★3.46（佔市場 9 成的基本盤）
+          </div>
+          <div style="font-size:0.9rem; color:{PALETTE['charcoal']}; margin-top:8px;
+                       line-height:1.65;">
+            <b>為什麼是潛在</b>：規模龐大，保留乾電池款穩固營收，從中挑高滿意客戶上推到 S2 進階款。<br/>
+            <b>怎麼推</b>：<b>雙線並行</b> —
+            乾電池款（B07XTLC91J 系列）維持基本盤 ｜
+            USB-C 進階款做為「升級選項」｜
+            Listing 把「コスパ」「丸洗いできる」「電池長持ち」放在首屏。
+          </div>
+        </div>
+    </div>
+    """
+
+    col_us, col_jp = st.columns(2)
+    with col_us:
+        st.markdown(ta_us_html, unsafe_allow_html=True)
+    with col_jp:
+        st.markdown(ta_jp_html, unsafe_allow_html=True)
+
+    insight(
+        "<b>兩市場 TA 推廣邏輯共通點</b>：核心 TA = 小但高滿意，集中行銷預算做 LTV；"
+        "潛在 TA = 大但低滿意，先處理痛點再慢慢養成回購／升級。<br/>"
+        "<b>差異點</b>：US 核心 TA 賣「USB-C × 多功能套組」、JP 核心 TA 賣「精度 × 専門家監修」；"
+        "US 潛在 TA 用「Listing + 套組規格」修痛點、JP 潛在 TA 用「雙產品線（乾電池 + USB-C）」並行。",
+        label="TA 推廣策略",
     )
     card_close()
 
@@ -2799,7 +2942,7 @@ def main() -> None:
                 "📊 執行儀表板",
                 "🌎 雙市場對比",
                 "🎯 STP 策略分析",
-                "⚖️ Conjoint 偏好",
+                "⚖️ 顧客偏好的產品特色分析",
                 "🏆 最優產品組合",
                 "📣 社群洞察",
                 "💡 行銷劇本",
@@ -2834,7 +2977,7 @@ def main() -> None:
         page_dual_market()
     elif page == "🎯 STP 策略分析":
         page_stp()
-    elif page == "⚖️ Conjoint 偏好":
+    elif page == "⚖️ 顧客偏好的產品特色分析":
         page_conjoint()
     elif page == "🏆 最優產品組合":
         page_best_product()
