@@ -1205,8 +1205,8 @@ def fig_upgrade_panel() -> go.Figure:
     fig = make_subplots(
         rows=1, cols=2,
         subplot_titles=(
-            "🇺🇸 美國 — 規格做到頂級後的市佔潛力",
-            "🇯🇵 日本 — 規格做到頂級後的市佔潛力",
+            "🇺🇸 美國 — 屬性升級後的市佔潛力",
+            "🇯🇵 日本 — 屬性升級後的市佔潛力",
         ),
         horizontal_spacing=0.22,
     )
@@ -1253,7 +1253,7 @@ def fig_upgrade_panel() -> go.Figure:
 
     fig.update_layout(barmode="stack")
     # 兩側都預留 25% 右側空間給 outside 文字
-    fig.update_xaxes(title_text="市佔潛力 (%) — 規格升頂後的份額", row=1, col=1, range=[0, 1.5])
+    fig.update_xaxes(title_text="市佔潛力 (%) — 屬性升級後預估份額", row=1, col=1, range=[0, 1.5])
     fig.update_xaxes(title_text="市佔潛力 (%) — 規格升頂後的份額", row=1, col=2, range=[0, 115])
     return style_fig(fig, height=460)
 
@@ -1948,14 +1948,18 @@ def page_conjoint() -> None:
     )
     card_close()
 
-    card_open("🚀 規格做到頂級，市佔會跳多少？")
+    card_open("🚀 屬性規格升級的市佔回報模擬 — R&D 投資優先序")
     st.markdown(
-        f"""<div style="color:{PALETTE['muted']}; font-size:0.88rem; line-height:1.7;
+        f"""<div style="color:{PALETTE['muted']}; font-size:0.9rem; line-height:1.75;
                        margin-bottom:8px;">
-        模擬：如果把 URBANER 在某個屬性的規格升到「競品頂級水準」
-        （例如 段數做到 ≥38 段、附件做到 ≥10 件、防水做到 IPX7+、續航做到 90 分以上），
-        重跑市佔模型後，URBANER 的偏好份額能從現在跳到多少。
-        <b>這是 R&D 投資 ROI 決策工具：告訴你「砸錢升哪個屬性，市佔回報最大」。</b>
+        <b>方法</b>：以 Conjoint Logit 估出的屬性偏好權重為基礎，
+        模擬將 URBANER 在「某一項屬性」上的品質分數從現況提升至業界頂級水準
+        （即評論大致一致正面、品質分逼近 10／10 ）之後，
+        重新計算 URBANER 在市場全選擇集中的偏好份額。
+        範例頂級水準：長度段數 ≥ 38 段、附件 ≥ 10 件、防水達 IPX7+、續航 ≥ 90 分鐘。<br/>
+        <b>用途</b>：作為 R&D 投資的優先序判斷依據 ——
+        每一個屬性的「升級後市佔潛力」即代表將該屬性做到頂級可帶來的邊際市佔回報，
+        數值越高代表投入該屬性的 ROI 越高。
         </div>""",
         unsafe_allow_html=True,
     )
@@ -1964,9 +1968,9 @@ def page_conjoint() -> None:
         """<div style="font-size:0.92rem; line-height:1.7;">
         <b>策略意涵</b>：
         <ul style="margin-left:-20px;">
-          <li><b>JP 第一優先：把段數做到 38 段以上</b> — 市佔從 1.6% 跳到 94.8%（多 93 個百分點），是所有升級裡爆發力最大的單一決策。</li>
-          <li><b>JP 第二優先：刻度做到 0.5mm</b> — 市佔可跳到 86.2%（多 85 個百分點），與「段數」是兩條互補的升級路徑。</li>
-          <li><b>US 不能靠單一升級</b>：個別屬性升級增幅都不到 1 個百分點，問題是「整套套組形態」，建議組合拳：附件 + 多功能 + USB-C 一起升。</li>
+          <li><b>JP 第一優先：將長度段數做到 ≥ 38 段</b> — 市佔潛力由 1.6% 提升至 94.8%（+93.2 個百分點），為所有升級項目中邊際回報最高的單一投資。</li>
+          <li><b>JP 第二優先：將刻度做到 0.5mm</b> — 市佔潛力提升至 86.2%（+84.6 個百分點），與「段數」屬於兩條互補的升級路徑。</li>
+          <li><b>US 單一屬性升級邊際效果有限</b>：個別屬性升級增幅皆不足 1 個百分點，問題核心在「整體套組形態」而非單一規格；建議採組合策略：附件 × 多功能 × USB-C 同步升級。</li>
         </ul>
         </div>""",
         unsafe_allow_html=True,
