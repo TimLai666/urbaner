@@ -1059,6 +1059,34 @@ def insight(text: str, label: str = "解讀") -> None:
     )
 
 
+def method_note(method: str, meaning: str) -> None:
+    """灰底虛線邊框的「統計方法 + 數值解讀」技術註記 — 讓讀者知道這張圖背後的方法。"""
+    st.markdown(
+        f"""
+        <div style="margin-top:12px; padding:11px 16px;
+                    background:#F2F5F9; border:1px dashed #B8C0CC;
+                    border-radius:8px;
+                    font-size:0.83rem; color:{PALETTE['charcoal']}; line-height:1.7;">
+            <div style="margin-bottom:5px;">
+                <span style="display:inline-block; font-weight:700; color:#fff;
+                             font-size:0.7rem; letter-spacing:0.08em;
+                             padding:2px 9px; background:#475569; border-radius:4px;
+                             margin-right:8px;">🔬 統計方法</span>
+                {method}
+            </div>
+            <div>
+                <span style="display:inline-block; font-weight:700; color:#fff;
+                             font-size:0.7rem; letter-spacing:0.08em;
+                             padding:2px 9px; background:#0E1E3D; border-radius:4px;
+                             margin-right:8px;">📊 數值解讀</span>
+                {meaning}
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 # 舊 API 相容（暫時保留，現有頁碼還在用）
 _card_stack: list = []
 
@@ -1611,6 +1639,13 @@ def page_overview() -> None:
     with col_r:
         card_open("🪒 在競品環伺下，URBANER 目前佔多少？", "市佔位置")
         st.plotly_chart(fig_choice_set_donut(), use_container_width=True)
+        method_note(
+            method="Multinomial Logit（MNL）Share-of-Preference 模型 ｜ "
+                   "P(i) = exp(Uᵢ) / Σⱼ exp(Uⱼ)，Uᵢ 由 Conjoint Logit 估出的屬性 part-worth"
+                   "× 各 SKU 的品質分數加總得出。",
+            meaning="份額越高 = 在競品環伺的選擇集中，消費者越可能選此 SKU。"
+                    "「最佳設計組合」的小切片代表 24 種模擬設計卡片之合計份額。",
+        )
         st.markdown(
             f"""<div style="color:{PALETTE['muted']}; font-size:0.85rem; line-height:1.6;">
             US 場上 URBANER 僅 5.21%，最佳組合（USB-C × 38 段 × ≥10 件套組）只擠進全選擇集第 33 名；
@@ -1622,6 +1657,14 @@ def page_overview() -> None:
 
     card_open("📊 美日消費者在意什麼？— 屬性重要性一張圖看完", "偏好分析")
     st.plotly_chart(fig_importance_compare(), use_container_width=True)
+    method_note(
+        method="Conjoint Split-Model Dummy-Encoding Logistic Regression。"
+               "每個屬性切成 Low / Mid / High 三層，以星等 ≥ 市場平均為被解釋變數"
+               "估各層的 part-worth 偏好權重。",
+        meaning="屬性重要性 (%) = 該屬性 max(part-worth) − min(part-worth)，"
+                "再除以所有屬性 part-worth 全範圍總和。"
+                "數字越大代表該屬性對消費者選擇影響力越大。",
+    )
     st.markdown(
         f"""<div style="color:{PALETTE['muted']}; font-size:0.88rem; line-height:1.7;">
         <b>解讀</b>：美國市場「功能合一數」單項重要性高達 51.5%，是壓倒性決策因子；
@@ -1640,6 +1683,13 @@ def page_dual_market() -> None:
 
     card_open("🌎 哪些屬性最能拉開不同顧客群的差距？")
     st.plotly_chart(fig_anova_panel(), use_container_width=True)
+    method_note(
+        method="One-way ANOVA（單因子變異數分析）— 以「顧客分群（K-Means）」為因子、"
+               "「屬性的評論顯著度分數」為依變數，逐一檢定 114 個屬性。",
+        meaning="F 值 = 組間變異 / 組內變異。F 越大 + p 越小，代表該屬性在不同顧客群之間"
+                "的分數差距越大，越能拉開分群（即「區隔力」越強）。"
+                "本表預設僅顯示 p < 0.001 的高度顯著屬性。",
+    )
     st.markdown(
         f"""<div style="color:{PALETTE['muted']}; font-size:0.88rem;">
         US 區隔力 Top 1 為「送禮場景」、JP 區隔力 Top 1 為「附件件數」。
@@ -1652,6 +1702,13 @@ def page_dual_market() -> None:
 
     card_open("👥 各顧客群佔多少人、平均給幾顆星？")
     st.plotly_chart(fig_segment_compare_bar(), use_container_width=True)
+    method_note(
+        method="K-Means 分群結果之描述統計：各 cluster 人數佔比（柱）+ 該 cluster 的"
+               "平均評論星等 ★（金點）。",
+        meaning="柱越高 = 族群規模越大；★ 越高 = 該族群整體滿意度越好。"
+                "兩個維度同時看可區分「大眾痛點群（規模大但滿意度低）」"
+                "vs「高滿意利基群（規模小但滿意度高）」。",
+    )
     st.markdown(
         """<div style="font-size:0.92rem; line-height:1.7;">
         <b>策略意涵</b>：「日常自用大眾（US S2，76.5%）」與「CP 值優先大眾（JP S1，91.6%）」
@@ -1669,6 +1726,12 @@ def page_dual_market() -> None:
         st.plotly_chart(fig_segment_sunburst(SEGMENTS_US, "🇺🇸 美國區隔組成（按人數）", "us"), use_container_width=True)
     with col_r:
         st.plotly_chart(fig_segment_sunburst(SEGMENTS_JP, "🇯🇵 日本區隔組成（按人數）", "jp"), use_container_width=True)
+    method_note(
+        method="K-Means 聚類分群結果視覺化：先以 StandardScaler 標準化、PCA 降維至保留 85% 變異後，"
+                "在降維空間執行 K-Means（K=3，並以 Silhouette Score 驗證）。",
+        meaning="每塊面積 = 該 cluster 人數佔該市場總體比例。US silhouette = 0.358（中等分群品質）、"
+                "JP silhouette = 0.570（佳，分群邊界清晰）。",
+    )
     insight(
         "<b>US 比 JP 更均勻</b> — US 的 S1（送禮）+S3（高端）合計 23.5% 還算有規模；"
         "JP 則高度集中：S1「CP 值優先大眾」一個族群就 91.6%，"
@@ -1769,6 +1832,13 @@ def page_dual_market() -> None:
             unsafe_allow_html=True,
         )
 
+    method_note(
+        method="理想點 RMS（Root Mean Square）距離。把每支 SKU 的 114 個屬性品質分數視為向量，"
+               "計算與「全屬性 = 10」理想向量的均方根距離："
+               "d = √(mean((quality_i − 10)²))。",
+        meaning="距離越小 = 越接近顧客的理想規格。URBANER 自家旗艦來自「7 個確認 URBANER ASIN + "
+                "15 個無品牌訊號 ASIN」中距離最小者；市場頂尖來自全 52 (US)／36 (JP) 支 SKU。",
+    )
     insight(
         f"<b>URBANER 在兩市場都還沒打進頂尖</b>：<br/>"
         f"· 美國：自家旗艦 ★3.78（距理想 2.49） vs 市場頂尖 Ufree ★4.52（距理想 1.60） — "
@@ -1842,6 +1912,14 @@ def page_stp() -> None:
                 unsafe_allow_html=True,
             )
             render_segment_card(SEGMENTS_JP, PALETTE["jp"])
+        method_note(
+            method="非監督式分群：每則評論的 114 維「屬性顯著度向量」→ StandardScaler 標準化 → "
+                   "PCA 降至保留 85% 變異 → K-Means（K=3-6 掃描，以 Silhouette + 最小群體 ≥ 5% "
+                   "護欄選 K=3）→ 用 ANOVA 找各 cluster 最具區隔力的屬性 → 命名 persona。",
+            meaning="人數 n = 該 cluster 包含的評論則數；占比 = n／市場總評論。"
+                    "Avg★ = 該 cluster 內所有評論的星等平均，用顏色標示滿意度：≥4.0 綠 / ≥3.5 橙 / <3.5 紅。"
+                    "「他們是誰」由 cluster 內 Top 5 顯著屬性人工解讀後命名。",
+        )
         insight(
             "<b>美日大眾族群動機差很多</b>：US 大眾「日常自用」買來自己每天用 — "
             "鬍鬚 + 耳鼻一機通用；JP 大眾「CP 值優先」愛乾電池款，"
@@ -1853,6 +1931,13 @@ def page_stp() -> None:
 
     card_open("📈 鎖定優先族群 — 哪些屬性最能拉開不同顧客的差距？")
     st.plotly_chart(fig_anova_panel(), use_container_width=True)
+    method_note(
+        method="One-way ANOVA — 以 K-Means 分出的 cluster 為因子、114 個屬性的顯著度分數為依變數，"
+               "逐項檢定。同雙市場頁的 ANOVA，但此處作為「Targeting 優先序」的依據。",
+        meaning="F 值大 = 該屬性是「能拉開不同顧客群」的關鍵訊號 — "
+                "做行銷時應針對 Top 屬性下文案、做產品時應針對 Top 屬性提升規格。"
+                "p < 0.001 為高度顯著（本表 Top 10 屬性全為 p < 0.001）。",
+    )
     st.markdown(
         """<div style="font-size:0.92rem; line-height:1.75;">
         <ul style="margin-left:-20px;">
@@ -1890,6 +1975,13 @@ def page_stp() -> None:
             )
         else:
             st.info("perceptual_map.png 不存在")
+    method_note(
+        method="PCA（Principal Component Analysis）二維投影：把每支 SKU 的 114 維品質向量"
+               "（Axis B 品質分 0–10）降到 2 維。第一主成分（PC1）通常代表「整體品質強度」、"
+               "第二主成分（PC2）代表「品質維度間的偏向」。",
+        meaning="點的位置 = 該 SKU 的整體品質表現；越靠近右上角 = 越接近「全屬性都 10 分」的理想點。"
+                "兩個品牌色標示：URBANER 自家旗艦 + 全市場頂尖。",
+    )
     insight(
         "<b>圖上的點越靠近右上角越接近「理想品質」</b>。"
         "市場頂尖 SKU 都集中在圖的高密度區，URBANER 自家旗艦則"
@@ -1909,6 +2001,12 @@ def page_stp() -> None:
         heat_jp = OUT_STP_JP / "quality_heatmap.png"
         if heat_jp.exists():
             st.image(str(heat_jp), caption="🇯🇵 JP 品質熱圖", use_container_width=True)
+    method_note(
+        method="描述統計：Axis B 品質分（0–10）= 該 SKU 在該屬性的星等基線 + 屬性負向關鍵字扣分 + "
+               "整體情緒微調。為 SKU × 屬性的單值矩陣，本表只取最具區隔力的 Top 20 屬性 × Top 12 SKU。",
+        meaning="顏色綠 = 該 SKU 在該屬性的口碑分數高（接近 10）；紅 = 低（接近 0）。"
+                "橫向比較：同屬性誰最強。縱向看：同 SKU 在哪些屬性最弱（差異化／補強的方向）。",
+    )
     insight(
         "<b>橫向看 SKU、縱向看屬性</b> — 一格越綠代表這個 SKU 在該屬性上口碑越好。"
         "找出每一列（屬性）有哪幾個 SKU 是「綠到頂」的，那就是該屬性的標竿學習對象。<br/>"
@@ -1926,6 +2024,14 @@ def page_conjoint() -> None:
 
     card_open("⚖️ 消費者最在意哪些屬性？")
     st.plotly_chart(fig_importance_compare(), use_container_width=True)
+    method_note(
+        method="Revealed-Preference Logistic Conjoint（觀察型偏好聯合分析）— "
+               "以「avg★ ≥ 該市場平均」為被解釋變數，將每項屬性切成 Low/Mid/High 三層做 dummy "
+               "encoding，逐屬性 Split-model Logistic Regression 估 part-worth。",
+        meaning="屬性重要性 (%) = 該屬性的 part-worth 全範圍（max − min）"
+                "÷ 所有屬性 part-worth 全範圍總和，再化為百分比。"
+                "Conjoint 是行銷研究經典方法，數字越大代表此屬性對「買 / 不買」決策的拉扯力越大。",
+    )
     insight(
         "<b>美日決策軸完全不同</b>：US 一根「功能合一數」就吃掉 51.5% 重要性 — "
         "套組組合是壓倒性決策因子；JP 前 6 個屬性都在 10% 以上、分布均勻，"
@@ -1937,6 +2043,14 @@ def page_conjoint() -> None:
 
     card_open("💰 為品質升級，消費者願意多付多少錢？")
     st.plotly_chart(fig_wtp_panel(), use_container_width=True)
+    method_note(
+        method="Willingness-to-Pay（WTP）= 屬性偏好權重 ÷ 價格敏感度。"
+               "從加入「真實 Amazon 售價」的 Split-model Logistic Regression 中估 β_price，"
+               "再以 WTP = β_attribute / |β_price| 換算為金額。",
+        meaning="WTP 表示「該屬性提升 1 個品質分（0–10 scale）消費者願意多付的金額」。"
+                "深色 = p < 0.05 統計顯著、淺色 = 方向參考。"
+                "⚠️ JP β_price 為正（高價＝高品質訊號），WTP 違反經濟理論假設，僅供方向使用。",
+    )
     st.markdown(
         f"""<div style="color:{PALETTE['muted']}; font-size:0.86rem; line-height:1.7;">
         <b>解讀</b>：把同一項屬性的品質從 0 分做到 10 分，美國消費者「機身尺寸」最多願意多付 $89.81、
@@ -1964,12 +2078,19 @@ def page_conjoint() -> None:
         unsafe_allow_html=True,
     )
     st.plotly_chart(fig_upgrade_panel(), use_container_width=True)
+    method_note(
+        method="MNL Share-of-Preference 升級模擬：把 URBANER 在某屬性的品質分數設為 10（理想值），"
+               "其餘屬性維持現況，重新計算 P(URBANER) = exp(U_URBANER) / Σ exp(U_所有 SKU)。",
+        meaning="現況份額（淺灰柱） + 升級增量（深色柱）= 升級後總份額。"
+                "增量越大 = 該屬性的「邊際 ROI」越高。"
+                "US 增量小代表問題在多個屬性同時不夠強（套組形態）、JP 單屬性即可大幅躍升。",
+    )
     st.markdown(
         """<div style="font-size:0.92rem; line-height:1.7;">
         <b>策略意涵</b>：
         <ul style="margin-left:-20px;">
           <li><b>JP 第一優先：將長度段數做到 ≥ 38 段</b> — 市佔潛力由 1.6% 提升至 94.8%（+93.2 個百分點），為所有升級項目中邊際回報最高的單一投資。</li>
-          <li><b>JP 第二優先：將刻度做到 0.5mm</b> — 市佔潛力提升至 86.2%（+84.6 個百分點），與「段數」屬於兩條互補的升級路徑。</li>
+          <li><b>JP 第二優先:將刻度做到 0.5mm</b> — 市佔潛力提升至 86.2%（+84.6 個百分點），與「段數」屬於兩條互補的升級路徑。</li>
           <li><b>US 單一屬性升級邊際效果有限</b>：個別屬性升級增幅皆不足 1 個百分點，問題核心在「整體套組形態」而非單一規格；建議採組合策略：附件 × 多功能 × USB-C 同步升級。</li>
         </ul>
         </div>""",
@@ -1985,6 +2106,12 @@ def page_conjoint() -> None:
     with c2:
         st.markdown('<span class="pill jp">JPY / 品質分</span>', unsafe_allow_html=True)
         st.dataframe(WTP_JP, hide_index=True, use_container_width=True)
+    method_note(
+        method="WTP 完整數值表 — 同 💰 WTP 圖（β_attribute / |β_price|）但顯示所有屬性與 p 值。"
+               "p 欄為 Logistic Regression 的雙尾 t 檢定 p-value。",
+        meaning="顯著 = True 表示 p < 0.05（高信心可解讀）；False 為方向性參考。"
+                "可直接套用「現況品質分 → 目標品質分」差距 × WTP，估算升級可漲價多少。",
+    )
     insight(
         "<b>怎麼用這張表</b>：把 WTP 直接除以「目前 SKU 在該屬性的品質分缺口」，"
         "就能估算「升級 1 個品質分」可以多賣多少錢。<br/>"
@@ -2032,6 +2159,13 @@ def page_best_product() -> None:
             unsafe_allow_html=True,
         )
 
+    method_note(
+        method="Conjoint Utility Maximization — 將 7 個屬性 × 3 個水準的全因子設計"
+               "（產生 24 張產品卡片）逐一計算效用 U = Σ part-worth(level)。"
+               "經 Z-score 正規化後以 sigmoid 轉換為 0-1 的「預估購買率」P(購買)。",
+        meaning="P(購買) = 該設計卡片在 24 張之間的相對偏好強度（非實際購買率）。"
+                "Utility 越大代表 Conjoint 估出的效用總和越高，最終以 sigmoid 函數壓到 [0, 1]。",
+    )
     st.markdown(
         """<div style="margin-top:18px; font-size:0.95rem; line-height:1.8;">
         <b>兩市場最佳組合差異對照</b>：
@@ -2048,6 +2182,12 @@ def page_best_product() -> None:
 
     card_open("🎯 在競品環伺下，URBANER 現在在哪？")
     st.plotly_chart(fig_choice_set_donut(), use_container_width=True)
+    method_note(
+        method="MNL Share-of-Preference（全選擇集）。選擇集 = URBANER 自家 + 競品 + 24 張設計卡片。"
+               "計算公式同執行頁的 MNL：P(i) = exp(Uᵢ) / Σⱼ exp(Uⱼ)。",
+        meaning="此處選擇集更大（含設計卡片），因此 URBANER 份額會比僅含競品時略低。"
+                "「最佳設計組合」切片 = 24 張設計卡的份額合計。",
+    )
     st.markdown(
         f"""<div style="color:{PALETTE['muted']}; font-size:0.9rem;">
         <b>痛點</b>：美國最佳組合（USB-C × 38 段全附件款）在「URBANER + 競品 + 24 種設計組合」全選擇集中僅排第 33 名，份額 0.09%。
@@ -2275,6 +2415,13 @@ def page_social() -> None:
             """,
             unsafe_allow_html=True,
         )
+    method_note(
+        method="質性內容分析（Qualitative Content Analysis）：人工閱讀 social_us/insights.md 與"
+               " social_jp/insights.md，計算各品牌在 9 個產品類別中被提及的次數。"
+               "非統計推論，是「該品牌在社群討論中出現於幾個類別」的頻率計數（categorical coverage）。",
+        meaning="出現類別數越大 = 該品牌在跨類別覆蓋越廣 → 是 URBANER 在多類別會直接面對的對手。"
+                "右側「資料來源平台數量對比」= 我們爬到的平台總數（US 10 個、JP 12 個）。",
+    )
     card_close()
 
     card_open("🎯 社群觀察 → 明天就能改的 5 個產品/行銷動作", "行動對應")
