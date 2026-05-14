@@ -244,48 +244,64 @@ def inject_css() -> None:
                 font-size: 0.88rem;
                 font-weight: 700;
             }}
-            /* Recommendation card */
-            .rec {{
+            /* Recommendation card — 套用到 st.container 包住的 stVerticalBlock（裡頭含一個 .rec-marker） */
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker) {{
                 background: linear-gradient(180deg, #ffffff 0%, #fbf8f1 100%);
                 border-left: 4px solid {PALETTE['gold']};
                 border-radius: 14px;
-                padding: 18px 22px;
+                padding: 18px 22px !important;
                 margin-bottom: 14px;
                 box-shadow: 0 4px 14px -10px rgba(0,0,0,0.18);
             }}
-            .rec.us {{ border-left-color: {PALETTE['us']}; }}
-            .rec.jp {{ border-left-color: {PALETTE['jp']}; }}
-            .rec .title {{
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker.us) {{
+                border-left-color: {PALETTE['us']};
+            }}
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker.jp) {{
+                border-left-color: {PALETTE['jp']};
+            }}
+            .rec-marker {{ display:none; }}  /* hook only, never visible */
+            .rec-title {{
                 font-weight: 700; color: {PALETTE['ink']}; font-size: 1.05rem; margin-bottom: 6px;
             }}
-            .rec .body {{ color: {PALETTE['charcoal']}; line-height: 1.65; font-size: 0.93rem; }}
-            .rec .kpi-tag {{
+            .rec-body {{ color: {PALETTE['charcoal']}; line-height: 1.65; font-size: 0.93rem; }}
+            .kpi-tag {{
                 margin-top: 10px; font-size: 0.78rem;
                 color: {PALETTE['muted']}; font-weight: 600;
                 letter-spacing: 0.04em;
             }}
-            .rec .copy-section {{
+            .copy-section {{
                 margin-top: 12px; padding: 12px 14px;
                 background: rgba(201,163,111,0.08);
                 border: 1px solid rgba(201,163,111,0.22);
                 border-radius: 8px;
             }}
-            .rec .copy-label {{
+            .copy-label {{
                 font-size: 0.70rem; font-weight: 700;
                 color: {PALETTE['gold']}; text-transform: uppercase;
                 letter-spacing: 0.10em; margin-bottom: 7px;
             }}
-            .rec .copy-text {{
+            .copy-text {{
                 font-size: 0.88rem; color: {PALETTE['charcoal']}; line-height: 1.75;
             }}
-            .rec.us .copy-section {{
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker.us) .copy-section {{
                 background: rgba(46,91,255,0.06); border-color: rgba(46,91,255,0.20);
             }}
-            .rec.us .copy-label {{ color: {PALETTE['us']}; }}
-            .rec.jp .copy-section {{
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker.us) .copy-label {{
+                color: {PALETTE['us']};
+            }}
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker.jp) .copy-section {{
                 background: rgba(211,47,77,0.06); border-color: rgba(211,47,77,0.20);
             }}
-            .rec.jp .copy-label {{ color: {PALETTE['jp']}; }}
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker.jp) .copy-label {{
+                color: {PALETTE['jp']};
+            }}
+            /* 廣告圖樣式 */
+            [data-testid="stVerticalBlock"]:has(> [data-testid="stElementContainer"] .rec-marker)
+                [data-testid="stImage"] img {{
+                border-radius: 10px;
+                margin-top: 10px;
+                box-shadow: 0 4px 14px -8px rgba(0,0,0,0.20);
+            }}
             /* Best product spec card */
             .spec {{
                 background: linear-gradient(160deg, {PALETTE['ink']} 0%, #1d3160 100%);
@@ -522,21 +538,41 @@ SEGMENTS_JP = pd.DataFrame(
     columns=["區隔", "人數", "占比%", "Avg★", "類別組成", "他們是誰"],
 )
 
+# URBANER 自家旗艦 SKU — 從 84 個 rawdata 中以「評論內容包含 URBANER 品牌關鍵字
+# ≥ 2 次」確認 7 個 URBANER 自有 ASIN 後，計算距理想點 RMS 取最小。
 HERO_SKU_US = {
-    "asin": "B0FL267TCG",
+    "asin": "B0GL2DKVQH",
     "category": "Beard / Mustache Trimmers",
-    "distance": 1.601,
-    "n_reviews": 29,
-    "avg_star": 4.52,
-    "preference_share": 39.35,
+    "distance": 2.49,
+    "n_reviews": 18,
+    "avg_star": 3.78,
+    "brand": "URBANER",
 }
 HERO_SKU_JP = {
+    "asin": "B07CYZH2XC",
+    "category": "Beard / Mustache Trimmers",
+    "distance": 3.43,
+    "n_reviews": 231,
+    "avg_star": 3.51,
+    "brand": "URBANER",
+}
+
+# 全市場最接近理想點（含競品）— 用作 URBANER 還需努力多少的參照基準
+MARKET_LEADER_US = {
+    "asin": "B0FL267TCG",
+    "brand_label": "Ufree（競品）",
+    "category": "Beard / Mustache Trimmers",
+    "distance": 1.60,
+    "n_reviews": 29,
+    "avg_star": 4.52,
+}
+MARKET_LEADER_JP = {
     "asin": "B0GBWZBMS5",
+    "brand_label": "競品（疑似 Panasonic 系）",
     "category": "Nose / Ear Trimmers",
     "distance": 1.97,
     "n_reviews": 61,
     "avg_star": 4.61,
-    "preference_share": 11.26,
 }
 
 BEST_CARD_US = {
@@ -626,6 +662,7 @@ WTP_JP = pd.DataFrame(
 PLAYBOOK_US = [
     {
         "title": "🎁 父親節 × 黑五雙旺季：Gift-Ready 主訴求",
+        "image": "行銷劇本廣告圖/us/父親節 × 黑五雙旺季.png",
         "body": "Listing A+ 第一屏放「Perfect Gift for Him」訴求，包裝設計可直接送禮（不需重新包裝）。"
                 "Q2（5–6 月）父親節主題禮盒、Q4（10–12 月）聖誕節 + 黑五禮物指南。"
                 "對映 ANOVA Top1 `gift_suitability_men`（F=1299.5）。",
@@ -638,6 +675,7 @@ PLAYBOOK_US = [
     },
     {
         "title": "📦 5-in-1 / 7-in-1 套組為核心 SKU 形態",
+        "image": "行銷劇本廣告圖/us/5-in-1 7-in-1 套組為核心 SKU 形態.png",
         "body": "主圖右上角加件數徽章（≥7 件），主圖第二張示意「all-in-one」功能拼貼。"
                 "對映美國重要性 Top1 `功能合一數`（51.5%）+ `附件件數`（10.4%）。",
         "kpi": "主圖 CTR +20%，套組型 SKU 占月銷 ≥ 60%",
@@ -648,6 +686,7 @@ PLAYBOOK_US = [
     },
     {
         "title": "⚡ USB-C × IPX7 高端標配",
+        "image": "行銷劇本廣告圖/us/USB-C × IPX7 高端標配.png",
         "body": "Listing 首條 bullet 明確標示電源類型 + USB-C 充電 icon；"
                 "主圖右下角嵌入 IPX7 badge，對抗 Manscaped Lawn Mower 5.0 Ultra。",
         "kpi": "高端關鍵字（cordless / waterproof）轉換率 +18%",
@@ -660,6 +699,7 @@ PLAYBOOK_US = [
     },
     {
         "title": "🇯🇵 日系工藝差異化敘事 vs Wahl / Andis",
+        "image": "行銷劇本廣告圖/us/日系工藝差異化敘事.png",
         "body": "強調 1977 年起 50 年代工背景與日系刀片工藝（Japanese OEM heritage），對應 Maslow esteem。"
                 "建議價格帶 $60–$120，定位於 Conair 之上、Braun Series 9 Pro 之下。",
         "kpi": "品牌搜尋量月成長 +15%，平均客單價 ≥ $79",
@@ -674,6 +714,7 @@ PLAYBOOK_US = [
 PLAYBOOK_JP = [
     {
         "title": "🔢 具體數字主導 Listing：規格即賣點",
+        "image": "行銷劇本廣告圖/jp/具體數字主導 Listing.png",
         "body": "Bullet-1：アタッチメント X 個 / 長さ調整 X 段階（0.5mm 単位）。"
                 "Bullet-2：稼働時間 XX 分 / IPX7 防水 / 騒音 XX dB。"
                 "對映 ANOVA Top1-3：附件件數（F=2630）、梳齒款式（F=2412）、可調梳齒（F=1827）。",
@@ -685,6 +726,7 @@ PLAYBOOK_JP = [
     },
     {
         "title": "🏆 権威佐證：専門家・サロン・医療クリニック",
+        "image": "行銷劇本廣告圖/jp/権威佐證.png",
         "body": "在主圖與評論區強化「専門家監修」「サロン推奨」「医療クリニック共同開発」表述。"
                 "與 Panasonic ER-GB74-S、Maxell IZN-C240-K 並列規格表，明示 0.5mm 刻度差異。",
         "kpi": "Q3 末權威 PR 露出 ≥ 8 篇，品牌搜尋成長 +20%",
@@ -696,6 +738,7 @@ PLAYBOOK_JP = [
     },
     {
         "title": "🔋 雙線並行：乾電池款別倉促淘汰",
+        "image": "行銷劇本廣告圖/jp/雙線並行.png",
         "body": "JP 最大族群「CP 值優先大眾（S1，91.6%）」仍偏好乾電池款（B07XTLC91J 系列）。"
                 "保留乾電池產品線作穩定收入；USB-C 款主打「鬍鬚講究客（S2，7.8%，★4.01）」高滿意度族群。",
         "kpi": "乾電池 SKU 維持月銷量基準 ±5%，USB-C 款 Avg★ ≥ 4.3",
@@ -707,6 +750,7 @@ PLAYBOOK_JP = [
     },
     {
         "title": "🎌 父の日 × 楽天直営：在地化檔期",
+        "image": "行銷劇本廣告圖/jp/父の日 × 楽天直営.png",
         "body": "6 月第三個週日（父の日）：禮盒包裝 + のし対応。"
                 "強化楽天市場「URBANER 直営正規品 + 1 年保証」訴求（台灣廠商稀缺資格）。"
                 "措辭：身嗜み（みだしなみ）、自然な仕上がり、丸洗いできる。",
@@ -738,14 +782,16 @@ PLAYBOOK_COMMON = [
                 "<i>框架：價值錨定（件數視覺化 = 超值感知）× 禮品化包裝訴求</i>",
     },
     {
-        "title": "🎯 Hero SKU 差異化集中投放",
-        "body": "美國資源集中 B0FL267TCG（Beard / Mustache）；"
-                "日本資源集中 B0GBWZBMS5（Nose / Ear）。不可互用主推品。",
+        "title": "🎯 自家旗艦集中投放，並設定追趕市場頂尖的目標",
+        "body": "美國自家旗艦 B0GL2DKVQH（Beard, ★3.78）— 目標：追上 Ufree B0FL267TCG（★4.52）。"
+                "日本自家旗艦 B07CYZH2XC（Beard, ★3.51）— 但日本市場頂尖在 Nose/Ear，"
+                "URBANER 需新開該類別旗艦才能站穩 JP。",
         "copy": "【US Hero PPC 廣告標題】URBANER Beard Trimmer | 7-in-1 · USB-C · IPX7 | "
                 "The Gift He Actually Wants<br/>"
-                "【JP Hero キャッチコピー】URBANER 鼻毛・耳毛トリマー | IPX7防水 | "
+                "【JP Hero キャッチコピー】URBANER 鼻毛・耳毛トリマー（新規開発予定）| IPX7防水 | "
                 "0.5mm精密調整 | 直営正規品<br/>"
-                "<i>資源集中原則：US Hero → B0FL267TCG（Beard）· JP Hero → B0GBWZBMS5（Nose/Ear）</i>",
+                "<i>資源集中原則：US 自家旗艦 → B0GL2DKVQH（升級至 ★4.5+ 為目標）｜"
+                "JP 自家旗艦 → B07CYZH2XC（同時新開 Nose/Ear 類別旗艦）</i>",
     },
 ]
 
@@ -1013,6 +1059,34 @@ def insight(text: str, label: str = "解讀") -> None:
     )
 
 
+def method_note(method: str, meaning: str) -> None:
+    """灰底虛線邊框的「統計方法 + 數值解讀」技術註記 — 讓讀者知道這張圖背後的方法。"""
+    st.markdown(
+        f"""
+        <div style="margin-top:12px; padding:11px 16px;
+                    background:#F2F5F9; border:1px dashed #B8C0CC;
+                    border-radius:8px;
+                    font-size:0.83rem; color:{PALETTE['charcoal']}; line-height:1.7;">
+            <div style="margin-bottom:5px;">
+                <span style="display:inline-block; font-weight:700; color:#fff;
+                             font-size:0.7rem; letter-spacing:0.08em;
+                             padding:2px 9px; background:#475569; border-radius:4px;
+                             margin-right:8px;">🔬 統計方法</span>
+                {method}
+            </div>
+            <div>
+                <span style="display:inline-block; font-weight:700; color:#fff;
+                             font-size:0.7rem; letter-spacing:0.08em;
+                             padding:2px 9px; background:#0E1E3D; border-radius:4px;
+                             margin-right:8px;">📊 數值解讀</span>
+                {meaning}
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 # 舊 API 相容（暫時保留，現有頁碼還在用）
 _card_stack: list = []
 
@@ -1159,8 +1233,8 @@ def fig_upgrade_panel() -> go.Figure:
     fig = make_subplots(
         rows=1, cols=2,
         subplot_titles=(
-            "🇺🇸 美國 — 規格做到頂級後的市佔潛力",
-            "🇯🇵 日本 — 規格做到頂級後的市佔潛力",
+            "🇺🇸 美國 — 屬性升級後的市佔潛力",
+            "🇯🇵 日本 — 屬性升級後的市佔潛力",
         ),
         horizontal_spacing=0.22,
     )
@@ -1207,7 +1281,7 @@ def fig_upgrade_panel() -> go.Figure:
 
     fig.update_layout(barmode="stack")
     # 兩側都預留 25% 右側空間給 outside 文字
-    fig.update_xaxes(title_text="市佔潛力 (%) — 規格升頂後的份額", row=1, col=1, range=[0, 1.5])
+    fig.update_xaxes(title_text="市佔潛力 (%) — 屬性升級後預估份額", row=1, col=1, range=[0, 1.5])
     fig.update_xaxes(title_text="市佔潛力 (%) — 規格升頂後的份額", row=1, col=2, range=[0, 115])
     return style_fig(fig, height=460)
 
@@ -1471,8 +1545,9 @@ def render_hero(subtitle: str) -> None:
 
 def page_overview() -> None:
     render_hero(
-        "用 11,523 則 Amazon 評論做完顧客分群與偏好分析後，"
-        "盤點 URBANER 在美國（4,360 則）與日本（7,163 則）的競爭位置，"
+        "用 11,523 則 Amazon 真實評論（美國市場 4,360 + 日本市場 7,163，"
+        "URBANER 自家 + 競品合計）做完顧客分群與偏好分析後，"
+        "盤點 URBANER 在兩市場的競爭位置，"
         "並產出可直接套用到 Listing / 套組設計 / 行銷檔期的策略建議。"
     )
 
@@ -1480,11 +1555,23 @@ def page_overview() -> None:
     with c1:
         st.markdown(kpi("總評論數", "11,523", "US 4,360 ｜ JP 7,163", "gold"), unsafe_allow_html=True)
     with c2:
-        st.markdown(kpi("自家 SKU 數", "88", "US 52 ｜ JP 36", "gold"), unsafe_allow_html=True)
+        st.markdown(
+            kpi("追蹤 SKU 數", "84",
+                "7 個確認 URBANER 自家 + 77 個競品", "gold"),
+            unsafe_allow_html=True,
+        )
     with c3:
-        st.markdown(kpi("US 代表 SKU", "B0FL267TCG", "Beard / Mustache · ★4.52", "us"), unsafe_allow_html=True)
+        st.markdown(
+            kpi("US 自家旗艦 SKU", "B0GL2DKVQH",
+                "Beard / Mustache · ★3.78 · 距理想 2.49", "us"),
+            unsafe_allow_html=True,
+        )
     with c4:
-        st.markdown(kpi("JP 代表 SKU", "B0GBWZBMS5", "Nose / Ear · ★4.61", "jp"), unsafe_allow_html=True)
+        st.markdown(
+            kpi("JP 自家旗艦 SKU", "B07CYZH2XC",
+                "Beard / Mustache · ★3.51 · 距理想 3.43", "jp"),
+            unsafe_allow_html=True,
+        )
 
     c1, c2, c3, c4 = st.columns(4)
     with c1:
@@ -1552,6 +1639,13 @@ def page_overview() -> None:
     with col_r:
         card_open("🪒 在競品環伺下，URBANER 目前佔多少？", "市佔位置")
         st.plotly_chart(fig_choice_set_donut(), use_container_width=True)
+        method_note(
+            method="Multinomial Logit（MNL）Share-of-Preference 模型 ｜ "
+                   "P(i) = exp(Uᵢ) / Σⱼ exp(Uⱼ)，Uᵢ 由 Conjoint Logit 估出的屬性 part-worth"
+                   "× 各 SKU 的品質分數加總得出。",
+            meaning="份額越高 = 在競品環伺的選擇集中，消費者越可能選此 SKU。"
+                    "「最佳設計組合」的小切片代表 24 種模擬設計卡片之合計份額。",
+        )
         st.markdown(
             f"""<div style="color:{PALETTE['muted']}; font-size:0.85rem; line-height:1.6;">
             US 場上 URBANER 僅 5.21%，最佳組合（USB-C × 38 段 × ≥10 件套組）只擠進全選擇集第 33 名；
@@ -1563,6 +1657,14 @@ def page_overview() -> None:
 
     card_open("📊 美日消費者在意什麼？— 屬性重要性一張圖看完", "偏好分析")
     st.plotly_chart(fig_importance_compare(), use_container_width=True)
+    method_note(
+        method="Conjoint Split-Model Dummy-Encoding Logistic Regression。"
+               "每個屬性切成 Low / Mid / High 三層，以星等 ≥ 市場平均為被解釋變數"
+               "估各層的 part-worth 偏好權重。",
+        meaning="屬性重要性 (%) = 該屬性 max(part-worth) − min(part-worth)，"
+                "再除以所有屬性 part-worth 全範圍總和。"
+                "數字越大代表該屬性對消費者選擇影響力越大。",
+    )
     st.markdown(
         f"""<div style="color:{PALETTE['muted']}; font-size:0.88rem; line-height:1.7;">
         <b>解讀</b>：美國市場「功能合一數」單項重要性高達 51.5%，是壓倒性決策因子；
@@ -1576,11 +1678,18 @@ def page_overview() -> None:
 def page_dual_market() -> None:
     render_hero(
         "把美國與日本擺在一起看：哪些屬性最區分顧客、各顧客群佔多少人、平均給幾顆星、"
-        "兩市場代表 SKU 各是誰。"
+        "兩市場自家旗艦 SKU 各是誰。"
     )
 
     card_open("🌎 哪些屬性最能拉開不同顧客群的差距？")
     st.plotly_chart(fig_anova_panel(), use_container_width=True)
+    method_note(
+        method="One-way ANOVA（單因子變異數分析）— 以「顧客分群（K-Means）」為因子、"
+               "「屬性的評論顯著度分數」為依變數，逐一檢定 114 個屬性。",
+        meaning="F 值 = 組間變異 / 組內變異。F 越大 + p 越小，代表該屬性在不同顧客群之間"
+                "的分數差距越大，越能拉開分群（即「區隔力」越強）。"
+                "本表預設僅顯示 p < 0.001 的高度顯著屬性。",
+    )
     st.markdown(
         f"""<div style="color:{PALETTE['muted']}; font-size:0.88rem;">
         US 區隔力 Top 1 為「送禮場景」、JP 區隔力 Top 1 為「附件件數」。
@@ -1593,6 +1702,13 @@ def page_dual_market() -> None:
 
     card_open("👥 各顧客群佔多少人、平均給幾顆星？")
     st.plotly_chart(fig_segment_compare_bar(), use_container_width=True)
+    method_note(
+        method="K-Means 分群結果之描述統計：各 cluster 人數佔比（柱）+ 該 cluster 的"
+               "平均評論星等 ★（金點）。",
+        meaning="柱越高 = 族群規模越大；★ 越高 = 該族群整體滿意度越好。"
+                "兩個維度同時看可區分「大眾痛點群（規模大但滿意度低）」"
+                "vs「高滿意利基群（規模小但滿意度高）」。",
+    )
     st.markdown(
         """<div style="font-size:0.92rem; line-height:1.7;">
         <b>策略意涵</b>：「日常自用大眾（US S2，76.5%）」與「CP 值優先大眾（JP S1，91.6%）」
@@ -1610,57 +1726,127 @@ def page_dual_market() -> None:
         st.plotly_chart(fig_segment_sunburst(SEGMENTS_US, "🇺🇸 美國區隔組成（按人數）", "us"), use_container_width=True)
     with col_r:
         st.plotly_chart(fig_segment_sunburst(SEGMENTS_JP, "🇯🇵 日本區隔組成（按人數）", "jp"), use_container_width=True)
+    method_note(
+        method="K-Means 聚類分群結果視覺化：先以 StandardScaler 標準化、PCA 降維至保留 85% 變異後，"
+                "在降維空間執行 K-Means（K=3，並以 Silhouette Score 驗證）。",
+        meaning="每塊面積 = 該 cluster 人數佔該市場總體比例。US silhouette = 0.358（中等分群品質）、"
+                "JP silhouette = 0.570（佳，分群邊界清晰）。",
+    )
     insight(
         "<b>US 比 JP 更均勻</b> — US 的 S1（送禮）+S3（高端）合計 23.5% 還算有規模；"
         "JP 則高度集中：S1「CP 值優先大眾」一個族群就 91.6%，"
         "S2、S3 加起來只佔 8.4%。<br/>"
-        "<b>策略含義</b>：JP 不要追小眾，而是「在大眾族群內找升級訊號」；"
-        "US 可以同時跑大眾與高端兩條 product line。",
+        "<b>策略含義</b>：JP 的小族群（S2 鬍鬚講究客 7.8% / S3 靜音敏感族 0.6%）規模太小、"
+        "養不起一條獨立產品線；不如<b>把 91.6% 的 CP 值優先大眾顧好</b>，"
+        "從裡面挑出買得比較貴、評價比較高的那一群，慢慢做成「願意買進階款的常客」。"
+        "<br/>US 則因為 S3 高端鐵粉（★4.48）已經有規模，可以同時跑「大眾款」+「高端款」兩條產品線。",
     )
     card_close()
 
-    card_open("🏆 兩市場代表 SKU — 哪兩款最接近顧客理想？")
-    h1, h2 = st.columns(2)
-    with h1:
+    card_open("🏆 URBANER 自家旗艦 vs 市場頂尖 — 還差多遠？")
+    st.markdown(
+        f"""<div style="color:{PALETTE['muted']}; font-size:0.88rem;
+                       line-height:1.7; margin-bottom:8px;">
+        左邊是 URBANER 自家做得最好的那一支（從評論內容確認過品牌歸屬），
+        右邊是同市場上「全市場最接近顧客理想規格」的 SKU（含競品）。
+        <b>差距 = URBANER 還要追多遠才能變成市場頂尖。</b>
+        </div>""",
+        unsafe_allow_html=True,
+    )
+
+    # US row
+    st.markdown(
+        f"<div style='font-weight:700; color:{PALETTE['us']}; margin-top:6px;'>🇺🇸 美國市場</div>",
+        unsafe_allow_html=True,
+    )
+    us1, us2 = st.columns(2)
+    with us1:
         st.markdown(
             f"""
             <div class="spec">
-                <h4>🇺🇸 美國代表 SKU</h4>
+                <h4>URBANER 自家旗艦</h4>
                 <div class="name">{HERO_SKU_US['asin']}</div>
                 <div class="meta">{HERO_SKU_US['category']} ｜ n={HERO_SKU_US['n_reviews']}</div>
                 <table>
-                    <tr><td>離顧客理想多遠</td><td>{HERO_SKU_US['distance']} ｜ 越小越接近</td></tr>
+                    <tr><td>離顧客理想多遠</td><td>{HERO_SKU_US['distance']}</td></tr>
                     <tr><td>平均星等</td><td>★ {HERO_SKU_US['avg_star']}</td></tr>
-                    <tr><td>同類預估市佔</td><td>{HERO_SKU_US['preference_share']}%</td></tr>
-                    <tr><td>建議策略</td><td>Father's Day 主推</td></tr>
+                    <tr><td>類別內</td><td>Beard / Mustache</td></tr>
                 </table>
             </div>
             """,
             unsafe_allow_html=True,
         )
-    with h2:
+    with us2:
+        st.markdown(
+            f"""
+            <div class="spec" style="background:linear-gradient(160deg,#3d3119 0%,#5a4a2c 100%);">
+                <h4 style="color:#E5C896;">🏆 美國全市場頂尖</h4>
+                <div class="name">{MARKET_LEADER_US['asin']}</div>
+                <div class="meta">{MARKET_LEADER_US['brand_label']} ｜ {MARKET_LEADER_US['category']} ｜ n={MARKET_LEADER_US['n_reviews']}</div>
+                <table>
+                    <tr><td>離顧客理想多遠</td><td>{MARKET_LEADER_US['distance']}</td></tr>
+                    <tr><td>平均星等</td><td>★ {MARKET_LEADER_US['avg_star']}</td></tr>
+                    <tr><td>URBANER 差距</td><td>距離 +{HERO_SKU_US['distance'] - MARKET_LEADER_US['distance']:.2f} ｜ 星等 -{MARKET_LEADER_US['avg_star'] - HERO_SKU_US['avg_star']:.2f}</td></tr>
+                </table>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # JP row
+    st.markdown(
+        f"<div style='font-weight:700; color:{PALETTE['jp']}; margin-top:18px;'>🇯🇵 日本市場</div>",
+        unsafe_allow_html=True,
+    )
+    jp1, jp2 = st.columns(2)
+    with jp1:
         st.markdown(
             f"""
             <div class="spec jp">
-                <h4>🇯🇵 日本代表 SKU</h4>
+                <h4>URBANER 自家旗艦</h4>
                 <div class="name">{HERO_SKU_JP['asin']}</div>
                 <div class="meta">{HERO_SKU_JP['category']} ｜ n={HERO_SKU_JP['n_reviews']}</div>
                 <table>
-                    <tr><td>距理想點 RMS</td><td>{HERO_SKU_JP['distance']}</td></tr>
+                    <tr><td>離顧客理想多遠</td><td>{HERO_SKU_JP['distance']}</td></tr>
                     <tr><td>平均星等</td><td>★ {HERO_SKU_JP['avg_star']}</td></tr>
-                    <tr><td>全場預估市佔</td><td>{HERO_SKU_JP['preference_share']}%</td></tr>
-                    <tr><td>建議策略</td><td>父の日 × 楽天直営主打</td></tr>
+                    <tr><td>類別內</td><td>Beard / Mustache</td></tr>
                 </table>
             </div>
             """,
             unsafe_allow_html=True,
         )
+    with jp2:
+        st.markdown(
+            f"""
+            <div class="spec" style="background:linear-gradient(160deg,#3d3119 0%,#5a4a2c 100%);">
+                <h4 style="color:#E5C896;">🏆 日本全市場頂尖</h4>
+                <div class="name">{MARKET_LEADER_JP['asin']}</div>
+                <div class="meta">{MARKET_LEADER_JP['brand_label']} ｜ {MARKET_LEADER_JP['category']} ｜ n={MARKET_LEADER_JP['n_reviews']}</div>
+                <table>
+                    <tr><td>離顧客理想多遠</td><td>{MARKET_LEADER_JP['distance']}</td></tr>
+                    <tr><td>平均星等</td><td>★ {MARKET_LEADER_JP['avg_star']}</td></tr>
+                    <tr><td>URBANER 差距</td><td>距離 +{HERO_SKU_JP['distance'] - MARKET_LEADER_JP['distance']:.2f} ｜ 星等 -{MARKET_LEADER_JP['avg_star'] - HERO_SKU_JP['avg_star']:.2f}</td></tr>
+                </table>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    method_note(
+        method="理想點 RMS（Root Mean Square）距離。把每支 SKU 的 114 個屬性品質分數視為向量，"
+               "計算與「全屬性 = 10」理想向量的均方根距離："
+               "d = √(mean((quality_i − 10)²))。",
+        meaning="距離越小 = 越接近顧客的理想規格。URBANER 自家旗艦來自「7 個確認 URBANER ASIN + "
+                "15 個無品牌訊號 ASIN」中距離最小者；市場頂尖來自全 52 (US)／36 (JP) 支 SKU。",
+    )
     insight(
-        "<b>兩市場代表 SKU 完全是不同類別</b> — 美國主推 Beard / Mustache 修鬍器（B0FL267TCG, ★4.52）；"
-        "日本主推 Nose / Ear 鼻耳毛機（B0GBWZBMS5, ★4.61）。"
-        "「離顧客理想多遠」美國 1.6 < 日本 2.0，代表 URBANER 在美國比較貼近顧客理想規格。<br/>"
-        "<b>不要互用主推品</b>：把美國 Beard 款拿去日本推、或把日本 Nose/Ear 款拿去美國推，"
-        "都會打到錯誤的決策軸；行銷預算應在各市場集中投到對應的代表 SKU。",
+        f"<b>URBANER 在兩市場都還沒打進頂尖</b>：<br/>"
+        f"· 美國：自家旗艦 ★3.78（距理想 2.49） vs 市場頂尖 Ufree ★4.52（距理想 1.60） — "
+        f"差 0.89 距離 + 0.74 星等。<br/>"
+        f"· 日本：自家旗艦 ★3.51（距理想 3.43） vs 市場頂尖 ★4.61（距理想 1.97） — "
+        f"差 1.46 距離 + 1.10 星等（JP 落後較大）。<br/>"
+        f"<b>類別差異</b>：URBANER 自家最強都在 Beard；但 JP 全市場頂尖在 Nose/Ear。"
+        f"想升級 JP 市佔的話，<b>Nose/Ear 是還沒站穩的戰場</b>。",
     )
     card_close()
 
@@ -1726,6 +1912,14 @@ def page_stp() -> None:
                 unsafe_allow_html=True,
             )
             render_segment_card(SEGMENTS_JP, PALETTE["jp"])
+        method_note(
+            method="非監督式分群：每則評論的 114 維「屬性顯著度向量」→ StandardScaler 標準化 → "
+                   "PCA 降至保留 85% 變異 → K-Means（K=3-6 掃描，以 Silhouette + 最小群體 ≥ 5% "
+                   "護欄選 K=3）→ 用 ANOVA 找各 cluster 最具區隔力的屬性 → 命名 persona。",
+            meaning="人數 n = 該 cluster 包含的評論則數；占比 = n／市場總評論。"
+                    "Avg★ = 該 cluster 內所有評論的星等平均，用顏色標示滿意度：≥4.0 綠 / ≥3.5 橙 / <3.5 紅。"
+                    "「他們是誰」由 cluster 內 Top 5 顯著屬性人工解讀後命名。",
+        )
         insight(
             "<b>美日大眾族群動機差很多</b>：US 大眾「日常自用」買來自己每天用 — "
             "鬍鬚 + 耳鼻一機通用；JP 大眾「CP 值優先」愛乾電池款，"
@@ -1737,6 +1931,13 @@ def page_stp() -> None:
 
     card_open("📈 鎖定優先族群 — 哪些屬性最能拉開不同顧客的差距？")
     st.plotly_chart(fig_anova_panel(), use_container_width=True)
+    method_note(
+        method="One-way ANOVA — 以 K-Means 分出的 cluster 為因子、114 個屬性的顯著度分數為依變數，"
+               "逐項檢定。同雙市場頁的 ANOVA，但此處作為「Targeting 優先序」的依據。",
+        meaning="F 值大 = 該屬性是「能拉開不同顧客群」的關鍵訊號 — "
+                "做行銷時應針對 Top 屬性下文案、做產品時應針對 Top 屬性提升規格。"
+                "p < 0.001 為高度顯著（本表 Top 10 屬性全為 p < 0.001）。",
+    )
     st.markdown(
         """<div style="font-size:0.92rem; line-height:1.75;">
         <ul style="margin-left:-20px;">
@@ -1756,22 +1957,37 @@ def page_stp() -> None:
     perceptual_jp = OUT_STP_JP / "perceptual_map.png"
     with p1:
         if perceptual_us.exists():
-            st.image(str(perceptual_us), caption="🇺🇸 US — PCA 二維品質投影（Hero = B0FL267TCG）",
-                     use_container_width=True)
+            st.image(
+                str(perceptual_us),
+                caption="🇺🇸 US — 各 SKU 的二維品質投影"
+                        "（市場頂尖 = B0FL267TCG/Ufree，URBANER 自家旗艦 = B0GL2DKVQH）",
+                use_container_width=True,
+            )
         else:
             st.info("perceptual_map.png 不存在")
     with p2:
         if perceptual_jp.exists():
-            st.image(str(perceptual_jp), caption="🇯🇵 JP — PCA 二維品質投影（Hero = B0GBWZBMS5）",
-                     use_container_width=True)
+            st.image(
+                str(perceptual_jp),
+                caption="🇯🇵 JP — 各 SKU 的二維品質投影"
+                        "（市場頂尖 = B0GBWZBMS5，URBANER 自家旗艦 = B07CYZH2XC）",
+                use_container_width=True,
+            )
         else:
             st.info("perceptual_map.png 不存在")
+    method_note(
+        method="PCA（Principal Component Analysis）二維投影：把每支 SKU 的 114 維品質向量"
+               "（Axis B 品質分 0–10）降到 2 維。第一主成分（PC1）通常代表「整體品質強度」、"
+               "第二主成分（PC2）代表「品質維度間的偏向」。",
+        meaning="點的位置 = 該 SKU 的整體品質表現；越靠近右上角 = 越接近「全屬性都 10 分」的理想點。"
+                "兩個品牌色標示：URBANER 自家旗艦 + 全市場頂尖。",
+    )
     insight(
         "<b>圖上的點越靠近右上角越接近「理想品質」</b>。"
-        "URBANER 在兩市場的位置分布不同：US 主力 SKU 偏 Beard 高密度區，"
-        "JP 主力 SKU 偏 Nose/Ear 與小型機身區。<br/>"
-        "<b>產品開發優先序</b>：盯靠近右上角的 SKU 學它怎麼做、"
-        "把落單在左下的 SKU 重新評估是否退場。",
+        "市場頂尖 SKU 都集中在圖的高密度區，URBANER 自家旗艦則"
+        "離右上角還有一段距離 — 對應到 ★3.5–3.8 的滿意度水準。<br/>"
+        "<b>產品開發優先序</b>：盯靠近右上角的競品學它怎麼做、"
+        "把 URBANER 自家落單在左下的 SKU 重新評估是否退場。",
     )
     card_close()
 
@@ -1785,6 +2001,12 @@ def page_stp() -> None:
         heat_jp = OUT_STP_JP / "quality_heatmap.png"
         if heat_jp.exists():
             st.image(str(heat_jp), caption="🇯🇵 JP 品質熱圖", use_container_width=True)
+    method_note(
+        method="描述統計：Axis B 品質分（0–10）= 該 SKU 在該屬性的星等基線 + 屬性負向關鍵字扣分 + "
+               "整體情緒微調。為 SKU × 屬性的單值矩陣，本表只取最具區隔力的 Top 20 屬性 × Top 12 SKU。",
+        meaning="顏色綠 = 該 SKU 在該屬性的口碑分數高（接近 10）；紅 = 低（接近 0）。"
+                "橫向比較：同屬性誰最強。縱向看：同 SKU 在哪些屬性最弱（差異化／補強的方向）。",
+    )
     insight(
         "<b>橫向看 SKU、縱向看屬性</b> — 一格越綠代表這個 SKU 在該屬性上口碑越好。"
         "找出每一列（屬性）有哪幾個 SKU 是「綠到頂」的，那就是該屬性的標竿學習對象。<br/>"
@@ -1802,6 +2024,14 @@ def page_conjoint() -> None:
 
     card_open("⚖️ 消費者最在意哪些屬性？")
     st.plotly_chart(fig_importance_compare(), use_container_width=True)
+    method_note(
+        method="Revealed-Preference Logistic Conjoint（觀察型偏好聯合分析）— "
+               "以「avg★ ≥ 該市場平均」為被解釋變數，將每項屬性切成 Low/Mid/High 三層做 dummy "
+               "encoding，逐屬性 Split-model Logistic Regression 估 part-worth。",
+        meaning="屬性重要性 (%) = 該屬性的 part-worth 全範圍（max − min）"
+                "÷ 所有屬性 part-worth 全範圍總和，再化為百分比。"
+                "Conjoint 是行銷研究經典方法，數字越大代表此屬性對「買 / 不買」決策的拉扯力越大。",
+    )
     insight(
         "<b>美日決策軸完全不同</b>：US 一根「功能合一數」就吃掉 51.5% 重要性 — "
         "套組組合是壓倒性決策因子；JP 前 6 個屬性都在 10% 以上、分布均勻，"
@@ -1813,6 +2043,14 @@ def page_conjoint() -> None:
 
     card_open("💰 為品質升級，消費者願意多付多少錢？")
     st.plotly_chart(fig_wtp_panel(), use_container_width=True)
+    method_note(
+        method="Willingness-to-Pay（WTP）= 屬性偏好權重 ÷ 價格敏感度。"
+               "從加入「真實 Amazon 售價」的 Split-model Logistic Regression 中估 β_price，"
+               "再以 WTP = β_attribute / |β_price| 換算為金額。",
+        meaning="WTP 表示「該屬性提升 1 個品質分（0–10 scale）消費者願意多付的金額」。"
+                "深色 = p < 0.05 統計顯著、淺色 = 方向參考。"
+                "⚠️ JP β_price 為正（高價＝高品質訊號），WTP 違反經濟理論假設，僅供方向使用。",
+    )
     st.markdown(
         f"""<div style="color:{PALETTE['muted']}; font-size:0.86rem; line-height:1.7;">
         <b>解讀</b>：把同一項屬性的品質從 0 分做到 10 分，美國消費者「機身尺寸」最多願意多付 $89.81、
@@ -1824,25 +2062,36 @@ def page_conjoint() -> None:
     )
     card_close()
 
-    card_open("🚀 規格做到頂級，市佔會跳多少？")
+    card_open("🚀 屬性規格升級的市佔回報模擬 — R&D 投資優先序")
     st.markdown(
-        f"""<div style="color:{PALETTE['muted']}; font-size:0.88rem; line-height:1.7;
+        f"""<div style="color:{PALETTE['muted']}; font-size:0.9rem; line-height:1.75;
                        margin-bottom:8px;">
-        模擬：如果把 URBANER 在某個屬性的規格升到「競品頂級水準」
-        （例如 段數做到 ≥38 段、附件做到 ≥10 件、防水做到 IPX7+、續航做到 90 分以上），
-        重跑市佔模型後，URBANER 的偏好份額能從現在跳到多少。
-        <b>這是 R&D 投資 ROI 決策工具：告訴你「砸錢升哪個屬性，市佔回報最大」。</b>
+        <b>方法</b>：以 Conjoint Logit 估出的屬性偏好權重為基礎，
+        模擬將 URBANER 在「某一項屬性」上的品質分數從現況提升至業界頂級水準
+        （即評論大致一致正面、品質分逼近 10／10 ）之後，
+        重新計算 URBANER 在市場全選擇集中的偏好份額。
+        範例頂級水準：長度段數 ≥ 38 段、附件 ≥ 10 件、防水達 IPX7+、續航 ≥ 90 分鐘。<br/>
+        <b>用途</b>：作為 R&D 投資的優先序判斷依據 ——
+        每一個屬性的「升級後市佔潛力」即代表將該屬性做到頂級可帶來的邊際市佔回報，
+        數值越高代表投入該屬性的 ROI 越高。
         </div>""",
         unsafe_allow_html=True,
     )
     st.plotly_chart(fig_upgrade_panel(), use_container_width=True)
+    method_note(
+        method="MNL Share-of-Preference 升級模擬：把 URBANER 在某屬性的品質分數設為 10（理想值），"
+               "其餘屬性維持現況，重新計算 P(URBANER) = exp(U_URBANER) / Σ exp(U_所有 SKU)。",
+        meaning="現況份額（淺灰柱） + 升級增量（深色柱）= 升級後總份額。"
+                "增量越大 = 該屬性的「邊際 ROI」越高。"
+                "US 增量小代表問題在多個屬性同時不夠強（套組形態）、JP 單屬性即可大幅躍升。",
+    )
     st.markdown(
         """<div style="font-size:0.92rem; line-height:1.7;">
         <b>策略意涵</b>：
         <ul style="margin-left:-20px;">
-          <li><b>JP 第一優先：把段數做到 38 段以上</b> — 市佔從 1.6% 跳到 94.8%（多 93 個百分點），是所有升級裡爆發力最大的單一決策。</li>
-          <li><b>JP 第二優先：刻度做到 0.5mm</b> — 市佔可跳到 86.2%（多 85 個百分點），與「段數」是兩條互補的升級路徑。</li>
-          <li><b>US 不能靠單一升級</b>：個別屬性升級增幅都不到 1 個百分點，問題是「整套套組形態」，建議組合拳：附件 + 多功能 + USB-C 一起升。</li>
+          <li><b>JP 第一優先：將長度段數做到 ≥ 38 段</b> — 市佔潛力由 1.6% 提升至 94.8%（+93.2 個百分點），為所有升級項目中邊際回報最高的單一投資。</li>
+          <li><b>JP 第二優先:將刻度做到 0.5mm</b> — 市佔潛力提升至 86.2%（+84.6 個百分點），與「段數」屬於兩條互補的升級路徑。</li>
+          <li><b>US 單一屬性升級邊際效果有限</b>：個別屬性升級增幅皆不足 1 個百分點，問題核心在「整體套組形態」而非單一規格；建議採組合策略：附件 × 多功能 × USB-C 同步升級。</li>
         </ul>
         </div>""",
         unsafe_allow_html=True,
@@ -1857,6 +2106,12 @@ def page_conjoint() -> None:
     with c2:
         st.markdown('<span class="pill jp">JPY / 品質分</span>', unsafe_allow_html=True)
         st.dataframe(WTP_JP, hide_index=True, use_container_width=True)
+    method_note(
+        method="WTP 完整數值表 — 同 💰 WTP 圖（β_attribute / |β_price|）但顯示所有屬性與 p 值。"
+               "p 欄為 Logistic Regression 的雙尾 t 檢定 p-value。",
+        meaning="顯著 = True 表示 p < 0.05（高信心可解讀）；False 為方向性參考。"
+                "可直接套用「現況品質分 → 目標品質分」差距 × WTP，估算升級可漲價多少。",
+    )
     insight(
         "<b>怎麼用這張表</b>：把 WTP 直接除以「目前 SKU 在該屬性的品質分缺口」，"
         "就能估算「升級 1 個品質分」可以多賣多少錢。<br/>"
@@ -1904,6 +2159,13 @@ def page_best_product() -> None:
             unsafe_allow_html=True,
         )
 
+    method_note(
+        method="Conjoint Utility Maximization — 將 7 個屬性 × 3 個水準的全因子設計"
+               "（產生 24 張產品卡片）逐一計算效用 U = Σ part-worth(level)。"
+               "經 Z-score 正規化後以 sigmoid 轉換為 0-1 的「預估購買率」P(購買)。",
+        meaning="P(購買) = 該設計卡片在 24 張之間的相對偏好強度（非實際購買率）。"
+                "Utility 越大代表 Conjoint 估出的效用總和越高，最終以 sigmoid 函數壓到 [0, 1]。",
+    )
     st.markdown(
         """<div style="margin-top:18px; font-size:0.95rem; line-height:1.8;">
         <b>兩市場最佳組合差異對照</b>：
@@ -1920,6 +2182,12 @@ def page_best_product() -> None:
 
     card_open("🎯 在競品環伺下，URBANER 現在在哪？")
     st.plotly_chart(fig_choice_set_donut(), use_container_width=True)
+    method_note(
+        method="MNL Share-of-Preference（全選擇集）。選擇集 = URBANER 自家 + 競品 + 24 張設計卡片。"
+               "計算公式同執行頁的 MNL：P(i) = exp(Uᵢ) / Σⱼ exp(Uⱼ)。",
+        meaning="此處選擇集更大（含設計卡片），因此 URBANER 份額會比僅含競品時略低。"
+                "「最佳設計組合」切片 = 24 張設計卡的份額合計。",
+    )
     st.markdown(
         f"""<div style="color:{PALETTE['muted']}; font-size:0.9rem;">
         <b>痛點</b>：美國最佳組合（USB-C × 38 段全附件款）在「URBANER + 競品 + 24 種設計組合」全選擇集中僅排第 33 名，份額 0.09%。
@@ -1932,23 +2200,30 @@ def page_best_product() -> None:
 
 
 def render_rec(rec: dict, variant: str = "") -> None:
-    cls = f"rec {variant}".strip()
-    kpi_html = f'<div class="kpi-tag">📊 {rec["kpi"]}</div>' if "kpi" in rec else ""
-    copy_html = (
-        f'<div class="copy-section"><div class="copy-label">✍️ 行銷文案</div>'
-        f'<div class="copy-text">{rec["copy"]}</div></div>'
-    ) if "copy" in rec else ""
-    st.markdown(
-        f"""
-        <div class="{cls}">
-            <div class="title">{rec['title']}</div>
-            <div class="body">{rec['body']}</div>
-            {kpi_html}
-            {copy_html}
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    """渲染單張行銷劇本卡片。若有 image，會在 body 與 KPI 之間夾入廣告圖。
+    使用 st.container 配合 .rec-marker CSS hook 套用左邊色彩 + 漸層底。"""
+    marker_cls = f"rec-marker {variant}".strip()
+    with st.container():
+        st.markdown(
+            f'<div class="{marker_cls}"></div>'
+            f'<div class="rec-title">{rec["title"]}</div>'
+            f'<div class="rec-body">{rec["body"]}</div>',
+            unsafe_allow_html=True,
+        )
+        if (img_rel := rec.get("image")):
+            img_path = ROOT / img_rel
+            if img_path.exists():
+                st.image(str(img_path), use_container_width=True)
+        extras = ""
+        if "kpi" in rec:
+            extras += f'<div class="kpi-tag">📊 {rec["kpi"]}</div>'
+        if "copy" in rec:
+            extras += (
+                f'<div class="copy-section"><div class="copy-label">✍️ 行銷文案</div>'
+                f'<div class="copy-text">{rec["copy"]}</div></div>'
+            )
+        if extras:
+            st.markdown(extras, unsafe_allow_html=True)
 
 
 def page_social() -> None:
@@ -2140,6 +2415,13 @@ def page_social() -> None:
             """,
             unsafe_allow_html=True,
         )
+    method_note(
+        method="質性內容分析（Qualitative Content Analysis）：人工閱讀 social_us/insights.md 與"
+               " social_jp/insights.md，計算各品牌在 9 個產品類別中被提及的次數。"
+               "非統計推論，是「該品牌在社群討論中出現於幾個類別」的頻率計數（categorical coverage）。",
+        meaning="出現類別數越大 = 該品牌在跨類別覆蓋越廣 → 是 URBANER 在多類別會直接面對的對手。"
+                "右側「資料來源平台數量對比」= 我們爬到的平台總數（US 10 個、JP 12 個）。",
+    )
     card_close()
 
     card_open("🎯 社群觀察 → 明天就能改的 5 個產品/行銷動作", "行動對應")
@@ -2253,7 +2535,8 @@ def main() -> None:
             <div style="font-size:0.78rem; color:rgba(255,255,255,0.7); line-height:1.7;">
               <b>資料來源</b><br/>
               · 11,523 則 Amazon US/JP 真實評論<br/>
-              · 88 個 URBANER SKU × 114 屬性評分<br/>
+              · 84 個追蹤 SKU × 114 屬性評分<br/>
+              &nbsp;&nbsp;（7 個確認 URBANER 自家、其餘為競品）<br/>
               · 兩市場 SKU 真實售價 + 月銷量<br/>
               · 9 類別競品評論 + 社群媒體洞察<br/><br/>
               <b>分析方法</b><br/>
