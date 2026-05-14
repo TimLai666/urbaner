@@ -2447,6 +2447,284 @@ def page_social() -> None:
     card_close()
 
 
+# ── 統計方法詳解 ─────────────────────────────────────────────
+METHODS = [
+    {
+        "name": "K-Means Clustering（K 平均分群）",
+        "icon": "🧩",
+        "definition": (
+            "非監督式分群演算法。給定 n 個觀察值與目標群數 k，將觀察值分到 k 個 cluster "
+            "使每個觀察值都屬於距離最近的 cluster centroid（質心）。"
+            "演算法以隨機 / k-means++ 初始化質心，反覆執行「分配 → 更新質心」步驟，"
+            "目標是最小化群內平方誤差（Within-Cluster Sum of Squares, WCSS）："
+            "<br/><code>argmin Σᵢ Σ_x∈Cᵢ ‖x − μᵢ‖²</code><br/>"
+            "屬於硬性分群（hard clustering），每個觀察值剛好屬於一個 cluster。"
+        ),
+        "in_project": (
+            "用於 <b>STP Segmentation</b>。"
+            "每則 Amazon 評論視為一個觀察值，其 114 維「屬性顯著度分數」（Axis A，0–7）為特徵向量。"
+            "為避免維度災難與重疊雜訊，先以 StandardScaler 標準化、PCA 降至保留 85% 變異後，"
+            "再執行 K-Means。"
+            "K 值掃描 K ∈ {3, 4, 5, 6}，採用「Silhouette 最大 + 最小群體 ≥ 5%」雙條件選擇，"
+            "兩市場最終 K = 3。"
+        ),
+        "where": ["雙市場對比 / 區隔組成", "雙市場對比 / 樹狀圖", "STP / 顧客分群"],
+    },
+    {
+        "name": "PCA — Principal Component Analysis（主成分分析）",
+        "icon": "📐",
+        "definition": (
+            "線性降維方法。透過 SVD（奇異值分解）或共變異數矩陣的特徵分解，"
+            "找出資料中變異最大的正交方向（principal components）。"
+            "第一主成分 PC1 解釋最多變異，PC2 在與 PC1 正交的子空間內解釋次多變異，依此類推。"
+            "保留前 k 個主成分即可在保留大部分變異的前提下將維度從 d 降到 k。"
+        ),
+        "in_project": (
+            "兩個用途：<br/>"
+            "1. <b>K-Means 前的降維</b>：把 114 維屬性向量降到保留 85% 變異的主成分空間後再分群，"
+            "改善 K-Means 在高維下的不穩定。<br/>"
+            "2. <b>市場定位地圖（Perceptual Map）</b>：將每支 SKU 的 114 維品質向量"
+            "（Axis B，0–10）投影到 PC1 × PC2 平面，視覺化各 SKU 的相對位置。"
+            "PC1 通常代表「整體品質強度」，PC2 代表「品質維度間的偏好取捨」。"
+        ),
+        "where": ["STP / 顧客分群（前處理）", "STP / 市場定位地圖", "雙市場對比 / 樹狀圖"],
+    },
+    {
+        "name": "Silhouette Score（輪廓係數）",
+        "icon": "🪞",
+        "definition": (
+            "用於評估分群品質的指標，範圍 [-1, +1]，越接近 1 越好。<br/>"
+            "對每個觀察值 i："
+            "<code>s(i) = (b(i) − a(i)) / max(a(i), b(i))</code><br/>"
+            "其中 a(i) = 與「同 cluster 其他點」的平均距離；"
+            "b(i) = 與「最近其他 cluster 中點」的平均距離。"
+            "整體 silhouette score = 所有點 s(i) 的平均。"
+        ),
+        "in_project": (
+            "用於 K-Means 的 K 值選擇 + 分群品質報告。"
+            "兩市場結果：<b>US silhouette = 0.358</b>（中等品質，分群邊界有模糊重疊）；"
+            "<b>JP silhouette = 0.570</b>（佳，分群清晰分明）。"
+            "JP 較高是因為日本最大族群「CP 值優先大眾」高度集中於同質決策軸（電源類型 + 鼻毛），"
+            "與其他族群差異明顯。"
+        ),
+        "where": ["雙市場對比 / 樹狀圖（標註於方法註記）", "STP / 顧客分群"],
+    },
+    {
+        "name": "One-way ANOVA（單因子變異數分析）",
+        "icon": "📊",
+        "definition": (
+            "檢定「≥ 3 個獨立群體的平均值是否有顯著差異」。"
+            "虛無假設 H₀：μ₁ = μ₂ = … = μₖ；對立假設 H₁：至少有兩個群體均值不同。<br/>"
+            "F 統計量：<code>F = MS_between / MS_within</code><br/>"
+            "其中 MS_between = 組間變異 / (k − 1)，MS_within = 組內變異 / (N − k)。"
+            "F 服從 F-分配；p < 0.05 視為統計顯著。F 越大代表組間差異相對組內變異越大。"
+        ),
+        "in_project": (
+            "用於 <b>STP Targeting</b>。"
+            "對 114 個屬性逐一執行 ANOVA：因子 = K-Means 分出的 cluster（3 群），"
+            "依變數 = 該屬性的評論顯著度分數。"
+            "F 越大的屬性 = 越能「拉開不同顧客群差距」的關鍵屬性。<br/>"
+            "兩市場 Top 屬性：<br/>"
+            "· US Top 1 = <code>gift_suitability_men</code>（F = 1299, p ≈ 0）<br/>"
+            "· JP Top 1 = <code>total_attachments_count</code>（F = 2630, p ≈ 0）"
+        ),
+        "where": ["雙市場對比 / 屬性區隔力", "STP / 鎖定優先族群"],
+    },
+    {
+        "name": "Conjoint Analysis — Split-Logit Part-Worth",
+        "icon": "⚖️",
+        "definition": (
+            "Conjoint 是行銷研究經典方法，用於分解「複雜產品偏好」為「各屬性 × 各水準的部分效用 (part-worth)」。"
+            "Split-Logit 是其中一種估計方式 — 對「avg★ ≥ 市場平均 → 偏好」做 logistic regression，"
+            "每個屬性切成 Low/Mid/High 三層用 dummy variables encoding，逐屬性估 part-worth。<br/>"
+            "屬性重要性 (%) = max(part-worth) − min(part-worth)，再除以所有屬性 part-worth 全範圍總和。"
+        ),
+        "in_project": (
+            "<b>Revealed-Preference Conjoint</b>（觀察型）— 不做問卷，"
+            "直接以 Amazon 真實 SKU 為實驗卡片：avg★ ≥ 市場平均 → preferred=1。"
+            "估出每個屬性對「買 / 不買」決策的拉扯力 (part-worth)。"
+            "<br/>樣本：US n=52 SKUs / JP n=36 SKUs。<br/>"
+            "兩市場差異戲劇性：US 「功能合一數」單項佔 51.5%、JP 前 6 個屬性都在 10% 以上分布均勻。"
+        ),
+        "where": ["執行儀表板 / 屬性重要性", "Conjoint / 消費者最在意哪些屬性"],
+    },
+    {
+        "name": "Willingness-to-Pay（WTP，願付溢價）",
+        "icon": "💰",
+        "definition": (
+            "貨幣度量效用（money-metric utility）。在帶價格變數的 choice-based conjoint 中，"
+            "每個屬性的 part-worth 可換算為「願意多付多少錢」："
+            "<br/><code>WTP_attribute = β_attribute / |β_price|</code><br/>"
+            "其中 β_attribute = 該屬性 part-worth、β_price = 價格變數的 logistic regression 係數。"
+            "假設 β_price < 0（價格越高購買機率越低），WTP 才有正確的經濟學意義。"
+        ),
+        "in_project": (
+            "在 Conjoint 模型加入真實 Amazon 售價作為連續變數，估出 β_price 後計算 WTP。<br/>"
+            "<b>樣本</b>：US 19 個 SKU 有完整售價 / JP 21 個。<br/>"
+            "<b>結果</b>：US β_price = -0.0212（符合假設，可解讀）；"
+            "<b>JP β_price = +0.0004（違反假設，僅供方向參考）</b> — "
+            "原因是日本市場高價與高品質正相關（高價＝高品質訊號），售價無法分離出純粹的價格敏感度。"
+        ),
+        "where": ["Conjoint / 為品質升級願意多付多少", "Conjoint / WTP 完整對照表"],
+    },
+    {
+        "name": "MNL — Multinomial Logit Share-of-Preference",
+        "icon": "🎯",
+        "definition": (
+            "離散選擇模型，源於 McFadden（1974）的隨機效用理論（Random Utility Theory）。"
+            "假設消費者效用 Uᵢ = Vᵢ + εᵢ，其中 εᵢ 服從獨立同分布的 Gumbel 分配。"
+            "選擇 SKU i 的機率：<br/>"
+            "<code>P(i) = exp(Vᵢ) / Σⱼ exp(Vⱼ)</code><br/>"
+            "其中 Vᵢ 是觀察到的代表性效用（observed deterministic utility），"
+            "由 Conjoint 估出的 part-worth × 該 SKU 的屬性值加總而成。"
+        ),
+        "in_project": (
+            "兩個用途：<br/>"
+            "1. <b>市佔位置</b>（執行頁 + 最優產品頁）：選擇集 = URBANER 自家 + 競品 + 24 張設計卡，"
+            "計算 URBANER 在競爭環境中的相對偏好份額。"
+            "結果：US URBANER 僅 5.21% / JP 11.26%。<br/>"
+            "2. <b>升級模擬</b>（Conjoint 頁）：將 URBANER 在某屬性的品質設為 10（理想值），"
+            "其餘維持，重算 P(URBANER)。增量 = 該屬性升級的邊際市佔回報。"
+        ),
+        "where": ["執行 / 兩市場目前份額位置", "最優產品 / 在競品環伺下", "Conjoint / 升級模擬"],
+    },
+    {
+        "name": "Ideal-Point RMS Distance（理想點均方根距離）",
+        "icon": "🎯",
+        "definition": (
+            "多屬性偏好模型中，「理想點 (ideal point)」是代表「完美品質」的向量 "
+            "（在本專案為 [10, 10, …, 10]，因 Axis B 品質分上限為 10）。"
+            "每支 SKU 與理想點的歐式距離可作為「離顧客理想多遠」的代理指標。"
+            "為了避免高維下距離數值膨脹，採 RMS（Root Mean Square，均方根）版本："
+            "<br/><code>d = √(mean((qᵢ − 10)²))</code><br/>"
+            "其中 qᵢ 是該 SKU 在第 i 個屬性的品質分數。"
+        ),
+        "in_project": (
+            "用於 <b>STP Positioning</b>：在 84 個追蹤 SKU 內計算每支 SKU 的 RMS 距離。<br/>"
+            "<b>URBANER 自家旗艦</b>（從 7 個確認 URBANER + 15 個無品牌訊號 ASIN 中取最小距離）：<br/>"
+            "· US：B0GL2DKVQH，d = 2.49<br/>"
+            "· JP：B07CYZH2XC，d = 3.43<br/>"
+            "<b>全市場頂尖</b>（全部 SKU 含競品）：<br/>"
+            "· US：B0FL267TCG（Ufree），d = 1.60<br/>"
+            "· JP：B0GBWZBMS5，d = 1.97"
+        ),
+        "where": ["雙市場對比 / URBANER 自家旗艦 vs 市場頂尖"],
+    },
+    {
+        "name": "Conjoint Utility Maximization + Sigmoid 正規化",
+        "icon": "🏆",
+        "definition": (
+            "在已估出 part-worth 後，可對「設計卡片」（未上市的假設產品組合）計算總效用："
+            "<br/><code>U_card = Σ_attr part_worth(attr, level)</code><br/>"
+            "為了把效用轉成 0–1 的「預估購買率」，先做 Z-score 正規化避免 sigmoid 飽和，"
+            "再套 logistic 函數：<code>P(購買) = 1 / (1 + exp(−U_norm))</code>。"
+        ),
+        "in_project": (
+            "用於 <b>最優產品組合</b> 卡片頁。"
+            "以 7 個屬性 × 3 個水準的全因子設計產生 24 張產品卡，計算每張的 P(購買)。<br/>"
+            "兩市場最佳組合（皆為 Card 22）：<br/>"
+            "· US: P(購買) = 83.3%（USB-C × 38 段 × ≥10 件套組）<br/>"
+            "· JP: P(購買) = 89.1%（IPX7 × 90 分 × 1mm 精度）"
+        ),
+        "where": ["最優產品組合 / 兩市場最佳產品組合"],
+    },
+    {
+        "name": "Hedonic Pricing Regression（屬性定價回歸）",
+        "icon": "🏷️",
+        "definition": (
+            "經濟學方法，將商品價格分解為各屬性的隱含價值。"
+            "以 ln(price) 為因變數、屬性品質分為自變數做 OLS 回歸："
+            "<br/><code>ln(Pricej) = β₀ + Σ βi × Qualityij + εj</code><br/>"
+            "半對數模型下，βᵢ × 100% ≈ 該屬性品質提升 1 個單位時，市場價格的百分比變化。"
+            "與 WTP 不同：Hedonic 反映「市場上競品實際的定價邏輯」，WTP 反映「消費者主觀願付」。"
+        ),
+        "in_project": (
+            "<b>延伸分析路線 C</b>（extended_analysis_report.md），可作為 WTP 的對照參考。"
+            "結果樣本太小（US 19 / JP 21）且共線性高，主要用於檢查「市場定價是否與消費者偏好一致」。"
+            "目前儀表板未直接顯示此分析（在 docx 報告內），未來如要納入可開新卡片。"
+        ),
+        "where": ["（僅 docx 報告，儀表板暫未顯示）"],
+    },
+    {
+        "name": "Qualitative Content Analysis（質性內容分析）",
+        "icon": "📝",
+        "definition": (
+            "系統性閱讀文本資料、依研究問題建立編碼框架（coding scheme），"
+            "再對每段內容指派類別。"
+            "頻率計數（frequency coding）給出各類別的相對強度。"
+            "與量化分析不同：不做統計推論，而是「主題的存在、強弱、覆蓋廣度」的歸納整理。"
+        ),
+        "in_project": (
+            "用於 <b>社群洞察</b>。對 social_us/insights.md 與 social_jp/insights.md "
+            "兩份合成自 Reddit、Badger&Blade、Sharpologist、知恵袋、価格.com、マイベスト、"
+            "note、5ch 等 20+ 平台的社群觀察，按 9 個產品類別 × 痛點 / 好評 / 競品偏好編碼。<br/>"
+            "再對品牌做頻率計數：例如 Panasonic 出現於 9 個類別、Philips Norelco 出現於 5 個類別。"
+        ),
+        "where": ["社群洞察 / 跨類別共通洞察", "社群洞察 / 9 類別深度", "社群洞察 / 社群被提及的主要競品"],
+    },
+    {
+        "name": "Axis A × Axis B 雙軸評分系統",
+        "icon": "🪢",
+        "definition": (
+            "本專案自定義的評論評分框架：<br/>"
+            "<b>Axis A — 顯著度（Salience，0–7）</b>：每則評論 × 每個屬性的「關鍵字密度 × 內容長度加權」分數。"
+            "0 = 該屬性未出現在此評論；7 = 該屬性是評論的中心議題。<br/>"
+            "<b>Axis B — 品質（Quality，0–10）</b>：每商品 × 每個屬性的「星級基線 + 屬性負向關鍵字扣分 + 整體情緒微調」。"
+            "由該商品所有評論彙總而得，反映此商品在該屬性上的市場觀感。"
+        ),
+        "in_project": (
+            "STP 分群以 Axis A 為特徵向量（看「評論在意什麼」），"
+            "Conjoint 與 Positioning 以 Axis B 為特徵向量（看「商品做得怎樣」）。"
+            "兩軸分工讓「需求側（評論顯著度）」與「供給側（商品品質）」分析得以對接。"
+        ),
+        "where": ["所有 STP / Conjoint / Positioning 分析皆使用此底層資料"],
+    },
+]
+
+
+def page_methodology() -> None:
+    render_hero(
+        "把儀表板用到的每一個統計／量化方法都攤開來：學術定義、本專案怎麼使用、出現在哪些卡片。"
+        "適合做為產學報告、口頭簡報、或交給數據工程師重現分析時的參考。"
+    )
+
+    for m in METHODS:
+        with card(f"{m['icon']} {m['name']}"):
+            st.markdown(
+                f"""
+                <div style="display:grid; gap:14px;">
+                  <div>
+                    <div style="display:inline-block; font-weight:700; color:#fff;
+                                font-size:0.72rem; letter-spacing:0.08em;
+                                padding:3px 10px; background:#475569; border-radius:5px;
+                                margin-bottom:6px;">📚 學術定義</div>
+                    <div style="font-size:0.92rem; color:{PALETTE['charcoal']};
+                                line-height:1.85;">{m['definition']}</div>
+                  </div>
+                  <div>
+                    <div style="display:inline-block; font-weight:700; color:#fff;
+                                font-size:0.72rem; letter-spacing:0.08em;
+                                padding:3px 10px; background:{PALETTE['ink']}; border-radius:5px;
+                                margin-bottom:6px;">🔧 在此專案如何使用</div>
+                    <div style="font-size:0.92rem; color:{PALETTE['charcoal']};
+                                line-height:1.85;">{m['in_project']}</div>
+                  </div>
+                  <div>
+                    <div style="display:inline-block; font-weight:700; color:#fff;
+                                font-size:0.72rem; letter-spacing:0.08em;
+                                padding:3px 10px; background:{PALETTE['gold']}; border-radius:5px;
+                                margin-bottom:6px;">🎯 出現在儀表板</div>
+                    <div style="font-size:0.88rem; color:{PALETTE['muted']};
+                                line-height:1.85;">
+                        {' ｜ '.join(m['where'])}
+                    </div>
+                  </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+
 def page_playbook() -> None:
     render_hero(
         "把前面所有統計分析（顧客分群、偏好分析、願付溢價、社群觀察）轉化為「明天就能做」的 11 項具體行銷動作 + 12 個月行銷檔期。"
@@ -2525,6 +2803,7 @@ def main() -> None:
                 "🏆 最優產品組合",
                 "📣 社群洞察",
                 "💡 行銷劇本",
+                "📐 統計方法論",
             ],
             label_visibility="collapsed",
         )
@@ -2563,6 +2842,8 @@ def main() -> None:
         page_social()
     elif page == "💡 行銷劇本":
         page_playbook()
+    elif page == "📐 統計方法論":
+        page_methodology()
 
     st.markdown(
         '<div class="footer">© 2026 URBANER × FourSight Lab — 產學合作專案儀表板</div>',
