@@ -1989,95 +1989,84 @@ def page_stp() -> None:
         unsafe_allow_html=True,
     )
 
-    ta_us_html = f"""
-    <div style="background:linear-gradient(180deg,#ffffff,#f6f9ff);
-                border:1px solid #c6d3f5; border-left:5px solid {PALETTE['us']};
-                border-radius:12px; padding:16px 18px; margin-bottom:14px;">
-        <div style="color:{PALETTE['us']}; font-weight:700; letter-spacing:0.05em;
-                    font-size:0.78rem; margin-bottom:6px;">🇺🇸 美國市場</div>
+    def _ta_block(market_label: str, market_color: str, market_bg_grad: str,
+                  market_border: str,
+                  core_persona: str, core_meta: str, core_why: str, core_how: str,
+                  pot_persona: str, pot_meta: str, pot_why: str, pot_how: str) -> str:
+        """組裝單一市場的 TA 卡 HTML — 全程串接、無換行縮排，避免 Streamlit
+        markdown 把多行 HTML 當成 code block。"""
+        return (
+            f'<div style="background:{market_bg_grad};border:1px solid {market_border};'
+            f'border-left:5px solid {market_color};border-radius:12px;'
+            f'padding:16px 18px;margin-bottom:14px;">'
+            f'<div style="color:{market_color};font-weight:700;letter-spacing:0.05em;'
+            f'font-size:0.78rem;margin-bottom:10px;">{market_label}</div>'
+            # 核心 TA
+            f'<div style="margin-bottom:14px;">'
+            f'<span style="background:{market_color};color:#fff;padding:3px 10px;'
+            f'border-radius:5px;font-size:0.72rem;font-weight:700;'
+            f'letter-spacing:0.04em;">⭐ 核心 TA</span> '
+            f'<b style="color:{PALETTE["ink"]};font-size:1rem;">{core_persona}</b>'
+            f'<div style="color:{PALETTE["muted"]};font-size:0.83rem;'
+            f'margin-top:4px;">{core_meta}</div>'
+            f'<div style="font-size:0.9rem;color:{PALETTE["charcoal"]};'
+            f'margin-top:8px;line-height:1.7;">'
+            f'<b>為什麼選他</b>：{core_why}<br/>'
+            f'<b>怎麼推</b>：{core_how}'
+            f'</div></div>'
+            # 潛在 TA
+            f'<div>'
+            f'<span style="background:#94A3B8;color:#fff;padding:3px 10px;'
+            f'border-radius:5px;font-size:0.72rem;font-weight:700;'
+            f'letter-spacing:0.04em;">🌱 潛在 TA</span> '
+            f'<b style="color:{PALETTE["ink"]};font-size:1rem;">{pot_persona}</b>'
+            f'<div style="color:{PALETTE["muted"]};font-size:0.83rem;'
+            f'margin-top:4px;">{pot_meta}</div>'
+            f'<div style="font-size:0.9rem;color:{PALETTE["charcoal"]};'
+            f'margin-top:8px;line-height:1.7;">'
+            f'<b>為什麼是潛在</b>：{pot_why}<br/>'
+            f'<b>怎麼推</b>：{pot_how}'
+            f'</div></div>'
+            f'</div>'
+        )
 
-        <div style="margin-bottom:14px;">
-          <span style="background:{PALETTE['us']}; color:#fff; padding:3px 10px;
-                       border-radius:5px; font-size:0.72rem; font-weight:700;">
-            ⭐ 核心 TA</span>
-          <b style="color:{PALETTE['ink']}; font-size:1rem; margin-left:8px;">
-            S3：USB-C 高端鐵粉</b>
-          <div style="color:{PALETTE['muted']}; font-size:0.83rem; margin-top:4px;">
-            n=173 · 4.0% · <b style="color:{PALETTE['good']};">★4.48</b>（兩市場最高滿意）
-          </div>
-          <div style="font-size:0.9rem; color:{PALETTE['charcoal']}; margin-top:8px;
-                       line-height:1.65;">
-            <b>為什麼選他</b>：滿意度最高、願付溢價、規模雖小但成長空間最確定。<br/>
-            <b>怎麼推</b>：USB-C 快充 + IPX7 主打 ｜ 價格帶 $60–$120 ｜
-            Father's Day 禮盒 ｜ Beard + Body 多場景套組。
-          </div>
-        </div>
+    ta_us_html = _ta_block(
+        market_label="🇺🇸 美國市場",
+        market_color=PALETTE["us"],
+        market_bg_grad="linear-gradient(180deg,#ffffff,#f6f9ff)",
+        market_border="#c6d3f5",
+        core_persona="S3：USB-C 高端鐵粉",
+        core_meta=f'n=173 · 4.0% · <b style="color:{PALETTE["good"]};">★4.48</b>'
+                  f'（兩市場最高滿意）',
+        core_why="滿意度最高、願付溢價、規模雖小但成長空間最確定",
+        core_how="USB-C 快充 + IPX7 主打 ｜ 價格帶 $60–$120 ｜ "
+                 "Father's Day 禮盒 ｜ Beard + Body 多場景套組",
+        pot_persona="S2：日常自用大眾",
+        pot_meta="n=3,337 · 76.5% · ★3.18（規模最大、痛點最多）",
+        pot_why="規模大、購買頻次高，但滿意度低，"
+                "適合先「修痛點」再慢慢養成回購／升級到 S3 的客群",
+        pot_how="Listing 寫清楚（電池壽命、防水等級、附件件數）｜"
+                "退換貨流程順暢 ｜ 套組 ≥7 件起跳 ｜ 用 UGC 證明耐用性",
+    )
 
-        <div>
-          <span style="background:#94A3B8; color:#fff; padding:3px 10px;
-                       border-radius:5px; font-size:0.72rem; font-weight:700;">
-            🌱 潛在 TA</span>
-          <b style="color:{PALETTE['ink']}; font-size:1rem; margin-left:8px;">
-            S2：日常自用大眾</b>
-          <div style="color:{PALETTE['muted']}; font-size:0.83rem; margin-top:4px;">
-            n=3,337 · 76.5% · ★3.18（規模最大、痛點最多）
-          </div>
-          <div style="font-size:0.9rem; color:{PALETTE['charcoal']}; margin-top:8px;
-                       line-height:1.65;">
-            <b>為什麼是潛在</b>：規模大、購買頻次高，但滿意度低，
-            適合先「修痛點」再慢慢養成回購／升級到 S3 的客群。<br/>
-            <b>怎麼推</b>：Listing 寫清楚（電池壽命、防水等級、附件件數）｜
-            退換貨流程順暢 ｜ 套組 ≥7 件起跳 ｜ 用 UGC 證明耐用性。
-          </div>
-        </div>
-    </div>
-    """
-
-    ta_jp_html = f"""
-    <div style="background:linear-gradient(180deg,#ffffff,#fff5f6);
-                border:1px solid #f0c4cc; border-left:5px solid {PALETTE['jp']};
-                border-radius:12px; padding:16px 18px;">
-        <div style="color:{PALETTE['jp']}; font-weight:700; letter-spacing:0.05em;
-                    font-size:0.78rem; margin-bottom:6px;">🇯🇵 日本市場</div>
-
-        <div style="margin-bottom:14px;">
-          <span style="background:{PALETTE['jp']}; color:#fff; padding:3px 10px;
-                       border-radius:5px; font-size:0.72rem; font-weight:700;">
-            ⭐ 核心 TA</span>
-          <b style="color:{PALETTE['ink']}; font-size:1rem; margin-left:8px;">
-            S2：鬍鬚講究客</b>
-          <div style="color:{PALETTE['muted']}; font-size:0.83rem; margin-top:4px;">
-            n=561 · 7.8% · <b style="color:{PALETTE['good']};">★4.01</b>
-          </div>
-          <div style="font-size:0.9rem; color:{PALETTE['charcoal']}; margin-top:8px;
-                       line-height:1.65;">
-            <b>為什麼選他</b>：滿意度高、規格極度講究（38段、多附件、機身尺寸錙銖必較），
-            願意為精度付溢價。<br/>
-            <b>怎麼推</b>：Listing Bullet-1 列「アタッチメント 7 個 / 長さ 40 段階（0.5mm 単位）」｜
-            「理容師監修」「サロン推奨」權威背書 ｜ 楽天直営正規品 + 1 年保証。
-          </div>
-        </div>
-
-        <div>
-          <span style="background:#94A3B8; color:#fff; padding:3px 10px;
-                       border-radius:5px; font-size:0.72rem; font-weight:700;">
-            🌱 潛在 TA</span>
-          <b style="color:{PALETTE['ink']}; font-size:1rem; margin-left:8px;">
-            S1：CP 值優先大眾</b>
-          <div style="color:{PALETTE['muted']}; font-size:0.83rem; margin-top:4px;">
-            n=6,559 · 91.6% · ★3.46（佔市場 9 成的基本盤）
-          </div>
-          <div style="font-size:0.9rem; color:{PALETTE['charcoal']}; margin-top:8px;
-                       line-height:1.65;">
-            <b>為什麼是潛在</b>：規模龐大，保留乾電池款穩固營收，從中挑高滿意客戶上推到 S2 進階款。<br/>
-            <b>怎麼推</b>：<b>雙線並行</b> —
-            乾電池款（B07XTLC91J 系列）維持基本盤 ｜
-            USB-C 進階款做為「升級選項」｜
-            Listing 把「コスパ」「丸洗いできる」「電池長持ち」放在首屏。
-          </div>
-        </div>
-    </div>
-    """
+    ta_jp_html = _ta_block(
+        market_label="🇯🇵 日本市場",
+        market_color=PALETTE["jp"],
+        market_bg_grad="linear-gradient(180deg,#ffffff,#fff5f6)",
+        market_border="#f0c4cc",
+        core_persona="S2：鬍鬚講究客",
+        core_meta=f'n=561 · 7.8% · <b style="color:{PALETTE["good"]};">★4.01</b>',
+        core_why="滿意度高、規格極度講究（38段、多附件、機身尺寸錙銖必較），"
+                 "願意為精度付溢價",
+        core_how="Listing Bullet-1 列「アタッチメント 7 個 / 長さ 40 段階（0.5mm 単位）」｜"
+                 "「理容師監修」「サロン推奨」權威背書 ｜ 楽天直営正規品 + 1 年保証",
+        pot_persona="S1：CP 值優先大眾",
+        pot_meta="n=6,559 · 91.6% · ★3.46（佔市場 9 成的基本盤）",
+        pot_why="規模龐大，保留乾電池款穩固營收，從中挑高滿意客戶上推到 S2 進階款",
+        pot_how="<b>雙線並行</b>：乾電池款（B07XTLC91J 系列）維持基本盤 ｜"
+                "USB-C 進階款做為「升級選項」｜"
+                "Listing 把「コスパ」「丸洗いできる」「電池長持ち」放在首屏",
+    )
 
     col_us, col_jp = st.columns(2)
     with col_us:
