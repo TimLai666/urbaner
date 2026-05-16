@@ -154,6 +154,6 @@ h_arr(PX+PW, OB3Y+OB3H/2, OX)
 d_line_arr(OX+OW/2, OB3Y, OB3Y-0.78)
 txt(OX+OW/2, OB3Y-0.95, 'Hero SKU 配置方向', fs=10, c=LIGHT, ha='center')
 
-plt.savefig('mmr_flowchart.png', dpi=180, bbox_inches='tight', facecolor=BG)
+plt.savefig('output/mmr_flowchart.png', dpi=180, bbox_inches='tight', facecolor=BG)
 plt.close()
-print('Done: mmr_flowchart.png')
+print('Done: output/mmr_flowchart.png')
